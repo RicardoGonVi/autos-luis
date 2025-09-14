@@ -6,6 +6,7 @@ from pages.search.cars import *
 st.markdown("# Buscar 🔍")
 st.sidebar.markdown("# Buscar 🔍")
 
-st.subheader('Vehículos 🚗')
+st.markdown('## Vehículos 🚗')
 data = load_database()
+filter_search(data)
 st.dataframe(data)
