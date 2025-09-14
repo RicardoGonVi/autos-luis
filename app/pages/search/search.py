@@ -2,8 +2,10 @@ import streamlit as st
 
 from pages.search.cars import *
 
-# Main page content
-st.markdown("# Buscando 🔍")
+# Search page main content
+st.markdown("# Buscar 🔍")
 st.sidebar.markdown("# Buscar 🔍")
 
-load_cars()
+st.subheader('Vehículos 🚗')
+data = load_database()
+st.dataframe(data)
