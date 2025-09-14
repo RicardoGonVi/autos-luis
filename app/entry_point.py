@@ -5,7 +5,7 @@ main_page = st.Page(
     "pages/main_page.py",
     title="Control de Inventario",
     icon="🚗")
-search_page = st.Page("pages/search.py", title="Buscar", icon="🔍")
+search_page = st.Page("pages/search/search.py", title="Buscar", icon="🔍")
 add_page = st.Page("pages/add.py", title="Agregar", icon="➕")
 sell_page = st.Page("pages/sell.py", title="Vender", icon="💰")
 

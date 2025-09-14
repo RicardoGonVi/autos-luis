@@ -1,8 +1,9 @@
 import streamlit as st
 
+from pages.search.cars import *
+
 # Main page content
 st.markdown("# Buscando 🔍")
 st.sidebar.markdown("# Buscar 🔍")
 
-
-st.button(f"This page has run  times.")
+load_cars()
