@@ -7,6 +7,9 @@ st.markdown("# Buscar 🔍")
 st.sidebar.markdown("# Buscar 🔍")
 
 st.markdown('## Vehículos 🚗')
+
+data_filter = CarFilter()
 data = load_database()
-filter_search(data)
-st.dataframe(data)
+get_filter(data, data_filter)
+filtered_data = apply_filter(data, data_filter)
+st.dataframe(filtered_data)

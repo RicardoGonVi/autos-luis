@@ -4,16 +4,22 @@ import pandas as pd
 from constants.constants import CAR_DATABASE
 
 
+class CarFilter:
+    def __init__(self):
+        self.year_range_ = []
+        self.price_range_ = []
+        self.car_id_ = -1
+        self.id_ = -1
+
+
 @st.cache_data(ttl=600)
 def load_database():
     data = pd.read_csv(CAR_DATABASE, sep=";", encoding="utf-8")
     return data
 
 
-def filter_search(data):
-    filtered_data = data.copy()
-
-    with st.form("my_form"):
+def get_filter(data, filter: "CarFilter"):
+    with st.form("QuickFilters"):
         min_year = data['Año'].min()
         max_year = data['Año'].max()
         min_price = data['Precio base'].min()
@@ -22,14 +28,14 @@ def filter_search(data):
         st.markdown('#### Filtros rápidos')
 
         row1 = st.columns([4, 1, 4])
-        value_range = row1[0].slider(
+        filter.price_range_ = row1[0].slider(
             "💵 Rango de precio ( ₡ )",
             min_value=min_price,
             max_value=max_price,
             value=[
                 min_price,
                 max_price])
-        year_range = row1[2].slider(
+        filter.year_range_ = row1[2].slider(
             "📅 Rango de años",
             min_value=min_year,
             max_value=max_year,
@@ -38,8 +44,8 @@ def filter_search(data):
                 max_year])
 
         row2 = st.columns([4, 1, 4])
-        car_id = row2[0].text_input("🚗 Placa")
-        id = row2[2].text_input("#️⃣ ID")
+        filter.car_id_ = row2[0].text_input("🚗 Placa")
+        filter.id_ = row2[2].text_input("#️⃣ Código Autos Luis")
 
         st.markdown('#### Filtros específicos')
         row3 = st.columns([4, 1, 4, 1, 4])
@@ -65,3 +71,27 @@ def filter_search(data):
         car_year = row5[2].selectbox('📅 Año', sorted(data['Año'].unique()))
 
         st.form_submit_button('Buscar')
+
+
+def apply_filter(data, filter: "CarFilter"):
+    filtered_data = data.copy()
+
+    filtered_data = filtered_data[
+        (filtered_data['Precio base'] >= filter.price_range_[0]) &
+        (filtered_data['Precio base'] <= filter.price_range_[1])
+    ]
+
+    filtered_data = filtered_data[
+        (filtered_data['Año'] >= filter.year_range_[0]) &
+        (filtered_data['Año'] <= filter.year_range_[1])
+    ]
+
+    if filter.car_id_:
+        filtered_data = filtered_data[filtered_data['Placa'].str.contains(
+            filter.car_id_, case=False, na=False)]
+
+    if filter.id_:
+        filtered_data = filtered_data[filtered_data['Código'].str.contains(
+            filter.id_, case=False, na=False)]
+
+    return filtered_data
