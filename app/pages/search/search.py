@@ -1,14 +1,22 @@
 import streamlit as st
 
 from pages.search.cars import *
+from pages.search.lawyers import *
+from database.database import load_database
+from constants.constants import CAR_DATABASE
 
 
 def search_car():
     data_filter = CarFilter()
-    data = load_database()
+    data = load_database(CAR_DATABASE)
     get_filter(data, data_filter)
     filtered_data = apply_filter(data, data_filter)
     st.dataframe(filtered_data)
+
+
+def search_lawyer():
+    data_filter = LawyerFilter()
+    data = load_database(CAR_DATABASE)
 
 
 def main():
@@ -17,6 +25,9 @@ def main():
 
     st.markdown('## Vehículos 🚗')
     search_car()
+
+    st.markdown('## Abogados 👨🏼‍⚖️')
+    search_lawyer()
 
 
 main()

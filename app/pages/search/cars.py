@@ -19,12 +19,6 @@ class CarFilter:
         self.car_year_ = SELECT_FILTER
 
 
-@st.cache_data(ttl=600)
-def load_database():
-    data = pd.read_csv(CAR_DATABASE, sep=";", encoding="utf-8")
-    return data
-
-
 def quick_filter(data, filter: "CarFilter"):
     with st.form("QuickFilters"):
         min_year = data[YEAR_FILTER].min()
