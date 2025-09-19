@@ -18,7 +18,7 @@ def load_database():
     return data
 
 
-def get_filter(data, filter: "CarFilter"):
+def quick_filter(data, filter: "CarFilter"):
     with st.form("QuickFilters"):
         min_year = data['Año'].min()
         max_year = data['Año'].max()
@@ -47,6 +47,11 @@ def get_filter(data, filter: "CarFilter"):
         filter.car_id_ = row2[0].text_input("🚗 Placa")
         filter.id_ = row2[2].text_input("#️⃣ Código Autos Luis")
 
+        st.form_submit_button('Buscar')
+
+
+def specific_filter(data, filter: "CarFilter"):
+    with st.form("SpecificFilters"):
         st.markdown('#### Filtros específicos')
         row3 = st.columns([4, 1, 4, 1, 4])
         car_brand = row3[0].selectbox(
@@ -71,6 +76,14 @@ def get_filter(data, filter: "CarFilter"):
         car_year = row5[2].selectbox('📅 Año', sorted(data['Año'].unique()))
 
         st.form_submit_button('Buscar')
+
+
+def get_filter(data, filter: "CarFilter"):
+    quick_filter(data, filter)
+
+    show_sf = st.checkbox("Filtros específicos")
+    if show_sf:
+        specific_filter(data, filter)
 
 
 def apply_filter(data, filter: "CarFilter"):
