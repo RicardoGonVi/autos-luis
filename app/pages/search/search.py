@@ -20,6 +20,8 @@ def search_lawyer():
     data = load_database(LAWYER_DATABASE)
 
     data_filter.get_filter(data)
+    filtered_data = data_filter.apply_filter(data)
+    st.dataframe(filtered_data)
 
 
 def main():

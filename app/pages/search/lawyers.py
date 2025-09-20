@@ -7,6 +7,9 @@ from constants.constants import (
     MAIL_FILTER,
     PHONE_FILTER,
     PERSON_ID_FILTER,
+    PROVINCE_FILTER,
+    CANTON_FILTER,
+    DISTRICT_FILTER,
 )
 
 
@@ -20,7 +23,28 @@ class LawyerFilter:
         self.district_ = SELECT_FILTER
         self.canton_ = SELECT_FILTER
 
-    def specific_filter(self, data):
+    def __quick_filter(self, data):
+        st.markdown('#### Filtros rápidos')
+        row1 = st.columns([4, 1, 4, 1, 4])
+        self.province_ = row1[0].selectbox(
+            '📍 ' + PROVINCE_FILTER,
+            [SELECT_FILTER] + sorted(data[PROVINCE_FILTER].unique())
+        )
+
+        self.canton_ = row1[2].selectbox(
+            '🏙️ ' + CANTON_FILTER,
+            [SELECT_FILTER] + sorted(data[data[PROVINCE_FILTER]
+                                     == self.province_][CANTON_FILTER].unique())
+        )
+        self.district_ = row1[4].selectbox(
+            '🗺️ ' + DISTRICT_FILTER,
+            [SELECT_FILTER] + sorted(data[(data[PROVINCE_FILTER] == self.province_) &
+                                          (data[CANTON_FILTER]
+                                           == self.canton_)
+                                          ][DISTRICT_FILTER].unique())
+        )
+
+    def __specific_filter(self, data):
         with st.form("LawyerSpecificFilters"):
             st.markdown('#### Filtros específicos')
             row1 = st.columns([4, 1, 4, 1, 4])
@@ -49,7 +73,26 @@ class LawyerFilter:
             st.form_submit_button('Buscar')
 
     def get_filter(self, data):
-        show_sf = st.checkbox("Más filtros", key="Lawyer Checkbox")
+        self.__quick_filter(data)
 
+        show_sf = st.checkbox("Más filtros", key="Lawyer Checkbox")
         if show_sf:
-            self.specific_filter(data)
+            self.__specific_filter(data)
+
+    def apply_filter(self, data):
+        filtered_data = data.copy()
+
+        # Quick filters
+        if self.province_ != SELECT_FILTER:
+            filtered_data = filtered_data[filtered_data[PROVINCE_FILTER]
+                                          == self.province_]
+
+        if self.canton_ != SELECT_FILTER:
+            filtered_data = filtered_data[filtered_data[CANTON_FILTER]
+                                          == self.canton_]
+
+        if self.district_ != SELECT_FILTER:
+            filtered_data = filtered_data[filtered_data[DISTRICT_FILTER]
+                                          == self.district_]
+
+        return filtered_data
