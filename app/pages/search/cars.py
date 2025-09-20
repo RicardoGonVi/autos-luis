@@ -20,39 +20,36 @@ class CarFilter:
 
 
 def quick_filter(data, filter: "CarFilter"):
-    with st.form("QuickFilters"):
-        min_year = data[YEAR_FILTER].min()
-        max_year = data[YEAR_FILTER].max()
-        min_price = data[PRICE_FILTER].min() / MILLION
-        max_price = data[PRICE_FILTER].max() / MILLION
+    min_year = data[YEAR_FILTER].min()
+    max_year = data[YEAR_FILTER].max()
+    min_price = data[PRICE_FILTER].min() / MILLION
+    max_price = data[PRICE_FILTER].max() / MILLION
 
-        st.markdown('#### Filtros rápidos')
+    st.markdown('#### Filtros rápidos')
 
-        row1 = st.columns([4, 1, 4])
-        filter.price_range_ = row1[0].slider(
-            "💵 Rango de precio ( ₡1.000.000 )",
-            min_value=min_price,
-            max_value=max_price,
-            value=[
-                min_price,
-                max_price])
-        filter.year_range_ = row1[2].slider(
-            "📅 Rango de años",
-            min_value=min_year,
-            max_value=max_year,
-            value=[
-                min_year,
-                max_year])
+    row1 = st.columns([4, 1, 4])
+    filter.price_range_ = row1[0].slider(
+        "💵 Rango de precio ( ₡1.000.000 )",
+        min_value=min_price,
+        max_value=max_price,
+        value=[
+            min_price,
+            max_price])
+    filter.year_range_ = row1[2].slider(
+        "📅 Rango de años",
+        min_value=min_year,
+        max_value=max_year,
+        value=[
+            min_year,
+            max_year])
 
-        row2 = st.columns([4, 1, 4])
-        filter.car_id_ = row2[0].text_input("🚗 " + CAR_ID_FILTER)
-        filter.id_ = row2[2].text_input("#️⃣" + ID_FILTER + "Autos Luis")
-
-        st.form_submit_button('Buscar')
+    row2 = st.columns([4, 1, 4])
+    filter.car_id_ = row2[0].text_input("🚗 " + CAR_ID_FILTER)
+    filter.id_ = row2[2].text_input("#️⃣" + ID_FILTER + "Autos Luis")
 
 
 def specific_filter(data, filter: "CarFilter"):
-    with st.form("SpecificFilters"):
+    with st.form("CarsSpecificFilters"):
         st.markdown('#### Filtros específicos')
         row3 = st.columns([4, 1, 4, 1, 4])
         filter.car_brand_ = row3[0].selectbox(
@@ -97,7 +94,7 @@ def specific_filter(data, filter: "CarFilter"):
 def get_filter(data, filter: "CarFilter"):
     quick_filter(data, filter)
 
-    show_sf = st.checkbox("Filtros específicos")
+    show_sf = st.checkbox("Más filtros", key="Car Checkbox")
     if show_sf:
         specific_filter(data, filter)
 
