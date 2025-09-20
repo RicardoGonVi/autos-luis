@@ -9,6 +9,7 @@ from constants.constants import CAR_DATABASE
 def search_car():
     data_filter = CarFilter()
     data = load_database(CAR_DATABASE)
+
     get_filter(data, data_filter)
     filtered_data = apply_filter(data, data_filter)
     st.dataframe(filtered_data)
@@ -16,7 +17,9 @@ def search_car():
 
 def search_lawyer():
     data_filter = LawyerFilter()
-    data = load_database(CAR_DATABASE)
+    data = load_database(LAWYER_DATABASE)
+
+    data_filter.get_filter(data)
 
 
 def main():
