@@ -1,7 +1,7 @@
 import streamlit as st
 
 from pages.search.cars import *
-from pages.search.lawyers import *
+from pages.search.persons import *
 from database.database import load_database
 from constants.constants import CAR_DATABASE, LAWYER_DATABASE
 
@@ -31,7 +31,7 @@ def main():
     st.markdown('## Vehículos 🚗')
     search_car()
 
-    st.markdown('## Personas 👨🏼‍⚖️')
+    st.markdown('## Personas 🙋🏼')
     search_person()
 
 
