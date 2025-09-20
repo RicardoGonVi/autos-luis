@@ -15,8 +15,8 @@ def search_car():
     st.dataframe(filtered_data)
 
 
-def search_lawyer():
-    data_filter = LawyerFilter()
+def search_person():
+    data_filter = PersonFilter()
     data = load_database(LAWYER_DATABASE)
 
     data_filter.get_filter(data)
@@ -31,8 +31,8 @@ def main():
     st.markdown('## Vehículos 🚗')
     search_car()
 
-    st.markdown('## Abogados 👨🏼‍⚖️')
-    search_lawyer()
+    st.markdown('## Personas 👨🏼‍⚖️')
+    search_person()
 
 
 main()
