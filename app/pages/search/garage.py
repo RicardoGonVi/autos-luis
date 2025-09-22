@@ -22,7 +22,7 @@ class GarageFilter:
         self.province_ = SELECT_FILTER
         self.district_ = SELECT_FILTER
         self.canton_ = SELECT_FILTER
-        self.contact_name = SELECT_FILTER
+        self.contact_name_ = SELECT_FILTER
 
     def __quick_filter(self, data):
         st.markdown('#### Filtros')
@@ -65,7 +65,7 @@ class GarageFilter:
         )
 
         row3 = st.columns([1, 4, 1])
-        self.contact_name = row3[1].selectbox(
+        self.contact_name_ = row3[1].selectbox(
             '👩🏽🧑🏼 ' + CONTACT_NAME_FILTER,
             [SELECT_FILTER] + sorted(data[CONTACT_NAME_FILTER].unique()),
             key=self.key_ + "contact_name"
@@ -100,5 +100,9 @@ class GarageFilter:
         if self.district_ != SELECT_FILTER:
             filtered_data = filtered_data[filtered_data[DISTRICT_FILTER]
                                           == self.district_]
+
+        if self.contact_name_ != SELECT_FILTER:
+            filtered_data = filtered_data[filtered_data[CONTACT_NAME_FILTER]
+                                          == self.contact_name_]
 
         return filtered_data
