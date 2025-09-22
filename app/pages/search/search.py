@@ -3,6 +3,7 @@ import streamlit as st
 from pages.search.cars import *
 from pages.search.persons import *
 from pages.search.garage import *
+from utils.utils import make_tabs
 from database.database import load_database
 from constants.constants import CAR_DATABASE, LAWYER_DATABASE, GARAGE_DATABASE
 
@@ -37,17 +38,21 @@ def search_garage():
 
 
 def main():
-    st.markdown("# Buscar 🔍")
     st.sidebar.markdown("# Buscar 🔍")
 
-    st.markdown('## Vehículos 🚗')
-    search_car()
+    st.header(
+        "Buscar 🔍", help="Pestaña de búsqueda.")
+    cars_tab, persons_tab, garages_tab = \
+        make_tabs(["VEHÍCULOS 🚗", "PERSONAS 🙋", "TALLERES MECÁNICOS 🛠️"])
 
-    st.markdown('## Personas 🙋🏼')
-    search_person()
+    with cars_tab:
+        search_car()
 
-    st.markdown('## Talleres Mecánicos 🛠️')
-    search_garage()
+    with persons_tab:
+        search_person()
+
+    with garages_tab:
+        search_garage()
 
 
 main()
