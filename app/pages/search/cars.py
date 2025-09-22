@@ -57,7 +57,7 @@ class CarFilter:
 
         row2 = st.columns([4, 1, 4])
         self.car_id_ = row2[0].text_input("🚗 " + CAR_ID_FILTER)
-        self.id_ = row2[2].text_input("#️⃣" + ID_FILTER + "Autos Luis")
+        self.id_ = row2[2].text_input("#️⃣" + ID_FILTER + " (Autos Luis)")
 
     def __specific_filter(self, data):
         with st.form("CarsSpecificFilters"):

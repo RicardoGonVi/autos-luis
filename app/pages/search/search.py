@@ -31,6 +31,9 @@ def search_garage():
     data = load_database(GARAGE_DATABASE)
 
     data_filter.get_filter(data)
+    filtered_data = data_filter.apply_filter(data)
+
+    st.dataframe(filtered_data, on_select="rerun")
 
 
 def main():
@@ -42,6 +45,9 @@ def main():
 
     st.markdown('## Personas 🙋🏼')
     search_person()
+
+    st.markdown('## Talleres Mecánicos 🛠️')
+    search_garage()
 
 
 main()

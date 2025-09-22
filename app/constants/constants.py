@@ -36,3 +36,4 @@ MAIN_PERSON_FILTER = "Cliente"
 
 # Garage filters
 ENTERPRISE_ID_FILTER = "Cédula Jurídica"
+CONTACT_NAME_FILTER = "Nombre del contacto"

@@ -40,7 +40,7 @@ class PersonFilter:
 
         row1 = st.columns([4, 1, 4, 1, 4])
         self.name_ = row1[0].text_input(
-            '👩🏽‍⚖️ ' + NAME_FILTER
+            '👩🏽🧑🏼 ' + NAME_FILTER
         )
         self.id_ = row1[2].text_input(
             '🪪 ' + PERSON_ID_FILTER
