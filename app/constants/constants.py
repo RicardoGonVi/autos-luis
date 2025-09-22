@@ -4,10 +4,16 @@ MILLION = 1000000
 # Paths
 CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/autos.csv"
 LAWYER_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
+GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
 LOCATIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/locations.csv"
 
 # Common filters
 SELECT_FILTER = "-"
+NAME_FILTER = "Nombre"
+PHONE_FILTER = "Teléfono"
+PROVINCE_FILTER = "Provincia"
+DISTRICT_FILTER = "Distrito"
+CANTON_FILTER = "Cantón"
 
 # Car search filters
 YEAR_FILTER = "Año"
@@ -23,12 +29,10 @@ ID_FILTER = "Código"
 
 # Persons filters
 PERSON_TYPE_FILTER = "Tipo de persona"
-NAME_FILTER = "Nombre"
 MAIL_FILTER = "Correo"
-PHONE_FILTER = "Teléfono"
 PERSON_ID_FILTER = "Número de identificación"
-PROVINCE_FILTER = "Provincia"
-DISTRICT_FILTER = "Distrito"
-CANTON_FILTER = "Cantón"
 CONTACT_MEDIA_FILTER = "Medio de contacto"
 MAIN_PERSON_FILTER = "Cliente"
+
+# Garage filters
+ENTERPRISE_ID_FILTER = "Cédula Jurídica"
