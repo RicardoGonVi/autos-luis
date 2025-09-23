@@ -26,6 +26,7 @@ FACTURATION_STATUS_FILTER = "Estado de facturación"
 OWNER_FILTER = "Dueño"
 CAR_ID_FILTER = "Placa"
 ID_FILTER = "Código"
+SPECIFIC_FILTERS_HELP_TEXT = "Seleccione en caso de requerir filtros más específicos. Para que los filtros específicos se aplique correctamente debe de apretar en el botón BUSCAR."
 
 # Persons filters
 PERSON_TYPE_FILTER = "Tipo de persona"

@@ -13,7 +13,8 @@ from constants.constants import (
     COLOR_FILTER,
     STATUS_FILTER,
     FACTURATION_STATUS_FILTER,
-    OWNER_FILTER
+    OWNER_FILTER,
+    SPECIFIC_FILTERS_HELP_TEXT
 )
 
 
@@ -105,7 +106,10 @@ class CarFilter:
         st.markdown('#### Filtros')
         self.__quick_filter(data)
 
-        show_sf = st.checkbox("Más filtros", key="Car Checkbox")
+        show_sf = st.checkbox("Más filtros",
+                              key="Car Checkbox",
+                              help=SPECIFIC_FILTERS_HELP_TEXT
+                              )
         if show_sf:
             self.__specific_filter(data)
 
