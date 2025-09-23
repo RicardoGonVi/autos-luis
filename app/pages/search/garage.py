@@ -25,8 +25,6 @@ class GarageFilter:
         self.contact_name_ = SELECT_FILTER
 
     def __quick_filter(self, data):
-        st.markdown('#### Filtros')
-
         row1 = st.columns([4, 1, 4, 1, 4])
         self.name_ = row1[0].text_input(
             '🧑🏼‍🔧 ' + NAME_FILTER,
@@ -72,6 +70,7 @@ class GarageFilter:
         )
 
     def get_filter(self, data):
+        st.markdown('#### Filtros')
         self.__quick_filter(data)
 
     def apply_filter(self, data):
@@ -106,3 +105,8 @@ class GarageFilter:
                                           == self.contact_name_]
 
         return filtered_data
+
+    def show_filter(self, data):
+        st.markdown("---")
+        st.markdown('#### Resultados')
+        st.dataframe(data, on_select="rerun")

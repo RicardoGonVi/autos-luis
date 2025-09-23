@@ -14,7 +14,8 @@ def search_car():
 
     data_filter.get_filter(data)
     filtered_data = data_filter.apply_filter(data)
-    st.dataframe(filtered_data)
+
+    data_filter.show_filter(filtered_data)
 
 
 def search_person():
@@ -24,7 +25,7 @@ def search_person():
     data_filter.get_filter(data)
     filtered_data = data_filter.apply_filter(data)
 
-    st.dataframe(filtered_data, on_select="rerun")
+    data_filter.show_filter(filtered_data)
 
 
 def search_garage():
@@ -34,7 +35,7 @@ def search_garage():
     data_filter.get_filter(data)
     filtered_data = data_filter.apply_filter(data)
 
-    st.dataframe(filtered_data, on_select="rerun")
+    data_filter.show_filter(filtered_data)
 
 
 def main():

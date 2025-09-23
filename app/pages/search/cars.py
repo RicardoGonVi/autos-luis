@@ -37,8 +37,6 @@ class CarFilter:
         min_price = data[PRICE_FILTER].min() / MILLION
         max_price = data[PRICE_FILTER].max() / MILLION
 
-        st.markdown('#### Filtros rápidos')
-
         row1 = st.columns([4, 1, 4])
         self.price_range_ = row1[0].slider(
             "💵 Rango de precio ( ₡1.000.000 )",
@@ -104,6 +102,7 @@ class CarFilter:
             st.form_submit_button('Buscar')
 
     def get_filter(self, data):
+        st.markdown('#### Filtros')
         self.__quick_filter(data)
 
         show_sf = st.checkbox("Más filtros", key="Car Checkbox")
@@ -162,3 +161,8 @@ class CarFilter:
                                           == self.car_year_]
 
         return filtered_data
+
+    def show_filter(self, data):
+        st.markdown("---")
+        st.markdown('#### Resultados')
+        st.dataframe(data, on_select="rerun")
