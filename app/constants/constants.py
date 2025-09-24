@@ -1,3 +1,7 @@
+# Common variables
+BLANK = ""
+DATE_FORMAT = "DD/MM/YYYY"
+
 # Numbers
 MILLION = 1000000
 
@@ -38,3 +42,9 @@ MAIN_PERSON_FILTER = "Cliente"
 # Garage filters
 ENTERPRISE_ID_FILTER = "Cédula Jurídica"
 CONTACT_NAME_FILTER = "Nombre del contacto"
+
+# Common adders
+CAR_ID_ADDER = "Placa"
+CAR_VIN_ID_ADDER = "Número VIN"
+CAR_DUA_ID_ADDER = "Número DUA"
+CAR_INPUT_DATE_ADDER = "Fecha de ingreso"

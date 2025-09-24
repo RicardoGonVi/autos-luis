@@ -1,10 +1,9 @@
 import streamlit as st
 
 
-# st.set_page_config(
-#     page_title="AUTOS LUIS",
-#     page_icon="🚗",
-# )
+st.set_page_config(
+    layout="wide"
+)
 
 st.write("# Control de inventario")
 
