@@ -5,7 +5,7 @@ from pages.search.persons import *
 from pages.search.garage import *
 from utils.utils import make_tabs
 from database.database import load_database
-from constants.constants import CAR_DATABASE, LAWYER_DATABASE, GARAGE_DATABASE
+from constants.constants import CAR_DATABASE, PERSONS_DATABASE, GARAGE_DATABASE
 
 
 def search_car():
@@ -20,7 +20,7 @@ def search_car():
 
 def search_person():
     data_filter = PersonFilter()
-    data = load_database(LAWYER_DATABASE)
+    data = load_database(PERSONS_DATABASE)
 
     data_filter.get_filter(data)
     filtered_data = data_filter.apply_filter(data)

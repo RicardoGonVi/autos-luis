@@ -1,6 +1,6 @@
 import streamlit as st
 
-from constants.constants import CAR_TYPES_DATABASE, COLOR_DATABASE, CAR_TRANSMISSIONS_DATABASE
+from constants.constants import CAR_TYPES_DATABASE, COLOR_DATABASE, CAR_TRANSMISSIONS_DATABASE, PERSONS_DATABASE
 from database.database import load_database
 from pages.add.cars import *
 from utils.utils import make_tabs
@@ -13,8 +13,9 @@ def add_car():
     car_data = load_database(CAR_TYPES_DATABASE)
     color_data = load_database(COLOR_DATABASE)
     car_transmission = load_database(CAR_TRANSMISSIONS_DATABASE)
+    person_data = load_database(PERSONS_DATABASE)
 
-    data_adder.get_data(car_data, color_data, car_transmission)
+    data_adder.get_data(car_data, color_data, car_transmission, person_data)
 
 
 def main():

@@ -9,7 +9,7 @@ INCLUDE_LAST = 1
 
 # Paths
 CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/autos.csv"
-LAWYER_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
+PERSONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
 GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
 CAR_TYPES_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_types.csv"
 CAR_TRANSMISSIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_transmissions.csv"
@@ -50,8 +50,9 @@ MAIN_PERSON_FILTER = "Cliente"
 ENTERPRISE_ID_FILTER = "Cédula Jurídica"
 CONTACT_NAME_FILTER = "Nombre del contacto"
 
-# Common adders
+# Car adders
 CAR_ID_ADDER = "Placa"
 CAR_VIN_ID_ADDER = "Número VIN"
 CAR_DUA_ID_ADDER = "Número DUA"
 CAR_INPUT_DATE_ADDER = "Fecha de ingreso"
+CAR_COMMENT_ADDER = "Observaciones"

@@ -15,7 +15,10 @@ from constants.constants import (
     SELECT_FILTER,
     INITIAL_YEAR,
     TRANSMISSION_FILTER,
-    MOTOR_FILTER
+    MOTOR_FILTER,
+    CAR_COMMENT_ADDER,
+    NAME_FILTER,
+    OWNER_FILTER
 )
 
 
@@ -32,10 +35,16 @@ class CarAdder:
         self.car_input_date_ = BLANK
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
+        self.car_owner_ = BLANK
+        self.car_comment_ = BLANK
 
-    def __get_obligatory_data(self, car_data, color_data, car_transmission):
+    def __get_obligatory_data(
+            self,
+            car_data,
+            color_data,
+            car_transmission,
+            person_data):
         years = get_years_range(INITIAL_YEAR, get_current_year())
-        transmission = ["manual", ]
 
         row0 = st.columns([4, 1, 4, 1, 4])
         self.car_id_ = row0[0].text_input("🔢 " + CAR_ID_ADDER, max_chars=6)
@@ -69,23 +78,38 @@ class CarAdder:
             key=self.key_ + COLOR_FILTER,
         )
         self.car_motor_ = row2[2].selectbox(
-            "🌈 " + MOTOR_FILTER,
+            "🛵💨 " + MOTOR_FILTER,
             [SELECT_FILTER] + sorted(car_transmission[MOTOR_FILTER].unique()),
             key=self.key_ + MOTOR_FILTER,
         )
         self.car_transmision_ = row2[4].selectbox(
-            "🌈 " + TRANSMISSION_FILTER,
+            "⚙️ " + TRANSMISSION_FILTER,
             [SELECT_FILTER] + sorted(car_transmission[car_transmission[MOTOR_FILTER]
                                      == self.car_motor_][TRANSMISSION_FILTER]),
             key=self.key_ + TRANSMISSION_FILTER,
         )
 
-        row3 = st.columns([4, 1, 4, 1, 4])
-        self.car_input_date_ = row3[0].date_input(
+        row3 = st.columns([1, 4, 1, 4, 1])
+        self.car_input_date_ = row3[1].date_input(
             "📅 " + CAR_INPUT_DATE_ADDER, format=DATE_FORMAT,
             key=self.key_ + CAR_INPUT_DATE_ADDER
         )
+        self.car_owner_ = row3[3].selectbox(
+            "👩🏽🧑🏼 " + OWNER_FILTER,
+            [SELECT_FILTER] + sorted(person_data[NAME_FILTER]),
+            accept_new_options=True,
+            key=self.key_ + NAME_FILTER
+        )
 
-    def get_data(self, car_data, color_data, car_transmission):
+        row4 = st.columns([1])
+        self.car_comment_ = row4[0].text_area(
+            "✍🏽 " + CAR_COMMENT_ADDER
+        )
+
+    def get_data(self, car_data, color_data, car_transmission, person_data):
         st.markdown('#### Datos')
-        self.__get_obligatory_data(car_data, color_data, car_transmission)
+        self.__get_obligatory_data(
+            car_data,
+            color_data,
+            car_transmission,
+            person_data)
