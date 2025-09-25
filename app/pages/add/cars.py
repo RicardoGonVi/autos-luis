@@ -13,7 +13,9 @@ from constants.constants import (
     YEAR_FILTER,
     COLOR_FILTER,
     SELECT_FILTER,
-    INITIAL_YEAR
+    INITIAL_YEAR,
+    TRANSMISSION_FILTER,
+    MOTOR_FILTER
 )
 
 
@@ -28,9 +30,12 @@ class CarAdder:
         self.car_year_ = BLANK
         self.car_color_ = BLANK
         self.car_input_date_ = BLANK
+        self.car_transmision_ = BLANK
+        self.car_motor_ = BLANK
 
-    def __get_obligatory_data(self, car_data, color_data):
+    def __get_obligatory_data(self, car_data, color_data, car_transmission):
         years = get_years_range(INITIAL_YEAR, get_current_year())
+        transmission = ["manual", ]
 
         row0 = st.columns([4, 1, 4, 1, 4])
         self.car_id_ = row0[0].text_input("🔢 " + CAR_ID_ADDER, max_chars=6)
@@ -63,13 +68,24 @@ class CarAdder:
             [SELECT_FILTER] + sorted(color_data[COLOR_FILTER]),
             key=self.key_ + COLOR_FILTER,
         )
+        self.car_motor_ = row2[2].selectbox(
+            "🌈 " + MOTOR_FILTER,
+            [SELECT_FILTER] + sorted(car_transmission[MOTOR_FILTER].unique()),
+            key=self.key_ + MOTOR_FILTER,
+        )
+        self.car_transmision_ = row2[4].selectbox(
+            "🌈 " + TRANSMISSION_FILTER,
+            [SELECT_FILTER] + sorted(car_transmission[car_transmission[MOTOR_FILTER]
+                                     == self.car_motor_][TRANSMISSION_FILTER]),
+            key=self.key_ + TRANSMISSION_FILTER,
+        )
 
         row3 = st.columns([4, 1, 4, 1, 4])
-        self.car_input_date_ = row3[2].date_input(
+        self.car_input_date_ = row3[0].date_input(
             "📅 " + CAR_INPUT_DATE_ADDER, format=DATE_FORMAT,
             key=self.key_ + CAR_INPUT_DATE_ADDER
         )
 
-    def get_data(self, car_data, color_data):
+    def get_data(self, car_data, color_data, car_transmission):
         st.markdown('#### Datos')
-        self.__get_obligatory_data(car_data, color_data)
+        self.__get_obligatory_data(car_data, color_data, car_transmission)
