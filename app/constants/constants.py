@@ -12,6 +12,7 @@ CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-fil
 LAWYER_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
 GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
 CAR_TYPES_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/cars.csv"
+COLOR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/colors.csv"
 LOCATIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/locations.csv"
 
 # Common filters
