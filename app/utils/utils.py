@@ -1,4 +1,22 @@
 import streamlit as st
+from datetime import date
+
+from constants.constants import INCLUDE_LAST
+
+
+@st.cache_data(ttl=600)
+def get_years_range(init, end):
+    years = list(range(init, end + INCLUDE_LAST))
+
+    return years
+
+
+@st.cache_data(ttl=600)
+def get_current_year():
+    today = date.today()
+    current_year = today.year
+
+    return current_year
 
 
 def make_tabs(*names):

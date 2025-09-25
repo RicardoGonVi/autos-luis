@@ -1,41 +1,68 @@
 import streamlit as st
 
+from utils.utils import get_current_year, get_years_range
 from constants.constants import (
     BLANK,
     CAR_ID_ADDER,
     CAR_VIN_ID_ADDER,
     CAR_DUA_ID_ADDER,
     CAR_INPUT_DATE_ADDER,
-    DATE_FORMAT
+    DATE_FORMAT,
+    BRAND_FILTER,
+    MODEL_FILTER,
+    YEAR_FILTER,
+    COLOR_FILTER,
+    SELECT_FILTER,
+    INITIAL_YEAR
 )
 
 
 class CarAdder:
-    def __init__(self):
+    def __init__(self, key):
+        self.key_ = key
         self.car_id_ = BLANK
         self.car_vin_id_ = BLANK
+        self.car_dua_id_ = BLANK
+        self.car_brand_ = BLANK
+        self.car_model_ = BLANK
+        self.car_year_ = BLANK
+        self.car_color_ = BLANK
+        self.car_input_date_ = BLANK
 
-    def obligatory_data(self):
-        with st.form("CarsObligatoryData"):
-            # st.markdown('#### Elementos obligatorios')
+    def __obligatory_data(self, data):
+        years = get_years_range(INITIAL_YEAR, get_current_year())
 
-            row0 = st.columns([4, 1, 4, 1, 4])
-            self.car_id_ = row0[0].text_input("🚗 " + CAR_ID_ADDER, max_chars=6)
-            self.car_vin_id_ = row0[2].number_input(
-                "🚗 " + CAR_VIN_ID_ADDER, value=None, step=1, min_value=0)
-            self.car_vin_id_ = row0[4].number_input(
-                "🚗 " + CAR_DUA_ID_ADDER, value=None, step=1, min_value=0)
+        row0 = st.columns([4, 1, 4, 1, 4])
+        self.car_id_ = row0[0].text_input("🚗 " + CAR_ID_ADDER, max_chars=6)
+        self.car_vin_id_ = row0[2].number_input(
+            "🚗 " + CAR_VIN_ID_ADDER, value=None, step=1, min_value=0)
+        self.car_dua_id_ = row0[4].number_input(
+            "🚗 " + CAR_DUA_ID_ADDER, value=None, step=1, min_value=0)
 
-            row1 = st.columns([4, 1, 4, 1, 4])
-            self.car_id_ = row1[0].date_input(
-                "🚗 " + CAR_INPUT_DATE_ADDER, format=DATE_FORMAT)
-            self.car_vin_id_ = row1[2].date_input(
-                "🚗 " + CAR_VIN_ID_ADDER, format=DATE_FORMAT)
-            self.car_vin_id_ = row1[4].date_input(
-                "🚗 " + CAR_DUA_ID_ADDER, format=DATE_FORMAT)
+        row1 = st.columns([4, 1, 4, 1, 4])
+        self.car_brand_ = row1[0].selectbox(
+            '🚓 ' + BRAND_FILTER,
+            [SELECT_FILTER] + sorted(data[BRAND_FILTER].unique()),
+            key=self.key_ + BRAND_FILTER,
+        )
+        self.car_model_ = row1[2].selectbox(
+            '🛻 ' + MODEL_FILTER,
+            [SELECT_FILTER] + sorted(data[data[BRAND_FILTER]
+                                          == self.car_brand_][MODEL_FILTER].unique()),
+            key=self.key_ + MODEL_FILTER
+        )
+        self.car_year_ = row1[4].selectbox(
+            "📅 " + YEAR_FILTER,
+            sorted(years, reverse=True),
+            key=self.key_ + YEAR_FILTER,
+        )
 
-            st.form_submit_button('Agregar')
+        row2 = st.columns([4, 1, 4, 1, 4])
+        self.car_input_date_ = row2[2].date_input(
+            "📅 " + CAR_INPUT_DATE_ADDER, format=DATE_FORMAT,
+            key=self.key_ + CAR_INPUT_DATE_ADDER
+        )
 
-    def get_adder(self):
+    def get_adder(self, data):
         st.markdown('#### Datos')
-        self.obligatory_data()
+        self.__obligatory_data(data)

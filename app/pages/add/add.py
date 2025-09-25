@@ -1,14 +1,18 @@
 import streamlit as st
 
-from utils.utils import make_tabs
+from constants.constants import CAR_TYPES_DATABASE
+from database.database import load_database
 from pages.add.cars import *
+from utils.utils import make_tabs
 
 # Main page content
 
 
 def add_car():
-    data_adder = CarAdder()
-    data_adder.get_adder()
+    data_adder = CarAdder("CarAdder_")
+    car_data = load_database(CAR_TYPES_DATABASE)
+
+    data_adder.get_adder(car_data)
 
 
 def main():

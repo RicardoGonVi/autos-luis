@@ -1,14 +1,17 @@
 # Common variables
 BLANK = ""
 DATE_FORMAT = "DD/MM/YYYY"
+INITIAL_YEAR = 1960
 
 # Numbers
 MILLION = 1000000
+INCLUDE_LAST = 1
 
 # Paths
 CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/autos.csv"
 LAWYER_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
 GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
+CAR_TYPES_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/cars.csv"
 LOCATIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/locations.csv"
 
 # Common filters
