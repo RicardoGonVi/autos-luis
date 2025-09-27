@@ -18,7 +18,8 @@ from constants.constants import (
     MOTOR_FILTER,
     CAR_COMMENT_ADDER,
     NAME_FILTER,
-    OWNER_FILTER
+    OWNER_FILTER,
+    ADD
 )
 
 
@@ -37,6 +38,7 @@ class CarAdder:
         self.car_motor_ = BLANK
         self.car_owner_ = BLANK
         self.car_comment_ = BLANK
+        self.submit_button_ = BLANK
 
     def __get_obligatory_data(
             self,
@@ -106,6 +108,9 @@ class CarAdder:
             "✍🏽 " + CAR_COMMENT_ADDER
         )
 
+        row5 = st.columns([4, 1, 4, 1, 4])
+        self.submit_button_ = st.button(ADD)
+
     def get_data(self, car_data, color_data, car_transmission, person_data):
         st.markdown('#### Datos')
         self.__get_obligatory_data(
@@ -113,3 +118,8 @@ class CarAdder:
             color_data,
             car_transmission,
             person_data)
+        st.markdown("---")
+
+    def validate_data(self):
+        if self.submit_button_:
+            print("SUBMITED")

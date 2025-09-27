@@ -2,6 +2,7 @@
 BLANK = ""
 DATE_FORMAT = "DD/MM/YYYY"
 INITIAL_YEAR = 1960
+ADD = "Agregar"
 
 # Numbers
 MILLION = 1000000

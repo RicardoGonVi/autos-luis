@@ -16,6 +16,7 @@ def add_car():
     person_data = load_database(PERSONS_DATABASE)
 
     data_adder.get_data(car_data, color_data, car_transmission, person_data)
+    data_adder.validate_data()
 
 
 def main():
