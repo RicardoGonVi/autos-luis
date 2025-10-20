@@ -44,7 +44,7 @@ class CarAdder:
             self,
             car_data,
             color_data,
-            car_transmission,
+            transmission_data,
             person_data):
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
@@ -81,12 +81,12 @@ class CarAdder:
         )
         self.car_motor_ = row2[2].selectbox(
             "🛵💨 " + MOTOR_FILTER,
-            [SELECT_FILTER] + sorted(car_transmission[MOTOR_FILTER].unique()),
+            [SELECT_FILTER] + sorted(transmission_data[MOTOR_FILTER].unique()),
             key=self.key_ + MOTOR_FILTER,
         )
         self.car_transmision_ = row2[4].selectbox(
             "⚙️ " + TRANSMISSION_FILTER,
-            [SELECT_FILTER] + sorted(car_transmission[car_transmission[MOTOR_FILTER]
+            [SELECT_FILTER] + sorted(transmission_data[transmission_data[MOTOR_FILTER]
                                      == self.car_motor_][TRANSMISSION_FILTER]),
             key=self.key_ + TRANSMISSION_FILTER,
         )
@@ -111,12 +111,12 @@ class CarAdder:
         row5 = st.columns([4, 1, 4, 1, 4])
         self.submit_button_ = st.button(ADD)
 
-    def get_data(self, car_data, color_data, car_transmission, person_data):
+    def get_data(self, car_data, color_data, transmission_data, person_data):
         st.markdown('#### Datos')
         self.__get_obligatory_data(
             car_data,
             color_data,
-            car_transmission,
+            transmission_data,
             person_data)
         st.markdown("---")
 
