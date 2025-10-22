@@ -13,6 +13,9 @@ from utils.utils import make_tabs
 
 
 def add_car():
+    """
+    Tabs that adds a car into the main car-database by using streamlit widgets.
+    """
     data_adder = CarAdder("CarAdder_")
     car_type_data = load_database(CAR_TYPES_DATABASE)
     color_data = load_database(COLOR_DATABASE)
@@ -26,6 +29,13 @@ def add_car():
 
 # Main page content
 def main():
+    """
+    Add main window. Contains three tabs that the user can navigate through:
+
+    -cars:      tab used to add cars into a database.
+    -persons:   tab used to add persons into a database.
+    -garages:   tab used to add garages into a database.
+    """
     st.sidebar.markdown("# Agregar ➕")
 
     st.header("Agregar ➕", help="Pestaña de agregado.")
