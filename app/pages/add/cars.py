@@ -1,9 +1,8 @@
 import streamlit as st
 
-from utils.utils import get_current_year, get_years_range
 from constants.constants import (
     BLANK,
-    CAR_ID_ADDER,
+    CAR_ID_FILTER,
     CAR_VIN_ID_ADDER,
     CAR_DUA_ID_ADDER,
     CAR_INPUT_DATE_ADDER,
@@ -19,37 +18,44 @@ from constants.constants import (
     CAR_COMMENT_ADDER,
     NAME_FILTER,
     OWNER_FILTER,
-    ADD
+    ADD,
+    CAR_DATABASE,
+    ID_FILTER,
+    CAR_SELL_DATE,
+    CAR_INPUT_PRICE,
+    CAR_INPUT_PUBLIC_DEED,
+    CAR_NUMBER_INPUT_PUBLIC_DEED,
 )
+from utils.utils import get_current_year, get_years_range
 
 
 class CarAdder:
     def __init__(self, key):
         self.key_ = key
-        self.car_id_ = BLANK
-        self.car_vin_id_ = BLANK
-        self.car_dua_id_ = BLANK
+        self.car_owner_ = BLANK
         self.car_brand_ = BLANK
         self.car_model_ = BLANK
         self.car_year_ = BLANK
         self.car_color_ = BLANK
+        self.car_id_ = BLANK
+        self.car_vin_id_ = BLANK
+        self.car_dua_id_ = BLANK
         self.car_input_date_ = BLANK
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
-        self.car_owner_ = BLANK
         self.car_comment_ = BLANK
         self.submit_button_ = BLANK
 
     def __get_obligatory_data(
             self,
-            car_data,
+            car_type_data,
             color_data,
-            transmission_data,
+            car_transmission_data,
             person_data):
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
         row0 = st.columns([4, 1, 4, 1, 4])
-        self.car_id_ = row0[0].text_input("🔢 " + CAR_ID_ADDER, max_chars=6)
+        self.car_id_ = row0[0].text_input("🔢 " + CAR_ID_FILTER, max_chars=6)
         self.car_vin_id_ = row0[2].number_input(
             "🔢 " + CAR_VIN_ID_ADDER, value=None, step=1, min_value=0)
         self.car_dua_id_ = row0[4].number_input(
@@ -58,13 +64,13 @@ class CarAdder:
         row1 = st.columns([4, 1, 4, 1, 4])
         self.car_brand_ = row1[0].selectbox(
             '🚓 ' + BRAND_FILTER,
-            [SELECT_FILTER] + sorted(car_data[BRAND_FILTER].unique()),
+            [SELECT_FILTER] + sorted(car_type_data[BRAND_FILTER].unique()),
             key=self.key_ + BRAND_FILTER,
         )
         self.car_model_ = row1[2].selectbox(
             '🛻 ' + MODEL_FILTER,
-            [SELECT_FILTER] + sorted(car_data[car_data[BRAND_FILTER]
-                                              == self.car_brand_][MODEL_FILTER].unique()),
+            [SELECT_FILTER] + sorted(car_type_data[car_type_data[BRAND_FILTER]
+                                                   == self.car_brand_][MODEL_FILTER].unique()),
             key=self.key_ + MODEL_FILTER
         )
         self.car_year_ = row1[4].selectbox(
@@ -80,13 +86,17 @@ class CarAdder:
             key=self.key_ + COLOR_FILTER,
         )
         self.car_motor_ = row2[2].selectbox(
-            "🛵💨 " + MOTOR_FILTER,
-            [SELECT_FILTER] + sorted(transmission_data[MOTOR_FILTER].unique()),
-            key=self.key_ + MOTOR_FILTER,
+            "🛵💨 " +
+            MOTOR_FILTER,
+            [SELECT_FILTER] +
+            sorted(
+                car_transmission_data[MOTOR_FILTER].unique()),
+            key=self.key_ +
+            MOTOR_FILTER,
         )
         self.car_transmision_ = row2[4].selectbox(
             "⚙️ " + TRANSMISSION_FILTER,
-            [SELECT_FILTER] + sorted(transmission_data[transmission_data[MOTOR_FILTER]
+            [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[MOTOR_FILTER]
                                      == self.car_motor_][TRANSMISSION_FILTER]),
             key=self.key_ + TRANSMISSION_FILTER,
         )
@@ -111,15 +121,17 @@ class CarAdder:
         row5 = st.columns([4, 1, 4, 1, 4])
         self.submit_button_ = st.button(ADD)
 
-    def get_data(self, car_data, color_data, transmission_data, person_data):
+    def get_data(
+            self,
+            car_type_data,
+            color_data,
+            car_transmission_data,
+            person_data,
+            car_data):
         st.markdown('#### Datos')
         self.__get_obligatory_data(
-            car_data,
+            car_type_data,
             color_data,
-            transmission_data,
+            car_transmission_data,
             person_data)
         st.markdown("---")
-
-    def validate_data(self):
-        if self.submit_button_:
-            print("SUBMITED")
