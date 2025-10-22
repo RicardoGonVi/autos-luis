@@ -26,6 +26,7 @@ from constants.constants import (
     CAR_INPUT_PUBLIC_DEED,
     CAR_NUMBER_INPUT_PUBLIC_DEED,
 )
+from database.database import append_data
 from utils.utils import get_current_year, get_years_range
 
 
@@ -45,6 +46,11 @@ class CarAdder:
         self.car_motor_ = BLANK
         self.car_comment_ = BLANK
         self.submit_button_ = BLANK
+
+    def __data_to_dict(self):
+        return {
+            # TODO: finish this method
+        }
 
     def __get_obligatory_data(
             self,
@@ -86,13 +92,10 @@ class CarAdder:
             key=self.key_ + COLOR_FILTER,
         )
         self.car_motor_ = row2[2].selectbox(
-            "🛵💨 " +
-            MOTOR_FILTER,
+            "🛵💨 " + MOTOR_FILTER,
             [SELECT_FILTER] +
-            sorted(
-                car_transmission_data[MOTOR_FILTER].unique()),
-            key=self.key_ +
-            MOTOR_FILTER,
+            sorted(car_transmission_data[MOTOR_FILTER].unique()),
+            key=self.key_ + MOTOR_FILTER,
         )
         self.car_transmision_ = row2[4].selectbox(
             "⚙️ " + TRANSMISSION_FILTER,
@@ -121,6 +124,11 @@ class CarAdder:
         row5 = st.columns([4, 1, 4, 1, 4])
         self.submit_button_ = st.button(ADD)
 
+    def __submit_data(self, car_data):
+        if self.submit_button_:
+            append_data(car_data, CAR_DATABASE, self.__data_to_dict())
+            st.cache_data.clear()
+
     def get_data(
             self,
             car_type_data,
@@ -135,3 +143,4 @@ class CarAdder:
             car_transmission_data,
             person_data)
         st.markdown("---")
+        self.__submit_data(car_data)
