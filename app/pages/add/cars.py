@@ -22,9 +22,45 @@ from constants.constants import (
     CAR_DATABASE,
     ID_FILTER,
     CAR_SELL_DATE,
-    CAR_INPUT_PRICE,
-    CAR_INPUT_PUBLIC_DEED,
-    CAR_NUMBER_INPUT_PUBLIC_DEED,
+    CAR_INPUT_PUBLIC_DEED_TYPE,
+    CAR_INPUT_PUBLIC_DEED_NUMBER,
+    CAR_ORIGIN_ADDER,
+    CAR_BUY_DATE_ADDER,
+    CAR_BUY_PRICE_ADDER,
+    CAR_INPUT_PUBLIC_DEED_DATE,
+    CAR_INPUT_LAWYER,
+    CAR_INPUT_TAX_VALUE,
+    CAR_RENT_NUMBER,
+    CAR_SELL_BASE_PRICE,
+    CAR_STATUS,
+    CAR_SELL_PUBLIC_DEED_NUMBER,
+    CAR_SELLER_ENTERPRISE,
+    CAR_ATTORNEY_POWER,
+    CAR_SELL_CURRENCY,
+    CAR_SELL_PRICE,
+    CAR_SELL_LAWYER,
+    CAR_SELL_TYPE,
+    CAR_SELL_TYPE_CASH,
+    CAR_SELL_TYPE_CAR,
+    CAR_SELL_TYPE_LOAN,
+    CAR_SELL_PAWN,
+    CAR_SELL_PAWN_VALUE,
+    CAR_SELLER_WORKER,
+    CAR_SELLER_WORKER_COMMISSION,
+    CAR_SELL_PUBLIC_DEED_DATE,
+    CAR_SELL_TAX_VALUE,
+    CAR_SELL_BILL_VALUE,
+    CAR_BUYER,
+    CAR_BUYER_ID_TYPE,
+    CAR_BUYER_ID,
+    PHONE_FILTER,
+    MAIL_FILTER,
+    CAR_BUYER_HOME,
+    PROVINCE_FILTER,
+    CANTON_FILTER,
+    DISTRICT_FILTER,
+    CONTACT_MEDIA_FILTER,
+    CAR_FACTURATION_STATUS,
 )
 from database.database import append_data
 from utils.utils import get_current_year, get_years_range
@@ -54,14 +90,74 @@ class CarAdder:
         self.car_vin_id_ = BLANK
         self.car_dua_id_ = BLANK
         self.car_input_date_ = BLANK
+        self.car_comment_ = BLANK
+
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
-        self.car_comment_ = BLANK
         self.submit_button_ = BLANK
 
     def __data_to_dict(self):
+        # TODO: add documentation
         return {
             # TODO: finish this method
+            # Car characteristics
+            ID_FILTER: "TODO",
+            OWNER_FILTER: self.car_owner_,
+            BRAND_FILTER: self.car_brand_,
+            MODEL_FILTER: self.car_model_,
+            YEAR_FILTER: self.car_year_,
+            COLOR_FILTER: self.car_color_,
+            CAR_ID_FILTER: self.car_id_,
+            CAR_VIN_ID_ADDER: self.car_vin_id_,
+            CAR_DUA_ID_ADDER: self.car_dua_id_,
+            CAR_COMMENT_ADDER: self.car_comment_,
+            CAR_INPUT_DATE_ADDER: self.car_input_date_,
+            CAR_ORIGIN_ADDER: "TODO",
+
+            # Buying/input characteristics
+            CAR_BUY_DATE_ADDER: "TODO",
+            CAR_BUY_PRICE_ADDER: "TODO",
+            CAR_INPUT_PUBLIC_DEED_TYPE: "TODO",
+            CAR_INPUT_PUBLIC_DEED_NUMBER: "TODO",
+            CAR_INPUT_PUBLIC_DEED_DATE: "TODO",
+            CAR_INPUT_LAWYER: "TODO",
+            CAR_INPUT_TAX_VALUE: "TODO",
+            CAR_RENT_NUMBER: "TODO",
+            CAR_SELL_BASE_PRICE: "TODO",
+            CAR_STATUS: "TODO",
+
+            # Sell characteristics. Not used when adding a car.
+            CAR_SELL_DATE: BLANK,
+            CAR_SELL_PUBLIC_DEED_NUMBER: BLANK,
+            CAR_SELL_LAWYER: BLANK,
+            CAR_SELLER_ENTERPRISE: BLANK,
+            CAR_ATTORNEY_POWER: BLANK,
+            CAR_SELL_CURRENCY: BLANK,
+            CAR_SELL_PRICE: BLANK,
+            CAR_SELL_TYPE: BLANK,
+            CAR_SELL_TYPE_CASH: BLANK,
+            CAR_SELL_TYPE_CAR: BLANK,
+            CAR_SELL_TYPE_LOAN: BLANK,
+            CAR_SELL_PAWN: BLANK,
+            CAR_SELL_PAWN_VALUE: BLANK,
+            CAR_SELLER_WORKER: BLANK,
+            CAR_SELLER_WORKER_COMMISSION: BLANK,
+            CAR_SELL_PUBLIC_DEED_DATE: BLANK,
+
+            # Sell characteristics: contabillity usage
+            CAR_SELL_TAX_VALUE: BLANK,
+            CAR_SELL_BILL_VALUE: BLANK,
+            CAR_BUYER: BLANK,
+            CAR_BUYER_ID_TYPE: BLANK,
+            CAR_BUYER_ID: BLANK,
+            PHONE_FILTER: BLANK,
+            MAIL_FILTER: BLANK,
+            CAR_BUYER_HOME: BLANK,
+            PROVINCE_FILTER: BLANK,
+            CANTON_FILTER: BLANK,
+            DISTRICT_FILTER: BLANK,
+            CONTACT_MEDIA_FILTER: BLANK,
+            CAR_FACTURATION_STATUS: "TODO",
         }
 
     def __get_obligatory_data(
