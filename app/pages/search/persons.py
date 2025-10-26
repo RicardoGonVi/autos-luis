@@ -3,22 +3,22 @@ import pandas as pd
 
 from constants.constants import (
     SELECT_FILTER,
-    NAME_FILTER,
-    MAIL_FILTER,
-    PHONE_FILTER,
-    PERSON_ID_FILTER,
-    PROVINCE_FILTER,
-    CANTON_FILTER,
-    DISTRICT_FILTER,
-    PERSON_TYPE_FILTER,
-    CONTACT_MEDIA_FILTER,
-    MAIN_PERSON_FILTER
+    NAME,
+    MAIL,
+    PHONE,
+    PERSON_ID,
+    PROVINCE,
+    CANTON,
+    DISTRICT,
+    PERSON_TYPE,
+    CONTACT_MEDIA,
+    CUSTOMER
 )
 
 
 class PersonFilter:
     def __init__(self):
-        self.person_type_ = MAIN_PERSON_FILTER
+        self.person_type_ = CUSTOMER
         self.name_ = SELECT_FILTER
         self.mail_ = SELECT_FILTER
         self.phone_ = SELECT_FILTER
@@ -33,49 +33,49 @@ class PersonFilter:
         row0 = st.columns([2, 4, 2])
         self.person_type_ = row0[1].selectbox(
             'Selecionar: Clientes👩🏻‍⚖️ o abogados🧑🏼‍💼 ', (
-                sorted(data[PERSON_TYPE_FILTER].unique(), reverse=True))
+                sorted(data[PERSON_TYPE].unique(), reverse=True))
         )
 
         row1 = st.columns([4, 1, 4, 1, 4])
         self.name_ = row1[0].text_input(
-            '👩🏽🧑🏼 ' + NAME_FILTER
+            '👩🏽🧑🏼 ' + NAME
         )
         self.id_ = row1[2].text_input(
-            '🪪 ' + PERSON_ID_FILTER
+            '🪪 ' + PERSON_ID
         )
         self.phone_ = row1[4].text_input(
-            '📞 ' + PHONE_FILTER
+            '📞 ' + PHONE
         )
 
         row2 = st.columns([4, 1, 4, 1, 4])
         self.province_ = row2[0].selectbox(
-            '📍 ' + PROVINCE_FILTER,
-            [SELECT_FILTER] + sorted(data[PROVINCE_FILTER].unique())
+            '📍 ' + PROVINCE,
+            [SELECT_FILTER] + sorted(data[PROVINCE].unique())
         )
 
         self.canton_ = row2[2].selectbox(
-            '🏙️ ' + CANTON_FILTER,
-            [SELECT_FILTER] + sorted(data[data[PROVINCE_FILTER]
-                                     == self.province_][CANTON_FILTER].unique())
+            '🏙️ ' + CANTON,
+            [SELECT_FILTER] + sorted(data[data[PROVINCE]
+                                     == self.province_][CANTON].unique())
         )
         self.district_ = row2[4].selectbox(
-            '🗺️ ' + DISTRICT_FILTER,
-            [SELECT_FILTER] + sorted(data[(data[PROVINCE_FILTER] == self.province_) &
-                                          (data[CANTON_FILTER]
+            '🗺️ ' + DISTRICT,
+            [SELECT_FILTER] + sorted(data[(data[PROVINCE] == self.province_) &
+                                          (data[CANTON]
                                            == self.canton_)
-                                          ][DISTRICT_FILTER].unique())
+                                          ][DISTRICT].unique())
         )
 
         row3 = st.columns([1, 6, 1, 6, 1])
         self.mail_ = row3[1].selectbox(
-            '📧 ' + MAIL_FILTER,
+            '📧 ' + MAIL,
             [SELECT_FILTER] + sorted(
-                data[MAIL_FILTER].unique())
+                data[MAIL].unique())
         )
         self.contact_media_ = row3[3].selectbox(
-            '📲 ' + CONTACT_MEDIA_FILTER,
+            '📲 ' + CONTACT_MEDIA,
             [SELECT_FILTER] + sorted(
-                data[CONTACT_MEDIA_FILTER].unique())
+                data[CONTACT_MEDIA].unique())
         )
 
     def get_filter(self, data):
@@ -85,40 +85,40 @@ class PersonFilter:
     def apply_filter(self, data):
         filtered_data = data.copy()
 
-        filtered_data = filtered_data[filtered_data[PERSON_TYPE_FILTER]
+        filtered_data = filtered_data[filtered_data[PERSON_TYPE]
                                       == self.person_type_]
 
         # Filters
         if self.name_:
-            filtered_data = filtered_data[filtered_data[NAME_FILTER].str.contains(
+            filtered_data = filtered_data[filtered_data[NAME].str.contains(
                 self.name_, case=False, na=False)]
 
         if self.id_:
-            filtered_data = filtered_data[filtered_data[PERSON_ID_FILTER].str.contains(
+            filtered_data = filtered_data[filtered_data[PERSON_ID].str.contains(
                 self.id_, case=False, na=False)]
 
         if self.phone_:
-            filtered_data = filtered_data[filtered_data[PHONE_FILTER].str.contains(
+            filtered_data = filtered_data[filtered_data[PHONE].str.contains(
                 self.phone_, case=False, na=False)]
 
         if self.province_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[PROVINCE_FILTER]
+            filtered_data = filtered_data[filtered_data[PROVINCE]
                                           == self.province_]
 
         if self.canton_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[CANTON_FILTER]
+            filtered_data = filtered_data[filtered_data[CANTON]
                                           == self.canton_]
 
         if self.district_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[DISTRICT_FILTER]
+            filtered_data = filtered_data[filtered_data[DISTRICT]
                                           == self.district_]
 
         if self.mail_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[MAIL_FILTER]
+            filtered_data = filtered_data[filtered_data[MAIL]
                                           == self.mail_]
 
         if self.contact_media_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[CONTACT_MEDIA_FILTER]
+            filtered_data = filtered_data[filtered_data[CONTACT_MEDIA]
                                           == self.contact_media_]
 
         return filtered_data
@@ -126,4 +126,8 @@ class PersonFilter:
     def show_filter(self, data):
         st.markdown("---")
         st.markdown('#### Resultados')
-        st.dataframe(data, on_select="rerun")
+        st.dataframe(
+            data,
+            on_select='rerun',
+            hide_index=True,
+            selection_mode='single-row')

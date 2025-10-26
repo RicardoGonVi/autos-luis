@@ -3,17 +3,17 @@ import pandas as pd
 
 from constants.constants import (
     SELECT_FILTER,
-    YEAR_FILTER,
-    PRICE_FILTER,
+    CAR_YEAR,
+    CAR_SELL_BASE_PRICE,
     MILLION,
-    CAR_ID_FILTER,
-    ID_FILTER,
-    BRAND_FILTER,
-    MODEL_FILTER,
-    COLOR_FILTER,
-    STATUS_FILTER,
-    FACTURATION_STATUS_FILTER,
-    OWNER_FILTER,
+    CAR_ID,
+    ID,
+    CAR_BRAND,
+    CAR_MODEL,
+    CAR_COLOR,
+    CAR_STATUS,
+    CAR_FACTURATION_STATUS,
+    CAR_OWNER,
     SPECIFIC_FILTERS_HELP_TEXT
 )
 
@@ -33,10 +33,10 @@ class CarFilter:
         self.car_year_ = SELECT_FILTER
 
     def __quick_filter(self, data):
-        min_year = data[YEAR_FILTER].min()
-        max_year = data[YEAR_FILTER].max()
-        min_price = data[PRICE_FILTER].min() / MILLION
-        max_price = data[PRICE_FILTER].max() / MILLION
+        min_year = data[CAR_YEAR].min()
+        max_year = data[CAR_YEAR].max()
+        min_price = data[CAR_SELL_BASE_PRICE].min() / MILLION
+        max_price = data[CAR_SELL_BASE_PRICE].max() / MILLION
 
         row1 = st.columns([4, 1, 4])
         self.price_range_ = row1[0].slider(
@@ -55,49 +55,49 @@ class CarFilter:
                 max_year])
 
         row2 = st.columns([4, 1, 4])
-        self.car_id_ = row2[0].text_input("🚗 " + CAR_ID_FILTER)
-        self.id_ = row2[2].text_input("#️⃣" + ID_FILTER + " (Autos Luis)")
+        self.car_id_ = row2[0].text_input("🚗 " + CAR_ID)
+        self.id_ = row2[2].text_input("#️⃣" + ID + " (Autos Luis)")
 
     def __specific_filter(self, data):
         with st.form("CarsSpecificFilters"):
             st.markdown('#### Filtros específicos')
             row3 = st.columns([4, 1, 4, 1, 4])
             self.car_brand_ = row3[0].selectbox(
-                '🚓 ' + BRAND_FILTER,
-                [SELECT_FILTER] + sorted(data[BRAND_FILTER].unique())
+                '🚓 ' + CAR_BRAND,
+                [SELECT_FILTER] + sorted(data[CAR_BRAND].unique())
             )
             self.car_model_ = row3[2].selectbox(
-                '🛻 ' + MODEL_FILTER,
+                '🛻 ' + CAR_MODEL,
                 [SELECT_FILTER] + sorted(
-                    data[MODEL_FILTER].unique())
+                    data[CAR_MODEL].unique())
             )
             self.car_color_ = row3[4].selectbox(
-                '🌈 ' + COLOR_FILTER,
+                '🌈 ' + CAR_COLOR,
                 [SELECT_FILTER] + sorted(
-                    data[COLOR_FILTER].unique())
+                    data[CAR_COLOR].unique())
             )
 
             row4 = st.columns([4, 1, 4, 1, 4])
             self.car_status_ = row4[0].selectbox(
-                '⁉️ ' + STATUS_FILTER,
-                [SELECT_FILTER] + sorted(data[STATUS_FILTER].unique())
+                '⁉️ ' + CAR_STATUS,
+                [SELECT_FILTER] + sorted(data[CAR_STATUS].unique())
             )
             self.car_facturation_ = row4[2].selectbox(
                 '🔜 ' +
-                FACTURATION_STATUS_FILTER,
+                CAR_FACTURATION_STATUS,
                 [SELECT_FILTER] +
                 sorted(
-                    data[FACTURATION_STATUS_FILTER].unique()))
+                    data[CAR_FACTURATION_STATUS].unique()))
             self.car_owner_ = row4[4].selectbox(
-                '🙎🏻 ' + OWNER_FILTER,
+                '🙎🏻 ' + CAR_OWNER,
                 [SELECT_FILTER] + sorted(
-                    data[OWNER_FILTER].unique())
+                    data[CAR_OWNER].unique())
             )
 
             row5 = st.columns([4, 1, 4, 1, 4])
             self.car_year_ = row5[2].selectbox(
-                '📅 ' + YEAR_FILTER,
-                [SELECT_FILTER] + sorted(data[YEAR_FILTER].unique())
+                '📅 ' + CAR_YEAR,
+                [SELECT_FILTER] + sorted(data[CAR_YEAR].unique())
             )
 
             st.form_submit_button('Buscar')
@@ -118,50 +118,50 @@ class CarFilter:
 
         # Quick filters
         filtered_data = filtered_data[
-            (filtered_data[PRICE_FILTER] >= self.price_range_[0] * MILLION) &
-            (filtered_data[PRICE_FILTER] <= self.price_range_[1] * MILLION)
+            (filtered_data[CAR_SELL_BASE_PRICE] >= self.price_range_[0] * MILLION) &
+            (filtered_data[CAR_SELL_BASE_PRICE] <= self.price_range_[1] * MILLION)
         ]
 
         filtered_data = filtered_data[
-            (filtered_data[YEAR_FILTER] >= self.year_range_[0]) &
-            (filtered_data[YEAR_FILTER] <= self.year_range_[1])
+            (filtered_data[CAR_YEAR] >= self.year_range_[0]) &
+            (filtered_data[CAR_YEAR] <= self.year_range_[1])
         ]
 
         if self.car_id_:
-            filtered_data = filtered_data[filtered_data[CAR_ID_FILTER].str.contains(
+            filtered_data = filtered_data[filtered_data[CAR_ID].str.contains(
                 self.car_id_, case=False, na=False)]
 
         if self.id_:
-            filtered_data = filtered_data[filtered_data[ID_FILTER].str.contains(
+            filtered_data = filtered_data[filtered_data[ID].str.contains(
                 self.id_, case=False, na=False)]
 
         # Specific filters
         if self.car_brand_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[BRAND_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_BRAND]
                                           == self.car_brand_]
 
         if self.car_model_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[MODEL_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_MODEL]
                                           == self.car_model_]
 
         if self.car_color_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[COLOR_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_COLOR]
                                           == self.car_color_]
 
         if self.car_status_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[STATUS_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_STATUS]
                                           == self.car_status_]
 
         if self.car_facturation_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[FACTURATION_STATUS_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_FACTURATION_STATUS]
                                           == self.car_facturation_]
 
         if self.car_owner_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[OWNER_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_OWNER]
                                           == self.car_owner_]
 
         if self.car_year_ != SELECT_FILTER:
-            filtered_data = filtered_data[filtered_data[YEAR_FILTER]
+            filtered_data = filtered_data[filtered_data[CAR_YEAR]
                                           == self.car_year_]
 
         return filtered_data
@@ -169,4 +169,8 @@ class CarFilter:
     def show_filter(self, data):
         st.markdown("---")
         st.markdown('#### Resultados')
-        st.dataframe(data, on_select="rerun")
+        st.dataframe(
+            data,
+            on_select='rerun',
+            hide_index=True,
+            selection_mode='single-row')
