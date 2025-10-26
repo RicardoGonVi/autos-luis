@@ -89,11 +89,13 @@ class CarAdder:
         self.car_id_ = BLANK
         self.car_vin_id_ = BLANK
         self.car_dua_id_ = BLANK
-        self.car_input_date_ = BLANK
         self.car_comment_ = BLANK
+        self.car_input_date_ = BLANK
+        self.car_input_origin_ = BLANK
 
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
+
         self.submit_button_ = BLANK
 
     def __data_to_dict(self):
@@ -112,7 +114,7 @@ class CarAdder:
             CAR_DUA_ID: self.car_dua_id_,
             CAR_INPUT_COMMENT: self.car_comment_,
             CAR_INPUT_DATE: self.car_input_date_,
-            CAR_INPUT_ORIGIN: "TODO",
+            CAR_INPUT_ORIGIN: self.car_input_origin_,
 
             # Buying/input characteristics
             CAR_BUY_DATE: "TODO",
@@ -163,14 +165,14 @@ class CarAdder:
     def __get_obligatory_data(
             self,
             car_type_data,
-            color_data,
+            autos_luis_data,
             car_transmission_data,
             person_data):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         in order to add a car into the main car-database.
 
-        Uses the car_type_data, color_data and car_transmission_data datasets
+        Uses the car_type_data, autos_luis_data and car_transmission_data datasets
         to show the options in the selectboxes so the user doesn't have to type
         them manually. If any other option is needed, it needs to be added manually
         to the dataset.
@@ -181,8 +183,8 @@ class CarAdder:
             self(CarAdder):             Class atributes
             car_type_data(pd):          Pandas variable that contains a dataset
                                         with all the available type of cars.
-            color_data(pd):             Pandas variable that contains a dataset
-                                        with all the type of colors.
+            autos_luis_data(pd):        Pandas variable that contains a dataset
+                                        with autos luis internal types.
             car_transmission_data(pd):  Pandas variable that contains a dataset
                                         with all the type of car transmissions.
             person_data(pd):            Pandas variable that contains a database
@@ -191,6 +193,7 @@ class CarAdder:
         """
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
+        # First row
         row0 = st.columns([4, 1, 4, 1, 4])
         self.car_id_ = row0[0].text_input("🔢 " + CAR_ID, max_chars=6)
         self.car_vin_id_ = row0[2].number_input(
@@ -198,6 +201,7 @@ class CarAdder:
         self.car_dua_id_ = row0[4].number_input(
             "🔢 " + CAR_DUA_ID, value=None, step=1, min_value=0)
 
+        # Second row
         row1 = st.columns([4, 1, 4, 1, 4])
         self.car_brand_ = row1[0].selectbox(
             '🚓 ' + CAR_BRAND,
@@ -216,43 +220,57 @@ class CarAdder:
             key=self.key_ + CAR_YEAR,
         )
 
+        # Third row
         row2 = st.columns([4, 1, 4, 1, 4])
         self.car_color_ = row2[0].selectbox(
             "🌈 " + CAR_COLOR,
-            [SELECT_FILTER] + sorted(color_data[CAR_COLOR]),
+            [SELECT_FILTER] + sorted(autos_luis_data[CAR_COLOR].dropna()),
             key=self.key_ + CAR_COLOR,
         )
-        self.car_motor_ = row2[2].selectbox(
+
+        # Fourth row
+        row3 = st.columns([4, 1, 4, 1, 4])
+        self.car_input_date_ = row3[0].date_input(
+            "📅 " + CAR_INPUT_DATE, format=DATE_FORMAT,
+            key=self.key_ + CAR_INPUT_DATE
+        )
+        self.car_owner_ = row3[2].selectbox(
+            "👩🏽🧑🏼 " + CAR_OWNER,
+            [SELECT_FILTER] + sorted(person_data[NAME]),
+            accept_new_options=True,
+            key=self.key_ + NAME
+        )
+        self.car_input_origin_ = row3[4].selectbox(
+            "⁉️ " +
+            CAR_INPUT_ORIGIN,
+            [SELECT_FILTER] +
+            sorted(
+                autos_luis_data[CAR_INPUT_ORIGIN].dropna()),
+            key=self.key_ +
+            CAR_INPUT_ORIGIN)
+
+        # Fifth row
+        row4 = st.columns([4, 1, 4, 1, 4])
+        self.car_motor_ = row4[2].selectbox(
             "🛵💨 " + CAR_MOTOR_TPYE,
             [SELECT_FILTER] +
             sorted(car_transmission_data[CAR_MOTOR_TPYE].unique()),
             key=self.key_ + CAR_MOTOR_TPYE,
         )
-        self.car_transmision_ = row2[4].selectbox(
+        self.car_transmision_ = row4[4].selectbox(
             "⚙️ " + CAR_TRANSMISSION_TYPE,
             [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[CAR_MOTOR_TPYE]
                                      == self.car_motor_][CAR_TRANSMISSION_TYPE]),
             key=self.key_ + CAR_TRANSMISSION_TYPE,
         )
 
-        row3 = st.columns([1, 4, 1, 4, 1])
-        self.car_input_date_ = row3[1].date_input(
-            "📅 " + CAR_INPUT_DATE, format=DATE_FORMAT,
-            key=self.key_ + CAR_INPUT_DATE
-        )
-        self.car_owner_ = row3[3].selectbox(
-            "👩🏽🧑🏼 " + CAR_OWNER,
-            [SELECT_FILTER] + sorted(person_data[NAME]),
-            accept_new_options=True,
-            key=self.key_ + NAME
-        )
-
-        row4 = st.columns([1])
-        self.car_comment_ = row4[0].text_area(
+        # Sixth row
+        row5 = st.columns([1])
+        self.car_comment_ = row5[0].text_area(
             "✍🏽 " + CAR_INPUT_COMMENT
         )
 
-        row5 = st.columns([4, 1, 4, 1, 4])
+        # Seventh row
         self.submit_button_ = st.button(ADD)
 
     def __add_data(self, car_data):
@@ -275,7 +293,7 @@ class CarAdder:
     def get_data(
             self,
             car_type_data,
-            color_data,
+            autos_luis_data,
             car_transmission_data,
             person_data,
             car_data):
@@ -283,7 +301,7 @@ class CarAdder:
         Public method that handles how the data is recollected and filled into the
         main car-database.
 
-        Uses the car_type_data, color_data and car_transmission_data datasets
+        Uses the car_type_data, autos_luis_data and car_transmission_data datasets
         to show the options in the selectboxes so the user doesn't have to type
         them manually. If any other option is needed, it needs to be added manually
         to the dataset.
@@ -294,8 +312,8 @@ class CarAdder:
             self(CarAdder):             Class atributes
             car_type_data(pd):          Pandas variable that contains a dataset
                                         with all the available type of cars.
-            color_data(pd):             Pandas variable that contains a dataset
-                                        with all the type of colors.
+            autos_luis_data(pd):        Pandas variable that contains a dataset
+                                        with autos luis internal types.
             car_transmission_data(pd):  Pandas variable that contains a dataset
                                         with all the type of car transmissions.
             person_data(pd):            Pandas variable that contains a database
@@ -308,7 +326,7 @@ class CarAdder:
         st.markdown('#### Datos')
         self.__get_obligatory_data(
             car_type_data,
-            color_data,
+            autos_luis_data,
             car_transmission_data,
             person_data)
         st.markdown("---")

@@ -22,8 +22,8 @@ PERSONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy
 GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
 CAR_TYPES_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_types.csv"
 CAR_TRANSMISSIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_transmissions.csv"
-COLOR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/colors.csv"
 LOCATIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/locations.csv"
+AUTOS_LUIS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/autos_luis.csv"
 
 # Common variables
 CAR_OWNER = "Dueño"

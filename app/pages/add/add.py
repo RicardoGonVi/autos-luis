@@ -2,7 +2,7 @@ import streamlit as st
 
 from constants.constants import (
     CAR_TYPES_DATABASE,
-    COLOR_DATABASE,
+    AUTOS_LUIS_DATABASE,
     CAR_TRANSMISSIONS_DATABASE,
     PERSONS_DATABASE,
     CAR_DATABASE
@@ -18,12 +18,12 @@ def add_car():
     """
     data_adder = CarAdder("CarAdder_")
     car_type_data = load_database(CAR_TYPES_DATABASE)
-    color_data = load_database(COLOR_DATABASE)
+    autos_luis_data = load_database(AUTOS_LUIS_DATABASE)
     car_transmission_data = load_database(CAR_TRANSMISSIONS_DATABASE)
     person_data = load_database(PERSONS_DATABASE)
     car_data = load_database(CAR_DATABASE)
 
-    data_adder.get_data(car_type_data, color_data,
+    data_adder.get_data(car_type_data, autos_luis_data,
                         car_transmission_data, person_data, car_data)
 
 
