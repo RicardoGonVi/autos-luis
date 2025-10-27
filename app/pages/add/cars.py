@@ -30,7 +30,7 @@ from constants.constants import (
     CAR_INPUT_PUBLIC_DEED_DATE,
     CAR_INPUT_LAWYER,
     CAR_INPUT_TAX_VALUE,
-    CAR_RENT_NUMBER,
+    CAR_RENT_UNIT,
     CAR_SELL_BASE_PRICE,
     CAR_STATUS,
     CAR_SELL_PUBLIC_DEED_NUMBER,
@@ -64,6 +64,8 @@ from constants.constants import (
     AUTOS_LUIS_NAME,
     ANC_NAME,
     CAR_INPUT_TRANSFER_FEE,
+    PERSON_TYPE,
+    LAWYER,
 )
 from database.database import append_data
 from utils.utils import get_current_year, get_years_range
@@ -96,6 +98,16 @@ class CarAdder:
         self.car_input_date_ = BLANK
         self.car_input_origin_ = BLANK
 
+        self.car_buy_date_ = BLANK
+        self.car_buy_price_ = BLANK
+        self.car_input_public_deed_type_ = BLANK
+        self.car_input_public_deed_number_ = BLANK
+        self.car_input_transfer_fee_ = BLANK
+        self.car_input_public_deed_date_ = BLANK
+        self.car_input_lawyer_ = BLANK
+        self.car_input_tax_value_ = BLANK
+        self.car_rent_unit_ = BLANK
+
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
 
@@ -122,15 +134,15 @@ class CarAdder:
             CAR_INPUT_ORIGIN: self.car_input_origin_,
 
             # Buying/input characteristics
-            CAR_BUY_DATE: "TODO",
-            CAR_BUY_PRICE: "TODO",
-            CAR_INPUT_PUBLIC_DEED_TYPE: "TODO",
-            CAR_INPUT_PUBLIC_DEED_NUMBER: "TODO",
-            CAR_INPUT_TRANSFER_FEE: "TODO",
-            CAR_INPUT_PUBLIC_DEED_DATE: "TODO",
-            CAR_INPUT_LAWYER: "TODO",
-            CAR_INPUT_TAX_VALUE: "TODO",
-            CAR_RENT_NUMBER: "TODO",
+            CAR_BUY_DATE: self.car_buy_date_,
+            CAR_BUY_PRICE: self.car_buy_price_,
+            CAR_INPUT_PUBLIC_DEED_TYPE: self.car_input_public_deed_type_,
+            CAR_INPUT_PUBLIC_DEED_NUMBER: self.car_input_public_deed_number_,
+            CAR_INPUT_TRANSFER_FEE: self.car_input_transfer_fee_,
+            CAR_INPUT_PUBLIC_DEED_DATE: self.car_input_public_deed_date_,
+            CAR_INPUT_LAWYER: self.car_input_lawyer_,
+            CAR_INPUT_TAX_VALUE: self.car_input_tax_value_,
+            CAR_RENT_UNIT: self.car_rent_unit_,
             CAR_SELL_BASE_PRICE: self.car_sell_base_price_,
             CAR_STATUS: self.car_status_,
 
@@ -167,7 +179,7 @@ class CarAdder:
             CANTON: BLANK,
             DISTRICT: BLANK,
             CONTACT_MEDIA: BLANK,
-            CAR_FACTURATION_STATUS: "TODO",
+            CAR_FACTURATION_STATUS: BLANK,
         }
 
     def __get_obligatory_data(
@@ -289,29 +301,22 @@ class CarAdder:
 
     def __get_non_obligatory_data(
             self,
-            car_type_data,
             autos_luis_data,
-            car_transmission_data,
             person_data):
         """
         Method that uses streamlit widgets to get the non-obligatory data from the
         user in order to add a car into the main car-database.
 
-        Uses the car_type_data, autos_luis_data and car_transmission_data datasets
-        to show the options in the selectboxes so the user doesn't have to type
-        them manually. If any other option is needed, it needs to be added manually
-        to the dataset.
+        Uses the autos_luis_data datasets to show the options in the selectboxes so
+        the user doesn't have to type them manually. If any other option is needed,
+        it needs to be added manually to the dataset.
 
         Uses the person_data database that is an internal database from the customer.
 
         Args:
             self(CarAdder):             Class atributes
-            car_type_data(pd):          Pandas variable that contains a dataset
-                                        with all the available type of cars.
             autos_luis_data(pd):        Pandas variable that contains a dataset
                                         with autos luis internal types.
-            car_transmission_data(pd):  Pandas variable that contains a dataset
-                                        with all the type of car transmissions.
             person_data(pd):            Pandas variable that contains a database
                                         with all the persons from the  main
                                         person-database.
@@ -325,10 +330,68 @@ class CarAdder:
             self.car_dua_id_ = row0[2].text_input(
                 "🔢 " + CAR_DUA_ID, max_chars=18
             )
-            self.car_input_date_ = row0[4].date_input(
+            self.car_rent_unit_ = row0[4].selectbox(
+                '🛣️🚗 ' +
+                CAR_RENT_UNIT,
+                [SELECT_FILTER] +
+                sorted(
+                    autos_luis_data[CAR_RENT_UNIT].dropna()),
+                key=self.key_ +
+                CAR_RENT_UNIT)
+
+            # Second row
+            row1 = st.columns([4, 1, 4, 1, 4])
+            self.car_buy_date_ = row1[0].date_input(
                 "📅 " + CAR_BUY_DATE, format=DATE_FORMAT,
                 value=None,
                 key=self.key_ + CAR_BUY_DATE
+            )
+            self.car_buy_price_ = row1[2].number_input(
+                "💵 " + CAR_BUY_PRICE + " ( ₡ )",
+                step=1,
+                value=None,
+                key=self.key_ + CAR_BUY_PRICE
+            )
+            self.car_input_public_deed_type_ = row1[4].selectbox(
+                '🚓 ' +
+                CAR_INPUT_PUBLIC_DEED_TYPE,
+                [SELECT_FILTER] +
+                sorted(
+                    autos_luis_data[CAR_INPUT_PUBLIC_DEED_TYPE].dropna()),
+                key=self.key_ +
+                CAR_INPUT_PUBLIC_DEED_TYPE,
+            )
+
+            # Third row
+            row2 = st.columns([4, 1, 4, 1, 4])
+            self.car_input_public_deed_number_ = row2[0].text_input(
+                "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
+                key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER
+            )
+            self.car_input_public_deed_number_ = row2[2].number_input(
+                "💵 " + CAR_INPUT_TRANSFER_FEE,
+                step=1,
+                value=None,
+                key=self.key_ + CAR_INPUT_TRANSFER_FEE
+            )
+            self.car_input_public_deed_date_ = row2[4].date_input(
+                "📅 " + CAR_INPUT_PUBLIC_DEED_DATE, format=DATE_FORMAT,
+                value=None,
+                key=self.key_ + CAR_INPUT_PUBLIC_DEED_DATE
+            )
+
+            # Fourth row
+            row3 = st.columns([1, 4, 1, 4, 1])
+            self.car_input_lawyer_ = row3[1].selectbox(
+                '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
+                [SELECT_FILTER] + sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
+                key=self.key_ + CAR_INPUT_LAWYER
+            )
+            self.car_input_tax_value_ = row3[3].number_input(
+                "💵 " + CAR_INPUT_TAX_VALUE + " ( ₡ )",
+                step=1,
+                value=None,
+                key=self.key_ + CAR_INPUT_TAX_VALUE
             )
 
     def __add_data(self, car_data):
@@ -345,6 +408,7 @@ class CarAdder:
                             the cars from the  main car-database.
         """
         if self.submit_button_:
+
             append_data(car_data, CAR_DATABASE, self.__data_to_dict())
             st.cache_data.clear()
 

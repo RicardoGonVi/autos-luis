@@ -1,5 +1,9 @@
 import streamlit as st
 
+st.set_page_config(
+    layout="wide"
+)
+
 # Define the pages
 main_page = st.Page(
     "pages/main_page.py",
