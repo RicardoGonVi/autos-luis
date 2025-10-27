@@ -11,6 +11,8 @@ CANTON = "Cantón"
 NAME = "Nombre"
 ID = "Código"
 CUSTOMER = "Cliente"
+AUTOS_LUIS_NAME = "Autos Luis"
+ANC_NAME = "ANC"
 
 # Numbers
 MILLION = 1000000
@@ -63,6 +65,7 @@ CAR_INPUT_ORIGIN = "Origen"
 CAR_BUY_DATE = "Fecha de compra"
 CAR_BUY_PRICE = "Costo de ingreso"
 CAR_INPUT_PUBLIC_DEED_DATE = "Fecha de escritura de ingreso"
+CAR_INPUT_TRANSFER_FEE = "Monto del traspaso de ingreso/poder"
 CAR_INPUT_LAWYER = "Abogado ingreso"
 CAR_INPUT_TAX_VALUE = "Valor fiscal de ingreso"
 CAR_RENT_NUMBER = "Unidad de renta"

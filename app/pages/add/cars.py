@@ -61,6 +61,9 @@ from constants.constants import (
     DISTRICT,
     CONTACT_MEDIA,
     CAR_FACTURATION_STATUS,
+    AUTOS_LUIS_NAME,
+    ANC_NAME,
+    CAR_INPUT_TRANSFER_FEE,
 )
 from database.database import append_data
 from utils.utils import get_current_year, get_years_range
@@ -96,12 +99,14 @@ class CarAdder:
         self.car_transmision_ = BLANK
         self.car_motor_ = BLANK
 
+        self.car_sell_base_price_ = BLANK
+        self.car_status_ = BLANK
+
         self.submit_button_ = BLANK
 
     def __data_to_dict(self):
         # TODO: add documentation
         return {
-            # TODO: finish this method
             # Car characteristics
             ID: "TODO",
             CAR_OWNER: self.car_owner_,
@@ -121,12 +126,13 @@ class CarAdder:
             CAR_BUY_PRICE: "TODO",
             CAR_INPUT_PUBLIC_DEED_TYPE: "TODO",
             CAR_INPUT_PUBLIC_DEED_NUMBER: "TODO",
+            CAR_INPUT_TRANSFER_FEE: "TODO",
             CAR_INPUT_PUBLIC_DEED_DATE: "TODO",
             CAR_INPUT_LAWYER: "TODO",
             CAR_INPUT_TAX_VALUE: "TODO",
             CAR_RENT_NUMBER: "TODO",
-            CAR_SELL_BASE_PRICE: "TODO",
-            CAR_STATUS: "TODO",
+            CAR_SELL_BASE_PRICE: self.car_sell_base_price_,
+            CAR_STATUS: self.car_status_,
 
             # Sell characteristics. Not used when adding a car.
             CAR_SELL_DATE: BLANK,
@@ -149,6 +155,8 @@ class CarAdder:
             # Sell characteristics: contabillity usage
             CAR_SELL_TAX_VALUE: BLANK,
             CAR_SELL_BILL_VALUE: BLANK,
+
+            # Buyer characteristics
             CAR_BUYER: BLANK,
             CAR_BUYER_ID_TYPE: BLANK,
             CAR_BUYER_ID: BLANK,
@@ -193,85 +201,135 @@ class CarAdder:
         """
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
-        # First row
-        row0 = st.columns([4, 1, 4, 1, 4])
-        self.car_id_ = row0[0].text_input("🔢 " + CAR_ID, max_chars=6)
-        self.car_vin_id_ = row0[2].number_input(
-            "🔢 " + CAR_VIN_ID, value=None, step=1, min_value=0)
-        self.car_dua_id_ = row0[4].number_input(
-            "🔢 " + CAR_DUA_ID, value=None, step=1, min_value=0)
+        with st.container(border=True):
+            # First row
+            row0 = st.columns([4, 1, 4, 1, 4])
+            self.car_input_date_ = row0[0].date_input(
+                "📅 " + CAR_INPUT_DATE, format=DATE_FORMAT,
+                key=self.key_ + CAR_INPUT_DATE
+            )
+            self.car_owner_ = row0[2].selectbox(
+                "👩🏽🧑🏼 " + CAR_OWNER,
+                [AUTOS_LUIS_NAME, ANC_NAME] + sorted(person_data[NAME]),
+                accept_new_options=True,
+                key=self.key_ + NAME
+            )
+            self.car_id_ = row0[4].text_input("🔢 " + CAR_ID, max_chars=6)
 
-        # Second row
-        row1 = st.columns([4, 1, 4, 1, 4])
-        self.car_brand_ = row1[0].selectbox(
-            '🚓 ' + CAR_BRAND,
-            [SELECT_FILTER] + sorted(car_type_data[CAR_BRAND].unique()),
-            key=self.key_ + CAR_BRAND,
-        )
-        self.car_model_ = row1[2].selectbox(
-            '🛻 ' + CAR_MODEL,
-            [SELECT_FILTER] + sorted(car_type_data[car_type_data[CAR_BRAND]
-                                                   == self.car_brand_][CAR_MODEL].unique()),
-            key=self.key_ + CAR_MODEL
-        )
-        self.car_year_ = row1[4].selectbox(
-            "📅 " + CAR_YEAR,
-            [SELECT_FILTER] + sorted(years, reverse=True),
-            key=self.key_ + CAR_YEAR,
-        )
+            # Second row
+            row1 = st.columns([4, 1, 4, 1, 4])
+            self.car_brand_ = row1[0].selectbox(
+                '🚓 ' + CAR_BRAND,
+                [SELECT_FILTER] + sorted(car_type_data[CAR_BRAND].unique()),
+                key=self.key_ + CAR_BRAND,
+            )
+            self.car_model_ = row1[2].selectbox(
+                '🛻 ' + CAR_MODEL,
+                [SELECT_FILTER] + sorted(car_type_data[car_type_data[CAR_BRAND]
+                                                       == self.car_brand_][CAR_MODEL].unique()),
+                key=self.key_ + CAR_MODEL
+            )
+            self.car_year_ = row1[4].selectbox(
+                "📅 " + CAR_YEAR,
+                [SELECT_FILTER] + sorted(years, reverse=True),
+                key=self.key_ + CAR_YEAR,
+            )
 
-        # Third row
-        row2 = st.columns([4, 1, 4, 1, 4])
-        self.car_color_ = row2[0].selectbox(
-            "🌈 " + CAR_COLOR,
-            [SELECT_FILTER] + sorted(autos_luis_data[CAR_COLOR].dropna()),
-            key=self.key_ + CAR_COLOR,
-        )
+            # Third row
+            row2 = st.columns([4, 1, 4, 1, 4])
+            self.car_color_ = row2[0].selectbox(
+                "🌈 " + CAR_COLOR,
+                [SELECT_FILTER] + sorted(autos_luis_data[CAR_COLOR].dropna()),
+                key=self.key_ + CAR_COLOR,
+            )
+            self.car_motor_ = row2[2].selectbox(
+                "🛵💨 " + CAR_MOTOR_TPYE,
+                [SELECT_FILTER] +
+                sorted(car_transmission_data[CAR_MOTOR_TPYE].unique()),
+                key=self.key_ + CAR_MOTOR_TPYE,
+            )
+            self.car_transmision_ = row2[4].selectbox(
+                "⚙️ " + CAR_TRANSMISSION_TYPE,
+                [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[CAR_MOTOR_TPYE]
+                                                               == self.car_motor_][CAR_TRANSMISSION_TYPE]),
+                key=self.key_ + CAR_TRANSMISSION_TYPE,
+            )
 
-        # Fourth row
-        row3 = st.columns([4, 1, 4, 1, 4])
-        self.car_input_date_ = row3[0].date_input(
-            "📅 " + CAR_INPUT_DATE, format=DATE_FORMAT,
-            key=self.key_ + CAR_INPUT_DATE
-        )
-        self.car_owner_ = row3[2].selectbox(
-            "👩🏽🧑🏼 " + CAR_OWNER,
-            [SELECT_FILTER] + sorted(person_data[NAME]),
-            accept_new_options=True,
-            key=self.key_ + NAME
-        )
-        self.car_input_origin_ = row3[4].selectbox(
-            "⁉️ " +
-            CAR_INPUT_ORIGIN,
-            [SELECT_FILTER] +
-            sorted(
-                autos_luis_data[CAR_INPUT_ORIGIN].dropna()),
-            key=self.key_ +
-            CAR_INPUT_ORIGIN)
+            # Fourth row
+            row3 = st.columns([4, 1, 4, 1, 4])
+            self.car_input_origin_ = row3[0].selectbox(
+                "⁉️ " +
+                CAR_INPUT_ORIGIN,
+                [SELECT_FILTER] +
+                sorted(
+                    autos_luis_data[CAR_INPUT_ORIGIN].dropna()),
+                key=self.key_ +
+                CAR_INPUT_ORIGIN
+            )
+            self.car_sell_base_price_ = row3[2].number_input(
+                "💵 " + CAR_SELL_BASE_PRICE + " ( ₡ )",
+                step=1,
+                value=None,
+                key=self.key_ + CAR_SELL_BASE_PRICE
+            )
+            self.car_status_ = row3[4].selectbox(
+                "⁉️ " +
+                CAR_STATUS,
+                [SELECT_FILTER] +
+                sorted(
+                    autos_luis_data[CAR_STATUS].dropna()),
+                key=self.key_ + CAR_STATUS
+            )
 
-        # Fifth row
-        row4 = st.columns([4, 1, 4, 1, 4])
-        self.car_motor_ = row4[2].selectbox(
-            "🛵💨 " + CAR_MOTOR_TPYE,
-            [SELECT_FILTER] +
-            sorted(car_transmission_data[CAR_MOTOR_TPYE].unique()),
-            key=self.key_ + CAR_MOTOR_TPYE,
-        )
-        self.car_transmision_ = row4[4].selectbox(
-            "⚙️ " + CAR_TRANSMISSION_TYPE,
-            [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[CAR_MOTOR_TPYE]
-                                     == self.car_motor_][CAR_TRANSMISSION_TYPE]),
-            key=self.key_ + CAR_TRANSMISSION_TYPE,
-        )
+            # Fifth row
+            row4 = st.columns([1])
+            self.car_comment_ = row4[0].text_area(
+                "✍🏽 " + CAR_INPUT_COMMENT
+            )
 
-        # Sixth row
-        row5 = st.columns([1])
-        self.car_comment_ = row5[0].text_area(
-            "✍🏽 " + CAR_INPUT_COMMENT
-        )
+    def __get_non_obligatory_data(
+            self,
+            car_type_data,
+            autos_luis_data,
+            car_transmission_data,
+            person_data):
+        """
+        Method that uses streamlit widgets to get the non-obligatory data from the
+        user in order to add a car into the main car-database.
 
-        # Seventh row
-        self.submit_button_ = st.button(ADD)
+        Uses the car_type_data, autos_luis_data and car_transmission_data datasets
+        to show the options in the selectboxes so the user doesn't have to type
+        them manually. If any other option is needed, it needs to be added manually
+        to the dataset.
+
+        Uses the person_data database that is an internal database from the customer.
+
+        Args:
+            self(CarAdder):             Class atributes
+            car_type_data(pd):          Pandas variable that contains a dataset
+                                        with all the available type of cars.
+            autos_luis_data(pd):        Pandas variable that contains a dataset
+                                        with autos luis internal types.
+            car_transmission_data(pd):  Pandas variable that contains a dataset
+                                        with all the type of car transmissions.
+            person_data(pd):            Pandas variable that contains a database
+                                        with all the persons from the  main
+                                        person-database.
+        """
+        with st.container(border=True):
+            # First row
+            row0 = st.columns([4, 1, 4, 1, 4])
+            self.car_vin_id_ = row0[0].text_input(
+                "🔢 " + CAR_VIN_ID, max_chars=17
+            )
+            self.car_dua_id_ = row0[2].text_input(
+                "🔢 " + CAR_DUA_ID, max_chars=18
+            )
+            self.car_input_date_ = row0[4].date_input(
+                "📅 " + CAR_BUY_DATE, format=DATE_FORMAT,
+                value=None,
+                key=self.key_ + CAR_BUY_DATE
+            )
 
     def __add_data(self, car_data):
         """
@@ -323,11 +381,18 @@ class CarAdder:
                                         with all the cars from the main
                                         car-database.
         """
-        st.markdown('#### Datos')
+        st.markdown('#### Datos obligatorios')
         self.__get_obligatory_data(
             car_type_data,
             autos_luis_data,
             car_transmission_data,
             person_data)
+        st.markdown('#### Datos no obligatorios')
+        self.__get_non_obligatory_data(
+            car_type_data,
+            autos_luis_data,
+            car_transmission_data,
+            person_data)
+        self.submit_button_ = st.button(ADD)
         st.markdown("---")
         self.__add_data(car_data)
