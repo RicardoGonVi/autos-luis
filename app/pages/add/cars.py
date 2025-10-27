@@ -81,7 +81,6 @@ class CarAdder:
         Class initializer method.
 
         Args:
-            self(CarAdder): Class atributes
             key(str):       Key unique-name used in streamlit gears to
                             differentiate them.
         """
@@ -115,6 +114,9 @@ class CarAdder:
         self.car_status_ = BLANK
 
         self.submit_button_ = BLANK
+
+    def __validate_data(self):
+        None
 
     def __data_to_dict(self):
         # TODO: add documentation
@@ -200,7 +202,6 @@ class CarAdder:
         Uses the person_data database that is an internal database from the customer.
 
         Args:
-            self(CarAdder):             Class atributes
             car_type_data(pd):          Pandas variable that contains a dataset
                                         with all the available type of cars.
             autos_luis_data(pd):        Pandas variable that contains a dataset
@@ -314,7 +315,6 @@ class CarAdder:
         Uses the person_data database that is an internal database from the customer.
 
         Args:
-            self(CarAdder):             Class atributes
             autos_luis_data(pd):        Pandas variable that contains a dataset
                                         with autos luis internal types.
             person_data(pd):            Pandas variable that contains a database
@@ -403,12 +403,11 @@ class CarAdder:
         Uses the car_data database that is an internal database from the customer.
 
         Args:
-            self(CarAdder): Class atributes
             car_data(pd):   Pandas variable that contains a database with all
                             the cars from the  main car-database.
         """
         if self.submit_button_:
-
+            self.__validate_data()
             append_data(car_data, CAR_DATABASE, self.__data_to_dict())
             st.cache_data.clear()
 
@@ -431,7 +430,6 @@ class CarAdder:
         Uses the person_data database that is an internal database from the customer.
 
         Args:
-            self(CarAdder):             Class atributes
             car_type_data(pd):          Pandas variable that contains a dataset
                                         with all the available type of cars.
             autos_luis_data(pd):        Pandas variable that contains a dataset
@@ -453,9 +451,7 @@ class CarAdder:
             person_data)
         st.markdown('#### Datos no obligatorios')
         self.__get_non_obligatory_data(
-            car_type_data,
             autos_luis_data,
-            car_transmission_data,
             person_data)
         self.submit_button_ = st.button(ADD)
         st.markdown("---")
