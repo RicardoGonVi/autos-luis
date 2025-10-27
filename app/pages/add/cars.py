@@ -227,7 +227,10 @@ class CarAdder:
                 accept_new_options=True,
                 key=self.key_ + NAME
             )
-            self.car_id_ = row0[4].text_input("🔢 " + CAR_ID, max_chars=6)
+            self.car_id_ = row0[4].text_input(
+                "🔢 " + CAR_ID, max_chars=6,
+                key=self.key_ + CAR_ID
+            )
 
             # Second row
             row1 = st.columns([4, 1, 4, 1, 4])
@@ -276,8 +279,7 @@ class CarAdder:
                 [SELECT_FILTER] +
                 sorted(
                     autos_luis_data[CAR_INPUT_ORIGIN].dropna()),
-                key=self.key_ +
-                CAR_INPUT_ORIGIN
+                key=self.key_ + CAR_INPUT_ORIGIN
             )
             self.car_sell_base_price_ = row3[2].number_input(
                 "💵 " + CAR_SELL_BASE_PRICE + " ( ₡ )",
@@ -297,7 +299,8 @@ class CarAdder:
             # Fifth row
             row4 = st.columns([1])
             self.car_comment_ = row4[0].text_area(
-                "✍🏽 " + CAR_INPUT_COMMENT
+                "✍🏽 " + CAR_INPUT_COMMENT,
+                key=self.key_ + CAR_INPUT_COMMENT
             )
 
     def __get_non_obligatory_data(
@@ -325,19 +328,20 @@ class CarAdder:
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
             self.car_vin_id_ = row0[0].text_input(
-                "🔢 " + CAR_VIN_ID, max_chars=17
+                "🔢 " + CAR_VIN_ID, max_chars=17,
+                key=self.key_ + CAR_VIN_ID
             )
             self.car_dua_id_ = row0[2].text_input(
-                "🔢 " + CAR_DUA_ID, max_chars=18
+                "🔢 " + CAR_DUA_ID, max_chars=18,
+                key=self.key_ + CAR_DUA_ID
             )
             self.car_rent_unit_ = row0[4].selectbox(
-                '🛣️🚗 ' +
-                CAR_RENT_UNIT,
+                '🛣️🚗 ' + CAR_RENT_UNIT,
                 [SELECT_FILTER] +
                 sorted(
                     autos_luis_data[CAR_RENT_UNIT].dropna()),
-                key=self.key_ +
-                CAR_RENT_UNIT)
+                key=self.key_ + CAR_RENT_UNIT
+            )
 
             # Second row
             row1 = st.columns([4, 1, 4, 1, 4])
@@ -368,7 +372,7 @@ class CarAdder:
                 "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
                 key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER
             )
-            self.car_input_public_deed_number_ = row2[2].number_input(
+            self.car_input_transfer_fee_ = row2[2].number_input(
                 "💵 " + CAR_INPUT_TRANSFER_FEE,
                 step=1,
                 value=None,
