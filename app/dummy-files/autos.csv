@@ -11,4 +11,9 @@ AL9;María Gómez;Hyundai;Tucson;2020;Gris;XYZ789;2HGFA16558H123456;DUA67890;Ser
 AL10;Juan Soto;Nissan;Frontier;2017;Rojo;JKL456;3N1AB7AP9GL123789;DUA24680;Con rack de carga;12/3/2023;Importado;10/3/2023;12000;Escritura pública;8910;400.0;12/7/2023;Lic. Castro;11000.0;Cartago;14000000.0;Disponible;;;;Joshua;No aplica;Colones;10000000.0;Efectivo y financiamiento;5000000.0;;;5000000.0;;;;; ;;;; ;;84522220.0;;;;;;;Pendiente
 AL11;Ana Morales;Kia;Rio;2019;Negro;MNO321;5XYZT3LB5EG123456;DUA13579;Leves rayones;8/4/2023;Importado;5/4/2023;9800;Escritura pública;1122;250.0;8/4/2023;Lic. Quesada;9000.0;Puntarenas;11500000.0;Vendido;1/5/2023;ESCR789;Lic. Rojas;LDA;No aplica;Colones;11500000.0;Efectivo y recibe;500000.0;AL4;1100000.0;;;;;600.0;28/4/2023;10000.0;13000000.0;Laura Vega;Pasaporte;PA1234567;62222200.0;laura.vg@example.com;Barrio El Carmen;San José;San José;Catedral;Teléfono;Facturado
 AL12;Andrea Salazar Jiménez;Chevrolet;N300;2020;Gris;BMS041;6456465;;;26/10/2025;ANC;TODO;TODO;TODO;TODO;;TODO;TODO;TODO;TODO;21500000.0;Reservado;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;Pendiente
-TODO;Autos Luis;BYD;Atto 3;2017;Morado;701480;;;;2025-10-26;Comprado;;;-;;;;-;;No;;Disponible;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;Pendiente
+AL13;Autos Luis;BYD;Atto 3;2017;Morado;701480;;;;2025-10-26;Comprado;;;-;;;;-;;No;;Disponible;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;Pendiente
+AL14;Autos Luis;BMW;5 Series;2022;Blanco;VAQ211;;;;2025-10-27;ANC;;;-;;;;-;;-;2300000.0;Disponible;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AL15;Autos Luis;Chevrolet;Tracker;2001;Azul;XYZ041;;;;2025-10-27;Recibido;;;-;;;;-;;-;3600000.0;Prestado;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AL16;Autos Luis;Pontiac;Sunfire;1997;Rojo;ASD212;;;;2025-10-27;ANC;;;-;;;;-;;-;1900000.0;Prestado;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AL17;Autos Luis;Audi;Q3;2021;Blanco;QEQ132;;;;2025-10-27;ANC;;;-;;;;-;;-;14320000.0;Devuelto;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AL18;ANC;Volvo;XC60;2013;Blanco;ASD456;;;Camanance puerta derecha de atrás;2025-10-27;ANC;;;-;;;;-;;-;6200000.0;Disponible;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -83,11 +83,11 @@ class CarFilter:
                 [SELECT_FILTER] + sorted(data[CAR_STATUS].unique())
             )
             self.car_facturation_ = row4[2].selectbox(
-                '🔜 ' +
-                CAR_FACTURATION_STATUS,
+                '🔜 ' + CAR_FACTURATION_STATUS,
                 [SELECT_FILTER] +
                 sorted(
-                    data[CAR_FACTURATION_STATUS].unique()))
+                    data[CAR_FACTURATION_STATUS].dropna().unique())
+            )
             self.car_owner_ = row4[4].selectbox(
                 '🙎🏻 ' + CAR_OWNER,
                 [SELECT_FILTER] + sorted(

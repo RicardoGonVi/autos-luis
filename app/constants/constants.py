@@ -18,6 +18,7 @@ LAWYER = "Abogado"
 # Numbers
 MILLION = 1000000
 INCLUDE_LAST = 1
+CAR_ID_SIZE = 6
 
 # Paths
 CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/autos.csv"
