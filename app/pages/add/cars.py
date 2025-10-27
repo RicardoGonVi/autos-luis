@@ -85,82 +85,87 @@ class CarAdder:
             key(str):       Key unique-name used in streamlit gears to
                             differentiate them.
         """
+        # Car characteristics
+        self.unique_code_ = BLANK
+        self.owner_ = BLANK
+        self.brand_ = BLANK
+        self.model_ = BLANK
+        self.year_ = BLANK
+        self.color_ = BLANK
+        self.id_ = BLANK
+        self.vin_id_ = BLANK
+        self.dua_id_ = BLANK
+        self.comment_ = BLANK
+
+        # Buying/input characteristics
+        self.input_date_ = BLANK
+        self.input_origin_ = BLANK
+        self.buy_date_ = BLANK
+        self.buy_price_ = BLANK
+        self.input_public_deed_type_ = BLANK
+        self.input_public_deed_number_ = BLANK
+        self.input_transfer_fee_ = BLANK
+        self.input_public_deed_date_ = BLANK
+        self.input_lawyer_ = BLANK
+        self.input_tax_value_ = BLANK
+        self.rent_unit_ = BLANK
+
+        # TODO: add to database
+        self.transmision_ = BLANK
+        self.motor_ = BLANK
+
+        # Sell characteristics. Not used when adding a car.
+        self.sell_base_price_ = BLANK
+        self.status_ = BLANK
+
+        # Streamlit class atributes
         self.key_ = key
-        self.car_owner_ = BLANK
-        self.car_brand_ = BLANK
-        self.car_model_ = BLANK
-        self.car_year_ = BLANK
-        self.car_color_ = BLANK
-        self.car_id_ = BLANK
-        self.car_vin_id_ = BLANK
-        self.car_dua_id_ = BLANK
-        self.car_comment_ = BLANK
-        self.car_input_date_ = BLANK
-        self.car_input_origin_ = BLANK
-
-        self.car_buy_date_ = BLANK
-        self.car_buy_price_ = BLANK
-        self.car_input_public_deed_type_ = BLANK
-        self.car_input_public_deed_number_ = BLANK
-        self.car_input_transfer_fee_ = BLANK
-        self.car_input_public_deed_date_ = BLANK
-        self.car_input_lawyer_ = BLANK
-        self.car_input_tax_value_ = BLANK
-        self.car_rent_unit_ = BLANK
-
-        self.car_transmision_ = BLANK
-        self.car_motor_ = BLANK
-
-        self.car_sell_base_price_ = BLANK
-        self.car_status_ = BLANK
-
-        self.code_ = BLANK
         self.submit_button_ = BLANK
 
     def __validate_data(self):
         # TODO: document
-        self.car_id_ = self.car_id_.upper()
-        if len(self.car_id_) != CAR_ID_SIZE:
+        self.id_ = self.id_.upper()
+        if len(self.id_) != CAR_ID_SIZE:
             st.error(f"La placa debe de contener {CAR_ID_SIZE} dígitos")
             return -1
 
-        if self.car_brand_ == SELECT_FILTER:
+        if self.brand_ == SELECT_FILTER:
             st.error("Seleccione la marca del vehículo")
             return -1
 
-        if self.car_model_ == SELECT_FILTER:
+        if self.model_ == SELECT_FILTER:
             st.error("Seleccione el modelo del vehículo")
             return -1
 
-        if self.car_year_ == SELECT_FILTER:
+        if self.year_ == SELECT_FILTER:
             st.error("Seleccione el año del vehículo")
             return -1
 
-        if self.car_color_ == SELECT_FILTER:
+        if self.color_ == SELECT_FILTER:
             st.error("Seleccione el color del vehículo")
             return -1
 
-        if self.car_motor_ == SELECT_FILTER:
+        if self.motor_ == SELECT_FILTER:
             st.error("Seleccione el motor del vehículo")
             return -1
 
-        if self.car_transmision_ == SELECT_FILTER:
+        if self.transmision_ == SELECT_FILTER:
             st.error("Seleccione la transmisión del vehículo")
             return -1
 
-        if self.car_input_origin_ == SELECT_FILTER:
+        if self.input_origin_ == SELECT_FILTER:
             st.error("Seleccione el origen del vehículo")
             return -1
 
-        if self.car_sell_base_price_ is None:
+        if self.sell_base_price_ is None:
             st.error("Introduzca el precio base de venta del vehículo")
             return -1
 
-        if self.car_sell_base_price_ == 0:
+        if self.sell_base_price_ == 0:
             st.error("El precio base de venta debe ser mayor a 0")
             return -1
 
-        if self.car_status_ == SELECT_FILTER:
+        if self.status_ == SELECT_FILTER:
             st.error("Seleccione el estado que desea otorgar al vehículo")
             return -1
 
@@ -168,33 +173,34 @@ class CarAdder:
         # TODO: add documentation
         return {
             # Car characteristics
-            ID: self.code_,
-            CAR_OWNER: self.car_owner_,
-            CAR_BRAND: self.car_brand_,
-            CAR_MODEL: self.car_model_,
-            CAR_YEAR: self.car_year_,
-            CAR_COLOR: self.car_color_,
-            CAR_ID: self.car_id_,
-            CAR_VIN_ID: self.car_vin_id_,
-            CAR_DUA_ID: self.car_dua_id_,
-            CAR_INPUT_COMMENT: self.car_comment_,
-            CAR_INPUT_DATE: self.car_input_date_,
-            CAR_INPUT_ORIGIN: self.car_input_origin_,
+            ID: self.unique_code_,
+            CAR_OWNER: self.owner_,
+            CAR_BRAND: self.brand_,
+            CAR_MODEL: self.model_,
+            CAR_YEAR: self.year_,
+            CAR_COLOR: self.color_,
+            CAR_ID: self.id_,
+            CAR_VIN_ID: self.vin_id_,
+            CAR_DUA_ID: self.dua_id_,
+            CAR_INPUT_COMMENT: self.comment_,
 
             # Buying/input characteristics
-            CAR_BUY_DATE: self.car_buy_date_,
-            CAR_BUY_PRICE: self.car_buy_price_,
-            CAR_INPUT_PUBLIC_DEED_TYPE: self.car_input_public_deed_type_,
-            CAR_INPUT_PUBLIC_DEED_NUMBER: self.car_input_public_deed_number_,
-            CAR_INPUT_TRANSFER_FEE: self.car_input_transfer_fee_,
-            CAR_INPUT_PUBLIC_DEED_DATE: self.car_input_public_deed_date_,
-            CAR_INPUT_LAWYER: self.car_input_lawyer_,
-            CAR_INPUT_TAX_VALUE: self.car_input_tax_value_,
-            CAR_RENT_UNIT: self.car_rent_unit_,
-            CAR_SELL_BASE_PRICE: self.car_sell_base_price_,
-            CAR_STATUS: self.car_status_,
+            CAR_INPUT_DATE: self.input_date_,
+            CAR_INPUT_ORIGIN: self.input_origin_,
+            CAR_BUY_DATE: self.buy_date_,
+            CAR_BUY_PRICE: self.buy_price_,
+            CAR_INPUT_PUBLIC_DEED_TYPE: self.input_public_deed_type_,
+            CAR_INPUT_PUBLIC_DEED_NUMBER: self.input_public_deed_number_,
+            CAR_INPUT_TRANSFER_FEE: self.input_transfer_fee_,
+            CAR_INPUT_PUBLIC_DEED_DATE: self.input_public_deed_date_,
+            CAR_INPUT_LAWYER: self.input_lawyer_,
+            CAR_INPUT_TAX_VALUE: self.input_tax_value_,
+            CAR_RENT_UNIT: self.rent_unit_,
+
 
             # Sell characteristics. Not used when adding a car.
+            CAR_SELL_BASE_PRICE: self.sell_base_price_,
+            CAR_STATUS: self.status_,
             CAR_SELL_DATE: BLANK,
             CAR_SELL_PUBLIC_DEED_NUMBER: BLANK,
             CAR_SELL_LAWYER: BLANK,
@@ -263,42 +269,42 @@ class CarAdder:
                                         with all the cars from the main
                                         car-database.
         """
-        self.code_ = "AL" + str(len(car_data) + 1)
+        self.unique_code_ = "AL" + str(len(car_data) + 1)
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
-            self.car_input_date_ = row0[0].date_input(
+            self.input_date_ = row0[0].date_input(
                 "📅 " + CAR_INPUT_DATE,
                 format=DATE_FORMAT,
                 key=self.key_ + CAR_INPUT_DATE
             )
-            self.car_owner_ = row0[2].selectbox(
+            self.owner_ = row0[2].selectbox(
                 "👩🏽🧑🏼 " + CAR_OWNER,
                 [AUTOS_LUIS_NAME, ANC_NAME] + sorted(person_data[NAME]),
                 key=self.key_ + NAME
             )
-            self.car_id_ = row0[4].text_input(
+            self.id_ = row0[4].text_input(
                 "🔢 " + CAR_ID, max_chars=CAR_ID_SIZE,
                 key=self.key_ + CAR_ID
             )
 
             # Second row
             row1 = st.columns([4, 1, 4, 1, 4])
-            self.car_brand_ = row1[0].selectbox(
+            self.brand_ = row1[0].selectbox(
                 '🚓 ' + CAR_BRAND,
                 [SELECT_FILTER] + sorted(car_type_data[CAR_BRAND].unique()),
                 key=self.key_ + CAR_BRAND,
             )
-            self.car_model_ = row1[2].selectbox(
+            self.model_ = row1[2].selectbox(
                 '🛻 ' + CAR_MODEL,
                 [SELECT_FILTER] + sorted(car_type_data[car_type_data[CAR_BRAND]
-                                                       == self.car_brand_][CAR_MODEL].unique()),
+                                                       == self.brand_][CAR_MODEL].unique()),
                 accept_new_options=True,
                 key=self.key_ + CAR_MODEL
             )
-            self.car_year_ = row1[4].selectbox(
+            self.year_ = row1[4].selectbox(
                 "📅 " + CAR_YEAR,
                 [SELECT_FILTER] + sorted(years, reverse=True),
                 key=self.key_ + CAR_YEAR,
@@ -306,27 +312,27 @@ class CarAdder:
 
             # Third row
             row2 = st.columns([4, 1, 4, 1, 4])
-            self.car_color_ = row2[0].selectbox(
+            self.color_ = row2[0].selectbox(
                 "🌈 " + CAR_COLOR,
                 [SELECT_FILTER] + sorted(autos_luis_data[CAR_COLOR].dropna()),
                 key=self.key_ + CAR_COLOR,
             )
-            self.car_motor_ = row2[2].selectbox(
+            self.motor_ = row2[2].selectbox(
                 "🛵💨 " + CAR_MOTOR_TPYE,
                 [SELECT_FILTER] +
                 sorted(car_transmission_data[CAR_MOTOR_TPYE].unique()),
                 key=self.key_ + CAR_MOTOR_TPYE,
             )
-            self.car_transmision_ = row2[4].selectbox(
+            self.transmision_ = row2[4].selectbox(
                 "⚙️ " + CAR_TRANSMISSION_TYPE,
                 [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[CAR_MOTOR_TPYE]
-                                                               == self.car_motor_][CAR_TRANSMISSION_TYPE]),
+                                                               == self.motor_][CAR_TRANSMISSION_TYPE]),
                 key=self.key_ + CAR_TRANSMISSION_TYPE,
             )
 
             # Fourth row
             row3 = st.columns([4, 1, 4, 1, 4])
-            self.car_input_origin_ = row3[0].selectbox(
+            self.input_origin_ = row3[0].selectbox(
                 "⁉️ " +
                 CAR_INPUT_ORIGIN,
                 [SELECT_FILTER] +
@@ -334,13 +340,13 @@ class CarAdder:
                     autos_luis_data[CAR_INPUT_ORIGIN].dropna()),
                 key=self.key_ + CAR_INPUT_ORIGIN
             )
-            self.car_sell_base_price_ = row3[2].number_input(
+            self.sell_base_price_ = row3[2].number_input(
                 "💵 " + CAR_SELL_BASE_PRICE + " ( ₡ )",
                 step=1,
                 value=None,
                 key=self.key_ + CAR_SELL_BASE_PRICE
             )
-            self.car_status_ = row3[4].selectbox(
+            self.status_ = row3[4].selectbox(
                 "⁉️ " +
                 CAR_STATUS,
                 [SELECT_FILTER] +
@@ -373,15 +379,15 @@ class CarAdder:
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
-            self.car_vin_id_ = row0[0].text_input(
+            self.vin_id_ = row0[0].text_input(
                 "🔢 " + CAR_VIN_ID, max_chars=17,
                 key=self.key_ + CAR_VIN_ID
             )
-            self.car_dua_id_ = row0[2].text_input(
+            self.dua_id_ = row0[2].text_input(
                 "🔢 " + CAR_DUA_ID, max_chars=18,
                 key=self.key_ + CAR_DUA_ID
             )
-            self.car_rent_unit_ = row0[4].selectbox(
+            self.rent_unit_ = row0[4].selectbox(
                 '🛣️🚗 ' + CAR_RENT_UNIT,
                 [SELECT_FILTER] +
                 sorted(
@@ -391,26 +397,26 @@ class CarAdder:
 
             # Second row
             row1 = st.columns([1])
-            self.car_comment_ = row1[0].text_area(
+            self.comment_ = row1[0].text_area(
                 "✍🏽 " + CAR_INPUT_COMMENT,
                 key=self.key_ + CAR_INPUT_COMMENT
             )
 
             # Third row
             row2 = st.columns([4, 1, 4, 1, 4])
-            self.car_buy_date_ = row2[0].date_input(
+            self.buy_date_ = row2[0].date_input(
                 "📅 " + CAR_BUY_DATE,
                 format=DATE_FORMAT,
                 value=None,
                 key=self.key_ + CAR_BUY_DATE
             )
-            self.car_buy_price_ = row2[2].number_input(
+            self.buy_price_ = row2[2].number_input(
                 "💵 " + CAR_BUY_PRICE + " ( ₡ )",
                 step=1,
                 value=None,
                 key=self.key_ + CAR_BUY_PRICE
             )
-            self.car_input_public_deed_type_ = row2[4].selectbox(
+            self.input_public_deed_type_ = row2[4].selectbox(
                 '🚓 ' +
                 CAR_INPUT_PUBLIC_DEED_TYPE,
                 [SELECT_FILTER] +
@@ -422,17 +428,17 @@ class CarAdder:
 
             # Fourth row
             row3 = st.columns([4, 1, 4, 1, 4])
-            self.car_input_public_deed_number_ = row3[0].text_input(
+            self.input_public_deed_number_ = row3[0].text_input(
                 "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
                 key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER
             )
-            self.car_input_transfer_fee_ = row3[2].number_input(
+            self.input_transfer_fee_ = row3[2].number_input(
                 "💵 " + CAR_INPUT_TRANSFER_FEE,
                 step=1,
                 value=None,
                 key=self.key_ + CAR_INPUT_TRANSFER_FEE
             )
-            self.car_input_public_deed_date_ = row3[4].date_input(
+            self.input_public_deed_date_ = row3[4].date_input(
                 "📅 " + CAR_INPUT_PUBLIC_DEED_DATE,
                 format=DATE_FORMAT,
                 value=None,
@@ -441,12 +447,12 @@ class CarAdder:
 
             # Fifth row
             row4 = st.columns([1, 4, 1, 4, 1])
-            self.car_input_lawyer_ = row4[1].selectbox(
+            self.input_lawyer_ = row4[1].selectbox(
                 '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
                 [SELECT_FILTER] + sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
                 key=self.key_ + CAR_INPUT_LAWYER
             )
-            self.car_input_tax_value_ = row4[3].number_input(
+            self.input_tax_value_ = row4[3].number_input(
                 "💵 " + CAR_INPUT_TAX_VALUE + " ( ₡ )",
                 step=1,
                 value=None,
