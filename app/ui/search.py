@@ -1,8 +1,8 @@
 import streamlit as st
 
-from pages.search.cars import *
-from pages.search.persons import *
-from pages.search.garage import *
+from core.search.cars import *
+from core.search.persons import *
+from core.search.garage import *
 from utils.utils import make_tabs
 from database.database import load_database
 from constants.constants import CAR_DATABASE, PERSONS_DATABASE, GARAGE_DATABASE

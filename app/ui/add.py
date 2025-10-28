@@ -8,7 +8,7 @@ from constants.constants import (
     CAR_DATABASE
 )
 from database.database import load_database
-from pages.add.cars import *
+from core.add.cars import *
 from utils.utils import make_tabs
 
 
