@@ -123,51 +123,61 @@ class CarAdder:
         self.submit_button_ = BLANK
 
     def __validate_data(self):
-        # TODO: document
+        """
+        Validates that the introduced data is filled as expected.
+
+        Returns:
+            successfull(bool):  True if the validation runned successfully
+                                Falsi if the validation detected an error
+        """
+        successfull = True
+
         self.id_ = self.id_.upper()
         if len(self.id_) != CAR_ID_SIZE:
             st.error(f"La placa debe de contener {CAR_ID_SIZE} dígitos")
-            return -1
+            successfull = False
 
-        if self.brand_ == SELECT_FILTER:
+        elif self.brand_ == SELECT_FILTER:
             st.error("Seleccione la marca del vehículo")
-            return -1
+            successfull = False
 
-        if self.model_ == SELECT_FILTER:
+        elif self.model_ == SELECT_FILTER:
             st.error("Seleccione el modelo del vehículo")
-            return -1
+            successfull = False
 
-        if self.year_ == SELECT_FILTER:
+        elif self.year_ == SELECT_FILTER:
             st.error("Seleccione el año del vehículo")
-            return -1
+            successfull = False
 
-        if self.color_ == SELECT_FILTER:
+        elif self.color_ == SELECT_FILTER:
             st.error("Seleccione el color del vehículo")
-            return -1
+            successfull = False
 
-        if self.motor_ == SELECT_FILTER:
+        elif self.motor_ == SELECT_FILTER:
             st.error("Seleccione el motor del vehículo")
-            return -1
+            successfull = False
 
-        if self.transmision_ == SELECT_FILTER:
+        elif self.transmision_ == SELECT_FILTER:
             st.error("Seleccione la transmisión del vehículo")
-            return -1
+            successfull = False
 
-        if self.input_origin_ == SELECT_FILTER:
+        elif self.input_origin_ == SELECT_FILTER:
             st.error("Seleccione el origen del vehículo")
-            return -1
+            successfull = False
 
-        if self.sell_base_price_ is None:
+        elif self.sell_base_price_ is None:
             st.error("Introduzca el precio base de venta del vehículo")
-            return -1
+            successfull = False
 
-        if self.sell_base_price_ == 0:
+        elif self.sell_base_price_ == 0:
             st.error("El precio base de venta debe ser mayor a 0")
-            return -1
+            successfull = False
 
-        if self.status_ == SELECT_FILTER:
+        elif self.status_ == SELECT_FILTER:
             st.error("Seleccione el estado que desea otorgar al vehículo")
-            return -1
+            successfull = False
+
+        return successfull
 
     def __data_to_dict(self):
         # TODO: add documentation
@@ -472,7 +482,7 @@ class CarAdder:
                             the cars from the  main car-database.
         """
         if self.submit_button_:
-            if self.__validate_data() != -1:
+            if self.__validate_data():
                 append_data(car_data, CAR_DATABASE, self.__data_to_dict())
                 st.cache_data.clear()
 
