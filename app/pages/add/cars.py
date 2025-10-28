@@ -124,7 +124,7 @@ class CarAdder:
 
     def __validate_data(self):
         """
-        Validates that the introduced data is filled as expected.
+        Method that validates that the introduced data is filled as expected.
 
         Returns:
             successfull(bool):  True if the validation runned successfully
@@ -180,7 +180,13 @@ class CarAdder:
         return successfull
 
     def __data_to_dict(self):
-        # TODO: add documentation
+        """
+        Method that saves the class atributes in a dictionary variable.
+
+        Returns:
+            data(dict): Dictionary that contains all the class atributes data. Used
+                        to save the data into the database csv.
+        """
         return {
             # Car characteristics
             ID: self.unique_code_,
@@ -459,7 +465,8 @@ class CarAdder:
             row4 = st.columns([1, 4, 1, 4, 1])
             self.input_lawyer_ = row4[1].selectbox(
                 '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
-                [SELECT_FILTER] + sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
+                [SELECT_FILTER] +
+                sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
                 key=self.key_ + CAR_INPUT_LAWYER
             )
             self.input_tax_value_ = row4[3].number_input(
