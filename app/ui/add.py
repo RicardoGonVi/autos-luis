@@ -2,13 +2,13 @@ import streamlit as st
 
 from constants.constants import (
     CAR_TYPES_DATABASE,
-    AUTOS_LUIS_DATABASE,
+    GENERAL_OPTIONS_DATABASE,
     CAR_TRANSMISSIONS_DATABASE,
     PERSONS_DATABASE,
     CAR_DATABASE
 )
 from database.database import load_database
-from core.add.cars import *
+from core.add.cars import CarAdder
 from utils.utils import make_tabs
 
 
@@ -18,13 +18,14 @@ def add_car():
     """
     data_adder = CarAdder("CarAdder_")
     car_type_data = load_database(CAR_TYPES_DATABASE)
-    autos_luis_data = load_database(AUTOS_LUIS_DATABASE)
+    general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
     car_transmission_data = load_database(CAR_TRANSMISSIONS_DATABASE)
     person_data = load_database(PERSONS_DATABASE)
     car_data = load_database(CAR_DATABASE)
 
-    data_adder.get_data(car_type_data, autos_luis_data,
+    data_adder.get_data(car_type_data, general_options_data,
                         car_transmission_data, person_data, car_data)
+    data_adder.add_data(car_data, CAR_DATABASE)
 
 
 # Main page content
