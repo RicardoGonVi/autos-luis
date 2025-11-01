@@ -68,7 +68,6 @@ from constants.constants import (
     CAR_ID_SIZE,
 )
 from core.add.adder import Adder
-from database.database import append_data
 from utils.utils import get_current_year, get_years_range
 
 
@@ -523,7 +522,7 @@ class CarAdder(Adder):
         self.__get_non_obligatory_data(
             general_options_data,
             person_data)
-        self.submit_button_ = st.button(ADD)
+        self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
 
     def add_data(self, current_data, csv_path):

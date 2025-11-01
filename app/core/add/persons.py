@@ -1,11 +1,10 @@
 import streamlit as st
 
 from constants.constants import (ADD)
-from database.database import append_data
-from typing import final
+from core.add.adder import Adder
 
 
-class Adder:
+class PersonAdder(Adder):
     """
     Class that adds the data filled by the user into a database.
 
@@ -18,7 +17,7 @@ class Adder:
     DATABASE = "path/to/database.csv"
 
     data = load_database(DATABASE)
-    adder = Adder("adder_example")
+    adder = PersonAdder("adder_example")
 
     adder.get_data()
     adder.add_data(data, DATABASE)
@@ -32,9 +31,7 @@ class Adder:
             key(str):       Key unique-name used in streamlit gears to
                             differentiate them.
         """
-        # Streamlit class atributes
-        self.key_ = key
-        self.submit_button_ = False
+        super().__init__(key)
 
     def _validate_data(self) -> bool:
         """
@@ -87,7 +84,6 @@ class Adder:
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
 
-    @final
     def add_data(self, current_data, csv_path):
         """
         Method that appends the new_data into the current_data database and saves
@@ -97,12 +93,4 @@ class Adder:
             current_data(pd):   Pandas variable that contains the current database.
             csv_path(str):      Path to csv file to be updated.
         """
-        # TODO: add a check so that get_data() is ran before
-        new_data = self._data_to_dict()
-
-        if self.submit_button_:
-            if self._validate_data():
-                with st.spinner("Añadiendo datos", show_time=True):
-                    append_data(current_data, csv_path, new_data)
-                    st.cache_data.clear()
-                st.success("!Datos agregados!")
+        return super().add_data(current_data, csv_path)

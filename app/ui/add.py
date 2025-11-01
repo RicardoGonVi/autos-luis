@@ -7,9 +7,21 @@ from constants.constants import (
     PERSONS_DATABASE,
     CAR_DATABASE
 )
-from database.database import load_database
 from core.add.cars import CarAdder
+from core.add.persons import PersonAdder
+from database.database import load_database
 from utils.utils import make_tabs
+
+
+def add_person():
+    """
+    Tabs that adds a car into the main car-database by using streamlit widgets.
+    """
+    data_adder = PersonAdder("PersonAdder_")
+    persons_data = load_database(PERSONS_DATABASE)
+
+    data_adder.get_data()
+    data_adder.add_data(persons_data, PERSONS_DATABASE)
 
 
 def add_car():
@@ -47,7 +59,7 @@ def main():
         add_car()
 
     with persons_tab:
-        None
+        add_person()
 
     with garages_tab:
         None
