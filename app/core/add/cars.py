@@ -19,7 +19,7 @@ from constants.constants import (
     NAME,
     CAR_OWNER,
     ADD,
-    ID,
+    ID_CODE,
     CAR_SELL_DATE,
     CAR_INPUT_PUBLIC_DEED_TYPE,
     CAR_INPUT_PUBLIC_DEED_NUMBER,
@@ -200,7 +200,7 @@ class CarAdder(Adder):
         """
         return {
             # Car characteristics
-            ID: self.unique_code_,
+            ID_CODE: self.unique_code_,
             CAR_OWNER: self.owner_,
             CAR_BRAND: self.brand_,
             CAR_MODEL: self.model_,

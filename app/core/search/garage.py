@@ -32,7 +32,7 @@ class GarageFilter:
         )
         self.id_ = row1[2].text_input(
             '🪪 ' + ENTERPRISE_ID,
-            key=self.key_ + "id"
+            key=self.key_ + "ID_CODE"
         )
         self.phone_ = row1[4].text_input(
             '📞 ' + PHONE,

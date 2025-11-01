@@ -64,7 +64,7 @@ class PersonAdder(Adder):
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
         """
-        # Add logic
+        # TODO: if person id len = 9, if juridica len = 10
 
     def __get_non_obligatory_data(self):
         """

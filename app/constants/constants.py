@@ -9,7 +9,7 @@ PROVINCE = "Provincia"
 DISTRICT = "Distrito"
 CANTON = "Cantón"
 NAME = "Nombre"
-ID = "Código"
+ID_CODE = "Código"
 CUSTOMER = "Cliente"
 AUTOS_LUIS_NAME = "Autos Luis"
 ANC_NAME = "ANC"
@@ -51,7 +51,7 @@ SPECIFIC_FILTERS_HELP_TEXT = "Seleccione en caso de requerir filtros más espec�
 
 # Persons filters
 PERSON_TYPE = "Tipo de persona"
-PERSON_ID = "Número de identificación"
+PERSON_ID = "Identificación"
 CONTACT_MEDIA = "Medio de contacto"
 
 # Garage filters

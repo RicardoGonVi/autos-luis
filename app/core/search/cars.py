@@ -7,7 +7,7 @@ from constants.constants import (
     CAR_SELL_BASE_PRICE,
     MILLION,
     CAR_ID,
-    ID,
+    ID_CODE,
     CAR_BRAND,
     CAR_MODEL,
     CAR_COLOR,
@@ -56,7 +56,7 @@ class CarFilter:
 
         row2 = st.columns([4, 1, 4])
         self.car_id_ = row2[0].text_input("🚗 " + CAR_ID)
-        self.id_ = row2[2].text_input("#️⃣" + ID + " (Autos Luis)")
+        self.id_ = row2[2].text_input("#️⃣" + ID_CODE + " (Autos Luis)")
 
     def __specific_filter(self, data):
         with st.form("CarsSpecificFilters"):
@@ -132,7 +132,7 @@ class CarFilter:
                 self.car_id_, case=False, na=False)]
 
         if self.id_:
-            filtered_data = filtered_data[filtered_data[ID].str.contains(
+            filtered_data = filtered_data[filtered_data[ID_CODE].str.contains(
                 self.id_, case=False, na=False)]
 
         # Specific filters

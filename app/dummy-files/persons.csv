@@ -1,35 +1,36 @@
-Nombre;Correo;Teléfono;Número de identificación;Provincia;Cantón;Distrito;Medio de contacto favorito;Tipo de persona;Medio de contacto
-Laura Jiménez Solís;laura.jimenez@bufetecr.com;8887-4521;1-1234-5678;San José;Escazú;San Rafael;Correo;Abogado;Facebook
-Andrés Chavarría Quesada;andres.chavarria@abogadoscr.com;8741-2234;1-2345-6789;San José;Montes de Oca;Sabanilla;Teléfono;Abogado;Celular
-María Fernanda Cordero;mfernanda.cordero@juriscr.com;8923-1100;2-1122-3344;Alajuela;Alajuela;San José;Correo;Abogado;Instagram
-José Pablo Vargas;jp.vargas@lexcr.com;6054-9822;2-2233-4455;Alajuela;San Ramón;San Juan;Teléfono;Abogado;Correo
-Daniela Rojas Castro;daniela.rojas@bufetecr.com;7223-5611;3-3344-5566;Cartago;Cartago;Oriental;Correo;Abogado;Instagram
-Carlos Méndez Hernández;carlos.mendez@abogadoscr.com;7011-9832;3-4455-6677;Cartago;La Unión;Tres Ríos;Teléfono;Abogado;Facebook
-Adriana López Porras;adriana.lopez@juriscr.com;8402-4410;4-5566-7788;Heredia;Heredia;Mercedes;Correo;Abogado;Correo
-Esteban Rodríguez Mora;esteban.rodriguez@lexcr.com;8991-6622;4-6677-8899;Heredia;Belén;San Antonio;Teléfono;Abogado;Instagram
-Natalia Araya Guzmán;natalia.araya@bufetecr.com;8355-1122;5-7788-9900;Guanacaste;Liberia;Mayorga;Correo;Abogado;Celular
-Mauricio Castro León;mauricio.castro@abogadoscr.com;8812-3434;5-8899-0011;Guanacaste;Santa Cruz;Tamarindo;Teléfono;Abogado;Facebook
-Valeria Sánchez Alpízar;valeria.sanchez@juriscr.com;7204-6677;6-9900-1122;Puntarenas;Puntarenas;Barrio El Carmen;Correo;Abogado;WhatsApp
-Ricardo Ureña Morales;ricardo.urena@lexcr.com;8976-5521;6-1011-2233;Puntarenas;Quepos;Parrita;Teléfono;Abogado;Instagram
-Carolina Pacheco Villalobos;carolina.pacheco@bufetecr.com;8312-7788;7-1122-3344;Limón;Limón;Barrio Roosevelt;Correo;Abogado;WhatsApp
-Luis Diego Brenes;luis.brenes@abogadoscr.com;8890-4490;7-2233-4455;Limón;Pococí;Guápiles;Teléfono;Abogado;WhatsApp
-Paola Mora Aguilar;paola.mora@juriscr.com;8686-5500;8-3344-5566;San José;Desamparados;San Miguel;Correo;Abogado;Correo
-Felipe Hernández Campos;felipe.hernandez@lexcr.com;8441-2930;8-4455-6677;San José;Goicoechea;Guadalupe;Teléfono;Abogado;Facebook
-Andrea Salazar Jiménez;andrea.salazar@bufetecr.com;8901-7722;9-5566-7788;Alajuela;Grecia;San Roque;Correo;Abogado;Celular
-Javier Castillo Vargas;javier.castillo@abogadoscr.com;8533-6644;9-6677-8899;Alajuela;Atenas;Mercedes;Teléfono;Abogado;Instagram
-Melissa Torres Calderón;melissa.torres@juriscr.com;8774-2231;10-7788-9900;Heredia;Santo Domingo;Paracito;Correo;Abogado;Correo
-Rodrigo Soto Alfaro;rodrigo.soto@lexcr.com;8651-9944;10-8899-0011;Heredia;Barva;San Pablo;Teléfono;Abogado;Facebook
-Ricardo González;ricardo.gonzalez@noesreal.com;8465-7788;7-1122-3344;Limón;Limón;Valle La Estrella;Correo;Cliente;WhatsApp
-Sofía Vargas Méndez;sofia.vargas@clientescr.com;8877-3344;11-2233-4455;San José;Pavas;Pavas;Correo;Cliente;Instagram
-Héctor Arias López;hector.arias@clientescr.com;8222-5566;12-3344-5566;Alajuela;San Carlos;La Fortuna;Teléfono;Cliente;WhatsApp
-Camila Pérez Rojas;camila.perez@clientescr.com;8111-7788;13-4455-6677;Cartago;Paraíso;Santiago;Correo;Cliente;Correo
-Diego Morales Solano;diego.morales@clientescr.com;8333-9900;14-5566-7788;Heredia;San Rafael;Santiago;Teléfono;Cliente;WhatsApp
-Fernanda Salas Castro;fernanda.salas@clientescr.com;8444-1122;15-6677-8899;Guanacaste;Nicoya;Nosara;Correo;Cliente;Correo
-Mateo Jiménez Herrera;mateo.jimenez@clientescr.com;8555-2233;16-7788-9900;Puntarenas;Esparza;Caldera;Teléfono;Cliente;Celular
-Isabella Chacón Vargas;isabella.chacon@clientescr.com;8666-3344;17-8899-0011;Limón;Talamanca;Cahuita;Correo;Cliente;Facebook
-Santiago Rojas Solís;santiago.rojas@clientescr.com;8777-4455;18-9900-1122;San José;Desamparados;San Rafael;Teléfono;Cliente;Celular
-Valentina Castro Alfaro;valentina.castro@clientescr.com;8888-5566;19-1011-2233;Alajuela;Grecia;Tacares;Correo;Cliente;Celular
-Julián Rodríguez Quesada;julian.rodriguez@clientescr.com;8999-6677;20-1122-3344;Cartago;Cartago;Occidental;Teléfono;Cliente;Celular
-Mariana Salazar Herrera;mariana.salazar@clientescr.com;8000-7788;21-2233-4455;Heredia;Barva;Santa Lucía;Correo;Cliente;Facebook
-Alejandro Vargas López;alejandro.vargas@clientescr.com;8111-8899;22-3344-5566;Guanacaste;Liberia;Nacascolo;Teléfono;Cliente;WhatsApp
-Camila Rojas Arias;camila.rojas@clientescr.com;8222-9900;23-4455-6677;Puntarenas;Osa;Sierpe;Correo;Cliente;WhatsApp
+Nombre;Tipo de identificación;Identificación;Teléfono;Correo;Provincia;Cantón;Distrito;Medio de contacto favorito;Tipo de persona
+Laura Jiménez Solís;F�sica;112345678;8887-4521;laura.jimenez@bufetecr.com;San José;Escazú;San Rafael;Correo;Abogado
+Andrés Chavarría Quesada;F�sica;123456789;8741-2234;andres.chavarria@abogadoscr.com;San José;Montes de Oca;Sabanilla;Teléfono;Abogado
+María Fernanda Cordero;F�sica;211223344;8923-1100;mfernanda.cordero@juriscr.com;Alajuela;Alajuela;San José;Correo;Abogado
+José Pablo Vargas;F�sica;222334455;6054-9822;jp.vargas@lexcr.com;Alajuela;San Ramón;San Juan;Teléfono;Abogado
+Daniela Rojas Castro;F�sica;333445566;7223-5611;daniela.rojas@bufetecr.com;Cartago;Cartago;Oriental;Correo;Abogado
+Carlos Méndez Hernández;F�sica;344556677;7011-9832;carlos.mendez@abogadoscr.com;Cartago;La Unión;Tres Ríos;Teléfono;Abogado
+Adriana López Porras;F�sica;455667788;8402-4410;adriana.lopez@juriscr.com;Heredia;Heredia;Mercedes;Correo;Abogado
+Esteban Rodríguez Mora;F�sica;466778899;8991-6622;esteban.rodriguez@lexcr.com;Heredia;Belén;San Antonio;Teléfono;Abogado
+Natalia Araya Guzmán;F�sica;577889900;8355-1122;natalia.araya@bufetecr.com;Guanacaste;Liberia;Mayorga;Correo;Abogado
+Mauricio Castro León;F�sica;588990011;8812-3434;mauricio.castro@abogadoscr.com;Guanacaste;Santa Cruz;Tamarindo;Facebook;Abogado
+Valeria Sánchez Alpízar;F�sica;699001122;7204-6677;valeria.sanchez@juriscr.com;Puntarenas;Puntarenas;Barrio El Carmen;Teléfono;Abogado
+Ricardo Ureña Morales;F�sica;610112233;8976-5521;ricardo.urena@lexcr.com;Puntarenas;Quepos;Parrita;Instagram;Abogado
+Carolina Pacheco Villalobos;F�sica;711223344;8312-7788;carolina.pacheco@bufetecr.com;Limón;Limón;Barrio Roosevelt;Correo;Abogado
+Luis Diego Brenes;F�sica;722334455;8890-4490;luis.brenes@abogadoscr.com;Limón;Pococí;Guápiles;Instagram;Abogado
+Paola Mora Aguilar;F�sica;833445566;8686-5500;paola.mora@juriscr.com;San José;Desamparados;San Miguel;Facebook;Abogado
+Felipe Hernández Campos;F�sica;844556677;8441-2930;felipe.hernandez@lexcr.com;San José;Goicoechea;Guadalupe;Correo;Abogado
+Andrea Salazar Jiménez;F�sica;955667788;8901-7722;andrea.salazar@bufetecr.com;Alajuela;Grecia;San Roque;Instagram;Abogado
+Javier Castillo Vargas;F�sica;966778899;8533-6644;javier.castillo@abogadoscr.com;Alajuela;Atenas;Mercedes;Teléfono;Abogado
+Melissa Torres Calderón;F�sica;107788990;8774-2231;melissa.torres@juriscr.com;Heredia;Santo Domingo;Paracito;Facebook;Abogado
+Rodrigo Soto Alfaro;F�sica;108899001;8651-9944;rodrigo.soto@lexcr.com;Heredia;Barva;San Pablo;WhatsApp;Abogado
+Ricardo González;F�sica;711223344;8465-7788;ricardo.gonzalez@noesreal.com;Limón;Limón;Valle La Estrella;Instagram;Cliente
+Sofía Vargas Méndez;F�sica;112233445;8877-3344;sofia.vargas@clientescr.com;San José;Pavas;Pavas;WhatsApp;Cliente
+Héctor Arias López;F�sica;123344556;8222-5566;hector.arias@clientescr.com;Alajuela;San Carlos;La Fortuna;WhatsApp;Cliente
+Camila Pérez Rojas;F�sica;134455667;8111-7788;camila.perez@clientescr.com;Cartago;Paraíso;Santiago;Correo;Cliente
+Diego Morales Solano;F�sica;145566778;8333-9900;diego.morales@clientescr.com;Heredia;San Rafael;Santiago;Facebook;Cliente
+Fernanda Salas Castro;F�sica;156677889;8444-1122;fernanda.salas@clientescr.com;Guanacaste;Nicoya;Nosara;Teléfono;Cliente
+Mateo Jiménez Herrera;F�sica;167788990;8555-2233;mateo.jimenez@clientescr.com;Puntarenas;Esparza;Caldera;Instagram;Cliente
+Isabella Chacón Vargas;F�sica;178899001;8666-3344;isabella.chacon@clientescr.com;Limón;Talamanca;Cahuita;Correo;Cliente
+Santiago Rojas Solís;F�sica;189900112;8777-4455;santiago.rojas@clientescr.com;San José;Desamparados;San Rafael;Facebook;Cliente
+Valentina Castro Alfaro;F�sica;191011223;8888-5566;valentina.castro@clientescr.com;Alajuela;Grecia;Tacares;WhatsApp;Cliente
+Julián Rodríguez Quesada;F�sica;201122334;8999-6677;julian.rodriguez@clientescr.com;Cartago;Cartago;Occidental;Instagram;Cliente
+Mariana Salazar Herrera;F�sica;212233445;8000-7788;mariana.salazar@clientescr.com;Heredia;Barva;Santa Lucía;WhatsApp;Cliente
+Alejandro Vargas López;F�sica;223344556;8111-8899;alejandro.vargas@clientescr.com;Guanacaste;Liberia;Nacascolo;Correo;Cliente
+Camila Rojas Arias;F�sica;234455667;8222-9900;camila.rojas@clientescr.com;Puntarenas;Osa;Sierpe;WhatsApp;Cliente
+Asociaci�n Ricardo Gonz�lez;Jur�dica;1901180848;84657186;ragv@gmail.com;Heredia;;;Correo;Cliente
