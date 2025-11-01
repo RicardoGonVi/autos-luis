@@ -101,5 +101,7 @@ class Adder:
 
         if self.submit_button_:
             if self._validate_data():
-                append_data(current_data, csv_path, new_data)
-                st.cache_data.clear()
+                with st.spinner("Añadiendo datos", show_time=True):
+                    append_data(current_data, csv_path, new_data)
+                    st.cache_data.clear()
+                st.success("!Datos agregados!")
