@@ -1,6 +1,14 @@
 import streamlit as st
 
-from constants.constants import (ADD)
+from constants.constants import (
+    BLANK,
+    SELECT_FILTER,
+    ADD,
+    NAME,
+    ID_TYPE,
+    ID,
+    PHYSICAL_ID,
+)
 from core.add.adder import Adder
 
 
@@ -33,6 +41,10 @@ class PersonAdder(Adder):
         """
         super().__init__(key)
 
+        self.name_ = BLANK
+        self.id_type_ = BLANK
+        self.id_ = BLANK
+
     def _validate_data(self) -> bool:
         """
         Method that validates that the introduced data is filled as expected.
@@ -59,12 +71,33 @@ class PersonAdder(Adder):
 
         return {}
 
-    def __get_obligatory_data(self):
+    def __get_obligatory_data(self, general_options_data):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
         """
         # TODO: if person id len = 9, if juridica len = 10
+        with st.container(border=True):
+            # First row
+            row0 = st.columns([4, 1, 4, 1, 4])
+            self.name_ = row0[0].text_input(
+                "👩🏽🧑🏼 " + NAME,
+                key=self.key_ + NAME
+            )
+            self.id_type_ = row0[2].selectbox(
+                "🪪 " + ID_TYPE,
+                sorted(general_options_data[ID_TYPE].dropna()),
+                key=self.key_ + ID_TYPE
+            )
+            if self.id_type_ == PHYSICAL_ID:
+                id_size = 9
+            else:
+                id_size = 10
+            self.id_ = row0[4].text_input(
+                "🔢 " + ID,
+                max_chars=id_size,
+                key=self.key_ + ID
+            )
 
     def __get_non_obligatory_data(self):
         """
@@ -73,12 +106,12 @@ class PersonAdder(Adder):
         """
         # Add logic
 
-    def get_data(self):
+    def get_data(self, general_options_data):
         """
         Public method that gets the data from the user.
         """
         st.markdown('#### Datos obligatorios')
-        self.__get_obligatory_data()
+        self.__get_obligatory_data(general_options_data)
         st.markdown('#### Datos no obligatorios')
         self.__get_non_obligatory_data()
         self.submit_button_ = st.button(ADD, key=self.key_)

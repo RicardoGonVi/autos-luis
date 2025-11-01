@@ -14,6 +14,8 @@ CUSTOMER = "Cliente"
 AUTOS_LUIS_NAME = "Autos Luis"
 ANC_NAME = "ANC"
 LAWYER = "Abogado"
+ID = "Identificación"
+PHYSICAL_ID = "Física"
 
 # Numbers
 MILLION = 1000000
@@ -73,6 +75,10 @@ CAR_INPUT_TAX_VALUE = "Valor fiscal compra"
 CAR_RENT_UNIT = "Unidad de renta"
 CAR_STATUS = "Estado"
 CAR_SELL_BASE_PRICE = "Precio base de venta"
+
+# Person adders
+ID_TYPE = "Tipo de identificación"
+
 
 # Car sellers
 CAR_SELL_DATE = "Fecha de venta"
