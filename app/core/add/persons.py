@@ -90,8 +90,17 @@ class PersonAdder(Adder):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
+
+        Uses the general_options_data and locations_data datasets to show the options in the
+        selectboxes, so the user doesn't have to type them manually. If any other option is
+        needed, it needs to be added manually to the datasets.
+
+        Args:
+            general_options_data(pd):   Pandas variable that contains a dataset with
+                                        all the general options.
+            locations_data(pd):         Pandas variable that contains a dataset with
+                                        all the type of locations available in Costa Rica.
         """
-        # TODO: if person id len = 9, if juridica len = 10
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
