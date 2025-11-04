@@ -5,7 +5,8 @@ from constants.constants import (
     GENERAL_OPTIONS_DATABASE,
     CAR_TRANSMISSIONS_DATABASE,
     PERSONS_DATABASE,
-    CAR_DATABASE
+    CAR_DATABASE,
+    LOCATIONS_DATABASE,
 )
 from core.add.cars import CarAdder
 from core.add.persons import PersonAdder
@@ -19,9 +20,10 @@ def add_person():
     """
     data_adder = PersonAdder("PersonAdder_")
     general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
+    locations_data = load_database(LOCATIONS_DATABASE)
     persons_data = load_database(PERSONS_DATABASE)
 
-    data_adder.get_data(general_options_data)
+    data_adder.get_data(general_options_data, locations_data)
     data_adder.add_data(persons_data, PERSONS_DATABASE)
 
 

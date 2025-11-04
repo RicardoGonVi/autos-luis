@@ -8,6 +8,14 @@ from constants.constants import (
     ID_TYPE,
     ID,
     PHYSICAL_ID,
+    PHONE,
+    MAX_PHONE_LEN,
+    MAIL,
+    PERSON_TYPE,
+    PROVINCE,
+    CANTON,
+    DISTRICT,
+    CONTACT_MEDIA,
 )
 from core.add.adder import Adder
 
@@ -44,6 +52,13 @@ class PersonAdder(Adder):
         self.name_ = BLANK
         self.id_type_ = BLANK
         self.id_ = BLANK
+        self.phone_ = BLANK
+        self.mail_ = BLANK
+        self.type_ = BLANK
+        self.province_ = BLANK
+        self.canton_ = BLANK
+        self.district_ = BLANK
+        self.contact_media_ = BLANK
 
     def _validate_data(self) -> bool:
         """
@@ -55,7 +70,7 @@ class PersonAdder(Adder):
         """
         successfull = True
 
-        # Add logic
+        # TODO: validate phone number len
 
         return successfull
 
@@ -71,7 +86,7 @@ class PersonAdder(Adder):
 
         return {}
 
-    def __get_obligatory_data(self, general_options_data):
+    def __get_obligatory_data(self, general_options_data, locations_data):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
@@ -99,21 +114,58 @@ class PersonAdder(Adder):
                 key=self.key_ + ID
             )
 
-    def __get_non_obligatory_data(self):
-        """
-        Method that uses streamlit widgets to get the non-obligatory data from the user
-        and saves them into the class atributes.
-        """
-        # Add logic
+            # Second row
+            row1 = st.columns([4, 1, 4, 1, 4])
+            self.phone_ = row1[0].number_input(
+                "📱 " + PHONE,
+                step=1,
+                value=None,
+                key=self.key_ + PHONE
+            )
+            self.mail_ = row1[2].text_input(
+                "📧 " + MAIL,
+                key=self.key_ + MAIL
+            )
+            self.type_ = row1[4].selectbox(
+                "👩🏻‍⚖️🤵🏻 " + PERSON_TYPE,
+                general_options_data[PERSON_TYPE].dropna(),
+                key=self.key_ + PERSON_TYPE
+            )
 
-    def get_data(self, general_options_data):
+            # Third row
+            row2 = st.columns([4, 1, 4, 1, 4])
+            self.province_ = row2[0].selectbox(
+                "📍 " + PROVINCE,
+                [SELECT_FILTER] + sorted(locations_data[PROVINCE].unique()),
+                key=self.key_ + PROVINCE
+            )
+            self.canton_ = row2[2].selectbox(
+                "🏙️ " + CANTON,
+                [SELECT_FILTER] + sorted(locations_data[locations_data[PROVINCE]
+                                         == self.province_][CANTON].unique()),
+                key=self.key_ + CANTON
+            )
+            self.district_ = row2[4].selectbox(
+                "🗺️ " + DISTRICT,
+                [SELECT_FILTER] + sorted(locations_data[locations_data[CANTON]
+                                         == self.canton_][DISTRICT].unique()),
+                key=self.key_ + DISTRICT
+            )
+
+            # Fourth row
+            row3 = st.columns([4, 1, 4, 1, 4])
+            self.contact_media_ = row3[2].selectbox(
+                "📧📱🌐 " + CONTACT_MEDIA,
+                general_options_data[CONTACT_MEDIA].dropna(),
+                key=self.key_ + CONTACT_MEDIA
+            )
+
+    def get_data(self, general_options_data, locations_data):
         """
         Public method that gets the data from the user.
         """
         st.markdown('#### Datos obligatorios')
-        self.__get_obligatory_data(general_options_data)
-        st.markdown('#### Datos no obligatorios')
-        self.__get_non_obligatory_data()
+        self.__get_obligatory_data(general_options_data, locations_data)
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
 
