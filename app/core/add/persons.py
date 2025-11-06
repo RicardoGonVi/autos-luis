@@ -64,7 +64,7 @@ class PersonAdder(Adder):
         """
         successfull = True
 
-        if self.person_.type == PHYSICAL_ID:
+        if self.person_.id_type == PHYSICAL_ID:
             id_size = 9
         else:
             id_size = 10
@@ -128,7 +128,7 @@ class PersonAdder(Adder):
 
         return {
             NAME: self.person_.name,
-            ID_TYPE: self.person_.type,
+            ID_TYPE: self.person_.id_type,
             ID: self.person_.id,
             PHONE: self.person_.phone,
             MAIL: self.person_.mail,
@@ -161,12 +161,12 @@ class PersonAdder(Adder):
                 "👩🏽🧑🏼 " + NAME,
                 key=self.key_ + NAME
             )
-            self.person_.type = row0[2].selectbox(
+            self.person_.id_type = row0[2].selectbox(
                 "🪪 " + ID_TYPE,
                 sorted(general_options_data[ID_TYPE].dropna()),
                 key=self.key_ + ID_TYPE
             )
-            if self.person_.type == PHYSICAL_ID:
+            if self.person_.id_type == PHYSICAL_ID:
                 id_size = 9
             else:
                 id_size = 10
