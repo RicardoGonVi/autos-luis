@@ -69,7 +69,7 @@ from constants.constants import (
     ZERO,
 )
 from core.add.adder import Adder
-from utils.utils import get_current_year, get_years_range
+from utils.utils import get_current_year, get_years_range, Car
 
 
 class CarAdder(Adder):
@@ -102,16 +102,7 @@ class CarAdder(Adder):
         super().__init__(key)
 
         # Car characteristics
-        self.unique_code_ = BLANK
-        self.owner_ = BLANK
-        self.brand_ = BLANK
-        self.model_ = BLANK
-        self.year_ = BLANK
-        self.color_ = BLANK
-        self.id_ = BLANK
-        self.vin_id_ = BLANK
-        self.dua_id_ = BLANK
-        self.comment_ = BLANK
+        self.car_ = Car()
 
         # Buying/input characteristics
         self.input_date_ = BLANK
@@ -144,24 +135,23 @@ class CarAdder(Adder):
         """
         successfull = True
 
-        self.id_ = self.id_.upper()
-        if len(self.id_) != CAR_ID_SIZE:
+        if len(self.car_.id) != CAR_ID_SIZE:
             st.error(f"La placa debe de contener {CAR_ID_SIZE} dígitos")
             successfull = False
 
-        elif self.brand_ == SELECT_FILTER:
+        elif self.car_.brand == SELECT_FILTER:
             st.error("Seleccione la marca del vehículo")
             successfull = False
 
-        elif self.model_ == SELECT_FILTER:
+        elif self.car_.model == SELECT_FILTER:
             st.error("Seleccione el modelo del vehículo")
             successfull = False
 
-        elif self.year_ == SELECT_FILTER:
+        elif self.car_.year == SELECT_FILTER:
             st.error("Seleccione el año del vehículo")
             successfull = False
 
-        elif self.color_ == SELECT_FILTER:
+        elif self.car_.color == SELECT_FILTER:
             st.error("Seleccione el color del vehículo")
             successfull = False
 
@@ -201,16 +191,16 @@ class CarAdder(Adder):
         """
         return {
             # Car characteristics
-            ID_CODE: self.unique_code_,
-            CAR_OWNER: self.owner_,
-            CAR_BRAND: self.brand_,
-            CAR_MODEL: self.model_,
-            CAR_YEAR: self.year_,
-            CAR_COLOR: self.color_,
-            CAR_ID: self.id_,
-            CAR_VIN_ID: self.vin_id_,
-            CAR_DUA_ID: self.dua_id_,
-            CAR_INPUT_COMMENT: self.comment_,
+            ID_CODE: self.car_.unique_code,
+            CAR_OWNER: self.car_.owner,
+            CAR_BRAND: self.car_.brand,
+            CAR_MODEL: self.car_.model,
+            CAR_YEAR: self.car_.year,
+            CAR_COLOR: self.car_.color,
+            CAR_ID: self.car_.id,
+            CAR_VIN_ID: self.car_.vin_id,
+            CAR_DUA_ID: self.car_.dua_id,
+            CAR_INPUT_COMMENT: self.car_.comment,
 
             # Buying/input characteristics
             CAR_INPUT_DATE: self.input_date_,
@@ -292,7 +282,7 @@ class CarAdder(Adder):
             car_data(pd):               Pandas variable that contains a database with
                                         all the cars from a car-database.
         """
-        self.unique_code_ = "AL" + str(len(car_data) + 1)
+        self.car_.unique_code = "AL" + str(len(car_data) + 1)
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
         with st.container(border=True):
@@ -303,31 +293,31 @@ class CarAdder(Adder):
                 format=DATE_FORMAT,
                 key=self.key_ + CAR_INPUT_DATE
             )
-            self.owner_ = row0[2].selectbox(
+            self.car_.owner = row0[2].selectbox(
                 "👩🏽🧑🏼 " + CAR_OWNER,
                 [AUTOS_LUIS_NAME, ANC_NAME] + sorted(person_data[NAME]),
                 key=self.key_ + NAME
             )
-            self.id_ = row0[4].text_input(
+            self.car_.id = row0[4].text_input(
                 "🔢 " + CAR_ID, max_chars=CAR_ID_SIZE,
                 key=self.key_ + CAR_ID
-            )
+            ).upper()
 
             # Second row
             row1 = st.columns([4, 1, 4, 1, 4])
-            self.brand_ = row1[0].selectbox(
+            self.car_.brand = row1[0].selectbox(
                 '🚓 ' + CAR_BRAND,
                 [SELECT_FILTER] + sorted(car_type_data[CAR_BRAND].unique()),
                 key=self.key_ + CAR_BRAND,
             )
-            self.model_ = row1[2].selectbox(
+            self.car_.model = row1[2].selectbox(
                 '🛻 ' + CAR_MODEL,
                 [SELECT_FILTER] + sorted(car_type_data[car_type_data[CAR_BRAND]
-                                                       == self.brand_][CAR_MODEL].unique()),
+                                                       == self.car_.brand][CAR_MODEL].unique()),
                 accept_new_options=True,
                 key=self.key_ + CAR_MODEL
             )
-            self.year_ = row1[4].selectbox(
+            self.car_.year = row1[4].selectbox(
                 "📅 " + CAR_YEAR,
                 [SELECT_FILTER] + sorted(years, reverse=True),
                 key=self.key_ + CAR_YEAR,
@@ -335,7 +325,7 @@ class CarAdder(Adder):
 
             # Third row
             row2 = st.columns([4, 1, 4, 1, 4])
-            self.color_ = row2[0].selectbox(
+            self.car_.color = row2[0].selectbox(
                 "🌈 " +
                 CAR_COLOR,
                 [SELECT_FILTER] +
@@ -402,14 +392,14 @@ class CarAdder(Adder):
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
-            self.vin_id_ = row0[0].text_input(
+            self.car_.vin_id = row0[0].text_input(
                 "🔢 " + CAR_VIN_ID, max_chars=17,
                 key=self.key_ + CAR_VIN_ID
-            )
-            self.dua_id_ = row0[2].text_input(
+            ).upper()
+            self.car_.dua_id = row0[2].text_input(
                 "🔢 " + CAR_DUA_ID, max_chars=18,
                 key=self.key_ + CAR_DUA_ID
-            )
+            ).upper()
             self.rent_unit_ = row0[4].selectbox(
                 '🛣️🚗 ' + CAR_RENT_UNIT,
                 [SELECT_FILTER] +
@@ -420,7 +410,7 @@ class CarAdder(Adder):
 
             # Second row
             row1 = st.columns([1])
-            self.comment_ = row1[0].text_area(
+            self.car_.comment = row1[0].text_area(
                 "✍🏽 " + CAR_INPUT_COMMENT,
                 key=self.key_ + CAR_INPUT_COMMENT
             )
@@ -454,7 +444,7 @@ class CarAdder(Adder):
             self.input_public_deed_number_ = row3[0].text_input(
                 "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
                 key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER
-            )
+            ).upper()
             self.input_transfer_fee_ = row3[2].number_input(
                 "💵 " + CAR_INPUT_TRANSFER_FEE,
                 step=1,

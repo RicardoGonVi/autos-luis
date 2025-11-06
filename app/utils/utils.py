@@ -47,3 +47,19 @@ class Person:
     type: str = ""
     phone: int = 0
     location: Location = field(default_factory=Location)
+
+
+@dataclass
+class Car:
+    # TODO: add documentation
+    unique_code: str = ""
+    id: int = 0
+    vin_id: int = 0
+    dua_id: int = 0
+    brand: str = ""
+    model: str = ""
+    year: int = 0
+    color: str = ""
+    status: str = ""
+    owner: Person = field(default_factory=Person)
+    comment: str = ""
