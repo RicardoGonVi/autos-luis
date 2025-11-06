@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import date
+from dataclasses import dataclass, field
 
 from constants.constants import INCLUDE_LAST
 
@@ -24,3 +25,25 @@ def make_tabs(*names):
     if len(names) == 1 and isinstance(names[0], (list, tuple)):
         names = names[0]
     return st.tabs(list(names))
+
+
+@dataclass
+class Location:
+    # TODO: add documentation
+    province: str = ""
+    canton: str = ""
+    district: str = ""
+    exact_location: str = ""
+
+
+@dataclass
+class Person:
+    # TODO: add documentation
+    contact_media: str = ""
+    id: str = ""
+    id_type: str = ""
+    name: str = ""
+    mail: str = ""
+    type: str = ""
+    phone: int = 0
+    location: Location = field(default_factory=Location)
