@@ -82,9 +82,19 @@ class PersonAdder(Adder):
             data(dict): Dictionary that contains all the class atributes data. Used
                         to save the data into a csv-database.
         """
-        # Add logic
 
-        return {}
+        return {
+            NAME: self.name_,
+            ID_TYPE: self.id_type_,
+            ID: self.id_,
+            PHONE: self.phone_,
+            MAIL: self.mail_,
+            PROVINCE: self.province_,
+            CANTON: self.canton_,
+            DISTRICT: self.district_,
+            CONTACT_MEDIA: self.contact_media_,
+            PERSON_TYPE: self.type_,
+        }
 
     def __get_obligatory_data(self, general_options_data, locations_data):
         """
