@@ -66,6 +66,7 @@ from constants.constants import (
     PERSON_TYPE,
     LAWYER,
     CAR_ID_SIZE,
+    ZERO,
 )
 from core.add.adder import Adder
 from utils.utils import get_current_year, get_years_range
@@ -180,7 +181,7 @@ class CarAdder(Adder):
             st.error("Introduzca el precio base de venta del vehículo")
             successfull = False
 
-        elif self.sell_base_price_ == 0:
+        elif self.sell_base_price_ == ZERO:
             st.error("El precio base de venta debe ser mayor a 0")
             successfull = False
 

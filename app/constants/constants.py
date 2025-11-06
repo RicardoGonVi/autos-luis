@@ -18,7 +18,9 @@ ID = "Identificación"
 PHYSICAL_ID = "Física"
 
 # Numbers
+ZERO = 0
 MILLION = 1000000
+MIN_PHONE_LEN = 4
 MAX_PHONE_LEN = 10
 INCLUDE_LAST = 1
 CAR_ID_SIZE = 6

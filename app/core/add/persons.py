@@ -9,6 +9,7 @@ from constants.constants import (
     ID,
     PHYSICAL_ID,
     PHONE,
+    MIN_PHONE_LEN,
     MAX_PHONE_LEN,
     MAIL,
     PERSON_TYPE,
@@ -16,6 +17,7 @@ from constants.constants import (
     CANTON,
     DISTRICT,
     CONTACT_MEDIA,
+    ZERO,
 )
 from core.add.adder import Adder
 
@@ -70,7 +72,56 @@ class PersonAdder(Adder):
         """
         successfull = True
 
-        # TODO: validate phone number len
+        if self.id_type_ == PHYSICAL_ID:
+            id_size = 9
+        else:
+            id_size = 10
+
+        if self.name_ == BLANK:
+            st.error(f"Digite el nombre de la persona a agregar")
+            successfull = False
+
+        elif self.id_ == BLANK:
+            st.error("Debe de introducir un número de identificación")
+            successfull = False
+
+        elif self.id_ == ZERO:
+            st.error(f"El número de identificación no puede ser {ZERO}")
+            successfull = False
+
+        elif len(self.id_) != id_size:
+            st.error(f"La identificación debe de tener {id_size} dígitos")
+            successfull = False
+
+        elif self.phone_ is None:
+            st.error("Introduzca un número de télefono")
+            successfull = False
+
+        elif len(str(self.phone_)) < MIN_PHONE_LEN:
+            st.error(
+                f"El télefono debe de tener {MIN_PHONE_LEN} o más dígitos")
+            successfull = False
+
+        elif len(str(self.phone_)) > MAX_PHONE_LEN:
+            st.error(
+                f"El télefono no puede tener más de {MAX_PHONE_LEN} dígitos")
+            successfull = False
+
+        elif self.mail_ == BLANK:
+            st.error("Introduzca un correo electrónico")
+            successfull = False
+
+        elif self.province_ == SELECT_FILTER:
+            st.error("Seleccione la provincia")
+            successfull = False
+
+        elif self.canton_ == SELECT_FILTER:
+            st.error("Seleccione el cantón")
+            successfull = False
+
+        elif self.district_ == SELECT_FILTER:
+            st.error("Seleccione el distrito")
+            successfull = False
 
         return successfull
 
