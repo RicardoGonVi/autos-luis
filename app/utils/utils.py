@@ -50,16 +50,40 @@ class Person:
 
 
 @dataclass
+class PurchaseInfo:
+    # TODO: add documentation
+    date: str = ""
+    price: int = 0
+
+
+@dataclass
+class CarRegistration:
+    # TODO: add documentation
+    owner: Person = field(default_factory=Person)
+    date: str = ""
+    origin: str = ""
+    rent_unit: str = ""
+    status: str = ""
+
+
+@dataclass
 class Car:
     # TODO: add documentation
+    # Codes
     unique_code: str = ""
     id: int = 0
     vin_id: int = 0
     dua_id: int = 0
+
+    # Characteristics
     brand: str = ""
     model: str = ""
     year: int = 0
     color: str = ""
-    status: str = ""
-    owner: Person = field(default_factory=Person)
     comment: str = ""
+
+    # Entry data
+    registration: CarRegistration = field(default_factory=CarRegistration)
+
+    # Purchase info
+    purchase: PurchaseInfo = field(default_factory=PurchaseInfo)
