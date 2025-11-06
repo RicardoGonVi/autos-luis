@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import date
+from datetime import date as d
 from dataclasses import dataclass, field
 
 from constants.constants import INCLUDE_LAST
@@ -14,7 +14,7 @@ def get_years_range(init, end):
 
 @st.cache_data(ttl=600)
 def get_current_year():
-    today = date.today()
+    today = d.today()
     current_year = today.year
 
     return current_year
@@ -52,18 +52,32 @@ class Person:
 @dataclass
 class PurchaseInfo:
     # TODO: add documentation
-    date: str = ""
+    date: d = None
     price: int = 0
+
+
+@dataclass
+class LegalInfo:
+    # TODO: add documentation
+    public_deed_type: str = ""
+    public_deed_date: d = None
+    public_deed_number: str = ""
+    transfer_fee: float = 0
+    tax_value: float = 0
+    lawyer: Person = field(default_factory=Person)
 
 
 @dataclass
 class CarRegistration:
     # TODO: add documentation
     owner: Person = field(default_factory=Person)
-    date: str = ""
+    date: d = None
     origin: str = ""
     rent_unit: str = ""
     status: str = ""
+
+    # Legal info
+    legal: LegalInfo = field(default_factory=LegalInfo)
 
 
 @dataclass

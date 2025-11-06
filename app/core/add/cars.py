@@ -104,14 +104,6 @@ class CarAdder(Adder):
         # Car characteristics
         self.car_ = Car()
 
-        # Buying/input characteristics
-        self.input_public_deed_type_ = BLANK
-        self.input_public_deed_number_ = BLANK
-        self.input_transfer_fee_ = BLANK
-        self.input_public_deed_date_ = BLANK
-        self.input_lawyer_ = BLANK
-        self.input_tax_value_ = BLANK
-
         # TODO: add to database
         self.transmision_ = BLANK
         self.motor_ = BLANK
@@ -202,12 +194,12 @@ class CarAdder(Adder):
             CAR_INPUT_ORIGIN: self.car_.registration.origin,
             CAR_BUY_DATE: self.car_.purchase.date,
             CAR_BUY_PRICE: self.car_.purchase.price,
-            CAR_INPUT_PUBLIC_DEED_TYPE: self.input_public_deed_type_,
-            CAR_INPUT_PUBLIC_DEED_NUMBER: self.input_public_deed_number_,
-            CAR_INPUT_TRANSFER_FEE: self.input_transfer_fee_,
-            CAR_INPUT_PUBLIC_DEED_DATE: self.input_public_deed_date_,
-            CAR_INPUT_LAWYER: self.input_lawyer_,
-            CAR_INPUT_TAX_VALUE: self.input_tax_value_,
+            CAR_INPUT_PUBLIC_DEED_TYPE: self.car_.registration.legal.public_deed_type,
+            CAR_INPUT_PUBLIC_DEED_NUMBER: self.car_.registration.legal.public_deed_number,
+            CAR_INPUT_TRANSFER_FEE: self.car_.registration.legal.transfer_fee,
+            CAR_INPUT_PUBLIC_DEED_DATE: self.car_.registration.legal.public_deed_date,
+            CAR_INPUT_LAWYER: self.car_.registration.legal.lawyer,
+            CAR_INPUT_TAX_VALUE: self.car_.registration.legal.tax_value,
             CAR_RENT_UNIT: self.car_.registration.rent_unit,
 
 
@@ -288,7 +280,7 @@ class CarAdder(Adder):
                 format=DATE_FORMAT,
                 key=self.key_ + CAR_INPUT_DATE
             )
-            self.car_.owner = row0[2].selectbox(
+            self.car_.registration.owner.name = row0[2].selectbox(
                 "👩🏽🧑🏼 " + CAR_OWNER,
                 [AUTOS_LUIS_NAME, ANC_NAME] + sorted(person_data[NAME]),
                 key=self.key_ + NAME
@@ -424,7 +416,7 @@ class CarAdder(Adder):
                 value=None,
                 key=self.key_ + CAR_BUY_PRICE
             )
-            self.input_public_deed_type_ = row2[4].selectbox(
+            self.car_.registration.legal.public_deed_type = row2[4].selectbox(
                 '🚓 ' +
                 CAR_INPUT_PUBLIC_DEED_TYPE,
                 [SELECT_FILTER] +
@@ -436,17 +428,16 @@ class CarAdder(Adder):
 
             # Fourth row
             row3 = st.columns([4, 1, 4, 1, 4])
-            self.input_public_deed_number_ = row3[0].text_input(
+            self.car_.registration.legal.public_deed_number = row3[0].text_input(
                 "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
-                key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER
-            ).upper()
-            self.input_transfer_fee_ = row3[2].number_input(
+                key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER).upper()
+            self.car_.registration.legal.transfer_fee = row3[2].number_input(
                 "💵 " + CAR_INPUT_TRANSFER_FEE,
                 step=1,
                 value=None,
                 key=self.key_ + CAR_INPUT_TRANSFER_FEE
             )
-            self.input_public_deed_date_ = row3[4].date_input(
+            self.car_.registration.legal.public_deed_date = row3[4].date_input(
                 "📅 " + CAR_INPUT_PUBLIC_DEED_DATE,
                 format=DATE_FORMAT,
                 value=None,
@@ -455,13 +446,13 @@ class CarAdder(Adder):
 
             # Fifth row
             row4 = st.columns([1, 4, 1, 4, 1])
-            self.input_lawyer_ = row4[1].selectbox(
+            self.car_.registration.legal.lawyer = row4[1].selectbox(
                 '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
                 [SELECT_FILTER] +
                 sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
                 key=self.key_ + CAR_INPUT_LAWYER
             )
-            self.input_tax_value_ = row4[3].number_input(
+            self.car_.registration.legal.tax_value = row4[3].number_input(
                 "💵 " + CAR_INPUT_TAX_VALUE + " ( ₡ )",
                 step=1,
                 value=None,
