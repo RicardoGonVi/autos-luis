@@ -20,6 +20,7 @@ from constants.constants import (
     ZERO,
 )
 from core.add.adder import Adder
+from utils.utils import Person
 
 
 class PersonAdder(Adder):
@@ -51,75 +52,66 @@ class PersonAdder(Adder):
         """
         super().__init__(key)
 
-        self.name_ = BLANK
-        self.id_type_ = BLANK
-        self.id_ = BLANK
-        self.phone_ = BLANK
-        self.mail_ = BLANK
-        self.type_ = BLANK
-        self.province_ = BLANK
-        self.canton_ = BLANK
-        self.district_ = BLANK
-        self.contact_media_ = BLANK
+        self.person_ = Person()
 
     def _validate_data(self) -> bool:
         """
         Method that validates that the introduced data is filled as expected.
 
         Returns:
-            successfull(bool):  True if the validation runned successfully.
+            successfull(bool):  True if the validation ran successfully.
                                 False if the validation detected an error.
         """
         successfull = True
 
-        if self.id_type_ == PHYSICAL_ID:
+        if self.person_.type == PHYSICAL_ID:
             id_size = 9
         else:
             id_size = 10
 
-        if self.name_ == BLANK:
+        if self.person_.name == BLANK:
             st.error(f"Digite el nombre de la persona a agregar")
             successfull = False
 
-        elif self.id_ == BLANK:
+        elif self.person_.id == BLANK:
             st.error("Debe de introducir un número de identificación")
             successfull = False
 
-        elif self.id_ == ZERO:
+        elif self.person_.id == ZERO:
             st.error(f"El número de identificación no puede ser {ZERO}")
             successfull = False
 
-        elif len(self.id_) != id_size:
+        elif len(self.person_.id) != id_size:
             st.error(f"La identificación debe de tener {id_size} dígitos")
             successfull = False
 
-        elif self.phone_ is None:
+        elif self.person_.phone is None:
             st.error("Introduzca un número de télefono")
             successfull = False
 
-        elif len(str(self.phone_)) < MIN_PHONE_LEN:
+        elif len(str(self.person_.phone)) < MIN_PHONE_LEN:
             st.error(
                 f"El télefono debe de tener {MIN_PHONE_LEN} o más dígitos")
             successfull = False
 
-        elif len(str(self.phone_)) > MAX_PHONE_LEN:
+        elif len(str(self.person_.phone)) > MAX_PHONE_LEN:
             st.error(
                 f"El télefono no puede tener más de {MAX_PHONE_LEN} dígitos")
             successfull = False
 
-        elif self.mail_ == BLANK:
+        elif self.person_.mail == BLANK:
             st.error("Introduzca un correo electrónico")
             successfull = False
 
-        elif self.province_ == SELECT_FILTER:
+        elif self.person_.location.province == SELECT_FILTER:
             st.error("Seleccione la provincia")
             successfull = False
 
-        elif self.canton_ == SELECT_FILTER:
+        elif self.person_.location.canton == SELECT_FILTER:
             st.error("Seleccione el cantón")
             successfull = False
 
-        elif self.district_ == SELECT_FILTER:
+        elif self.person_.location.district == SELECT_FILTER:
             st.error("Seleccione el distrito")
             successfull = False
 
@@ -135,16 +127,16 @@ class PersonAdder(Adder):
         """
 
         return {
-            NAME: self.name_,
-            ID_TYPE: self.id_type_,
-            ID: self.id_,
-            PHONE: self.phone_,
-            MAIL: self.mail_,
-            PROVINCE: self.province_,
-            CANTON: self.canton_,
-            DISTRICT: self.district_,
-            CONTACT_MEDIA: self.contact_media_,
-            PERSON_TYPE: self.type_,
+            NAME: self.person_.name,
+            ID_TYPE: self.person_.type,
+            ID: self.person_.id,
+            PHONE: self.person_.phone,
+            MAIL: self.person_.mail,
+            PROVINCE: self.person_.location.province,
+            CANTON: self.person_.location.canton,
+            DISTRICT: self.person_.location.district,
+            CONTACT_MEDIA: self.person_.contact_media,
+            PERSON_TYPE: self.person_.type,
         }
 
     def __get_obligatory_data(self, general_options_data, locations_data):
@@ -165,20 +157,20 @@ class PersonAdder(Adder):
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
-            self.name_ = row0[0].text_input(
+            self.person_.name = row0[0].text_input(
                 "👩🏽🧑🏼 " + NAME,
                 key=self.key_ + NAME
             )
-            self.id_type_ = row0[2].selectbox(
+            self.person_.type = row0[2].selectbox(
                 "🪪 " + ID_TYPE,
                 sorted(general_options_data[ID_TYPE].dropna()),
                 key=self.key_ + ID_TYPE
             )
-            if self.id_type_ == PHYSICAL_ID:
+            if self.person_.type == PHYSICAL_ID:
                 id_size = 9
             else:
                 id_size = 10
-            self.id_ = row0[4].text_input(
+            self.person_.id = row0[4].text_input(
                 "🔢 " + ID,
                 max_chars=id_size,
                 key=self.key_ + ID
@@ -186,17 +178,17 @@ class PersonAdder(Adder):
 
             # Second row
             row1 = st.columns([4, 1, 4, 1, 4])
-            self.phone_ = row1[0].number_input(
+            self.person_.phone = row1[0].number_input(
                 "📱 " + PHONE,
                 step=1,
                 value=None,
                 key=self.key_ + PHONE
             )
-            self.mail_ = row1[2].text_input(
+            self.person_.mail = row1[2].text_input(
                 "📧 " + MAIL,
                 key=self.key_ + MAIL
             )
-            self.type_ = row1[4].selectbox(
+            self.person_.type = row1[4].selectbox(
                 "👩🏻‍⚖️🤵🏻 " + PERSON_TYPE,
                 general_options_data[PERSON_TYPE].dropna(),
                 key=self.key_ + PERSON_TYPE
@@ -204,27 +196,27 @@ class PersonAdder(Adder):
 
             # Third row
             row2 = st.columns([4, 1, 4, 1, 4])
-            self.province_ = row2[0].selectbox(
+            self.person_.location.province = row2[0].selectbox(
                 "📍 " + PROVINCE,
                 [SELECT_FILTER] + sorted(locations_data[PROVINCE].unique()),
                 key=self.key_ + PROVINCE
             )
-            self.canton_ = row2[2].selectbox(
+            self.person_.location.canton = row2[2].selectbox(
                 "🏙️ " + CANTON,
                 [SELECT_FILTER] + sorted(locations_data[locations_data[PROVINCE]
-                                         == self.province_][CANTON].unique()),
+                                         == self.person_.location.province][CANTON].unique()),
                 key=self.key_ + CANTON
             )
-            self.district_ = row2[4].selectbox(
+            self.person_.location.district = row2[4].selectbox(
                 "🗺️ " + DISTRICT,
                 [SELECT_FILTER] + sorted(locations_data[locations_data[CANTON]
-                                         == self.canton_][DISTRICT].unique()),
+                                         == self.person_.location.canton][DISTRICT].unique()),
                 key=self.key_ + DISTRICT
             )
 
             # Fourth row
             row3 = st.columns([4, 1, 4, 1, 4])
-            self.contact_media_ = row3[2].selectbox(
+            self.person_.contact_media = row3[2].selectbox(
                 "📧📱🌐 " + CONTACT_MEDIA,
                 general_options_data[CONTACT_MEDIA].dropna(),
                 key=self.key_ + CONTACT_MEDIA
