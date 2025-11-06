@@ -139,7 +139,7 @@ class CarAdder(Adder):
         Method that validates that the introduced data is filled as expected.
 
         Returns:
-            successfull(bool):  True if the validation runned successfully.
+            successfull(bool):  True if the validation ran successfully.
                                 False if the validation detected an error.
         """
         successfull = True
