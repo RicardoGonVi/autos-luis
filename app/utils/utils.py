@@ -50,10 +50,23 @@ class Person:
 
 
 @dataclass
-class PurchaseInfo:
+class TransactionInfo:
     # TODO: add documentation
     date: d = None
     price: int = 0
+    currency: str = 0
+
+
+@dataclass
+class PaymentInfo:
+    payment_type: str = ""
+    currency: str = ""
+    vehicle_received: str = ""
+    cash_amount: float = 0.0
+    trade_in_value: float = 0.0
+    financing: bool = False
+    pawn_number: str = ""
+    pawn_amount: float = 0.0
 
 
 @dataclass
@@ -81,6 +94,23 @@ class CarRegistration:
 
 
 @dataclass
+class CarSell:
+    # TODO: add documentation
+    base_price: float = 0.0
+    seller_commission: float = 0.0
+    facturation_price: float = 0.0
+    facturation_status: str = ""
+
+    transaction: TransactionInfo = field(default_factory=TransactionInfo)
+    legal: LegalInfo = field(default_factory=LegalInfo)
+    payment: PaymentInfo = field(default_factory=PaymentInfo)
+
+    enterprise_seller: Person = field(default_factory=Person)
+    seller: Person = field(default_factory=Person)
+    buyer: Person = field(default_factory=Person)
+
+
+@dataclass
 class Car:
     # TODO: add documentation
     # Codes
@@ -100,4 +130,7 @@ class Car:
     registration: CarRegistration = field(default_factory=CarRegistration)
 
     # Purchase info
-    purchase: PurchaseInfo = field(default_factory=PurchaseInfo)
+    purchase: TransactionInfo = field(default_factory=TransactionInfo)
+
+    # Sell info
+    sell: CarSell = field(default_factory=CarSell)

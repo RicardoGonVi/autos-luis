@@ -108,9 +108,6 @@ class CarAdder(Adder):
         self.transmision_ = BLANK
         self.motor_ = BLANK
 
-        # Sell characteristics. Not used when adding a car.
-        self.sell_base_price_ = BLANK
-
     def _validate_data(self) -> bool:
         """
         Method that validates that the introduced data is filled as expected.
@@ -153,11 +150,11 @@ class CarAdder(Adder):
             st.error("Seleccione el origen del vehículo")
             successfull = False
 
-        elif self.sell_base_price_ is None:
+        elif self.car_.sell.base_price is None:
             st.error("Introduzca el precio base de venta del vehículo")
             successfull = False
 
-        elif self.sell_base_price_ == ZERO:
+        elif self.car_.sell.base_price == ZERO:
             st.error("El precio base de venta debe ser mayor a 0")
             successfull = False
 
@@ -192,6 +189,7 @@ class CarAdder(Adder):
             # Buying/input characteristics
             CAR_INPUT_DATE: self.car_.registration.date,
             CAR_INPUT_ORIGIN: self.car_.registration.origin,
+            # TODO: add currency
             CAR_BUY_DATE: self.car_.purchase.date,
             CAR_BUY_PRICE: self.car_.purchase.price,
             CAR_INPUT_PUBLIC_DEED_TYPE: self.car_.registration.legal.public_deed_type,
@@ -204,7 +202,7 @@ class CarAdder(Adder):
 
 
             # Sell characteristics. Not used when adding a car.
-            CAR_SELL_BASE_PRICE: self.sell_base_price_,
+            CAR_SELL_BASE_PRICE: self.car_.sell.base_price,
             CAR_STATUS: self.car_.registration.status,
             CAR_SELL_DATE: BLANK,
             CAR_SELL_PUBLIC_DEED_NUMBER: BLANK,
@@ -344,7 +342,7 @@ class CarAdder(Adder):
                     general_options_data[CAR_INPUT_ORIGIN].dropna()),
                 key=self.key_ + CAR_INPUT_ORIGIN
             )
-            self.sell_base_price_ = row3[2].number_input(
+            self.car_.sell.base_price = row3[2].number_input(
                 "💵 " + CAR_SELL_BASE_PRICE + " ( ₡ )",
                 step=1,
                 value=None,
