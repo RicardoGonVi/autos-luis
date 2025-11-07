@@ -18,20 +18,19 @@ def add_person():
     """
     Tabs that adds a car into the main car-database by using streamlit widgets.
     """
-    data_adder = PersonAdder("PersonAdder_")
+    data_adder = PersonAdder("PersonAdder_", PERSONS_DATABASE)
     general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
     locations_data = load_database(LOCATIONS_DATABASE)
-    persons_data = load_database(PERSONS_DATABASE)
 
     data_adder.get_data(general_options_data, locations_data)
-    data_adder.add_data(persons_data, PERSONS_DATABASE)
+    data_adder.add_data()
 
 
 def add_car():
     """
     Tabs that adds a car into the main car-database by using streamlit widgets.
     """
-    data_adder = CarAdder("CarAdder_")
+    data_adder = CarAdder("CarAdder_", CAR_DATABASE)
     car_type_data = load_database(CAR_TYPES_DATABASE)
     general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
     car_transmission_data = load_database(CAR_TRANSMISSIONS_DATABASE)
@@ -40,7 +39,7 @@ def add_car():
 
     data_adder.get_data(car_type_data, general_options_data,
                         car_transmission_data, person_data, car_data)
-    data_adder.add_data(car_data, CAR_DATABASE)
+    data_adder.add_data()
 
 
 # Main page content

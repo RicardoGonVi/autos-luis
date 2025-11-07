@@ -1,40 +1,45 @@
 import streamlit as st
 
 from constants.constants import (ADD)
-from database.database import append_data
+from database.database import append_data, load_database
 from typing import final
 
 
 class Adder:
     """
-    Class that adds the data filled by the user into a database.
+    Handles the process of adding user-submitted data into a CSV database.
 
-    To use it the user must create an Adder object, call the get_data()
-    method and then the add_data() method.
+    The user must create an Adder instance, call `get_data()` to collect input,
+    and then call `add_data()` to store the new record in the database.
+
+    Attributes:
+        key (str):             Unique key used in Streamlit components to avoid conflicts.
+        submit_button (bool):  Indicates whether the submission button has been pressed.
+        csv_path (str):        Path to the CSV file where data will be stored.
+        data (pd.DataFrame):   DataFrame containing the current contents of the database.
 
     Example:
     --------
-    from database.database import load_database
-    DATABASE = "path/to/database.csv"
+        DATABASE = "path/to/database.csv"
+        adder = Adder("adder_example", DATABASE)
 
-    data = load_database(DATABASE)
-    adder = Adder("adder_example")
-
-    adder.get_data()
-    adder.add_data(data, DATABASE)
+        adder.get_data()
+        adder.add_data()
     """
 
-    def __init__(self, key):
+    def __init__(self, key: str, csv_path: str):
         """
-        Class initializer method.
+        Initializes the Adder instance.
 
         Args:
-            key(str):       Key unique-name used in streamlit gears to
-                            differentiate them.
+            key (str):        Unique key used in Streamlit components to avoid conflicts.
+            csv_path (str):   Path to the CSV file where data will be stored.
         """
         # Streamlit class atributes
         self.key_ = key
         self.submit_button_ = False
+        self.csv_path_ = csv_path
+        self.data_ = load_database(csv_path)
 
     def _validate_data(self) -> bool:
         """
@@ -88,14 +93,14 @@ class Adder:
         st.markdown("---")
 
     @final
-    def add_data(self, current_data, csv_path):
+    def add_data(self):
         """
-        Method that appends the new_data into the current_data database and saves
-        it into the csv-file.
+        Appends the collected data to the existing database and saves it
+        to the CSV file.
 
-        Args:
-            current_data(pd):   Pandas variable that contains the current database.
-            csv_path(str):      Path to csv file to be updated.
+        This method converts the current input data into a dictionary,
+        validates it, and if the submission is confirmed, appends it to
+        the database file. The Streamlit cache is cleared after updating
         """
         # TODO: add a check so that get_data() is ran before
         new_data = self._data_to_dict()
@@ -103,6 +108,6 @@ class Adder:
         if self.submit_button_:
             if self._validate_data():
                 with st.spinner("Añadiendo datos", show_time=True):
-                    append_data(current_data, csv_path, new_data)
+                    append_data(self.data_, self.csv_path_, new_data)
                     st.cache_data.clear()
                 st.success("!Datos agregados!")

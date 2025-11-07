@@ -74,34 +74,37 @@ from utils.utils import get_current_year, get_years_range, Car
 
 class CarAdder(Adder):
     """
-    Class that adds the data filled by the user into a database.
+    Handles the process of adding car-related data into a CSV database.
 
-    To use it the user must create a CarAdder object, call the get_data()
-    method and then the add_data() method.
+    This class extends the Adder base class to manage information specific
+    to cars. It uses a `Car` object to store and process the data before
+    saving it into the CSV database.
+
+    Attributes:
+        car (Car):     Instance used to store and manage car-related information.
 
     Example:
     --------
-    from database.database import load_database
-    DATABASE = "path/to/database.csv"
+        DATABASE = "path/to/database.csv"
+        car_adder = CarAdder("car_adder", DATABASE)
 
-    data = load_database(DATABASE)
-    adder = CarAdder("adder_example")
-
-    adder.get_data()
-    adder.add_data(data, DATABASE)
+        car_adder.get_data()
+        car_adder.add_data()
     """
 
-    def __init__(self, key):
+    def __init__(self, key: str, csv_path: str):
         """
-        Class initializer method.
+        Initializes the CarAdder instance.
+
+        Extends the Adder class initialization by adding a Car object
+        to handle individual car data.
 
         Args:
-            key(str):       Key unique-name used in streamlit gears to
-                            differentiate them.
+            key (str):        Unique key used in Streamlit components to avoid conflicts.
+            csv_path (str):   Path to the CSV file where data will be stored.
         """
-        super().__init__(key)
+        super().__init__(key, csv_path)
 
-        # Car characteristics
         self.car_ = Car()
 
         # TODO: add to database
@@ -464,6 +467,8 @@ class CarAdder(Adder):
             car_transmission_data,
             person_data,
             car_data):
+        # TODO: add all the datasets as internal atributes. Perform this in the
+        # Adder interface
         """
         Public method that gets the data from the user.
 
@@ -499,14 +504,3 @@ class CarAdder(Adder):
             person_data)
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
-
-    def add_data(self, current_data, csv_path):
-        """
-        Method that appends the new_data into the current_data database and saves
-        it into the csv-file.
-
-        Args:
-            current_data(pd):   Pandas variable that contains the current database.
-            csv_path(str):      Path to csv file to be updated.
-        """
-        return super().add_data(current_data, csv_path)

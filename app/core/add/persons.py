@@ -25,32 +25,36 @@ from utils.utils import Person
 
 class PersonAdder(Adder):
     """
-    Class that adds the data filled by the user into a database.
+    Handles the process of adding person-related data into a CSV database.
 
-    To use it the user must create an Adder object, call the get_data()
-    method and then the add_data() method.
+    This class extends the Adder base class to manage information specific
+    to people. It uses a `Person` object to store and process the data
+    before saving it into the CSV database.
+
+    Attributes:
+        person (Person):  Instance used to store and manage person-related information.
 
     Example:
     --------
-    from database.database import load_database
-    DATABASE = "path/to/database.csv"
+        DATABASE = "path/to/database.csv"
+        person_adder = PersonAdder("person_adder", DATABASE)
 
-    data = load_database(DATABASE)
-    adder = PersonAdder("adder_example")
-
-    adder.get_data()
-    adder.add_data(data, DATABASE)
+        person_adder.get_data()
+        person_adder.add_data()
     """
 
-    def __init__(self, key):
+    def __init__(self, key: str, csv_path: str):
         """
-        Class initializer method.
+        Initializes the PersonAdder instance.
+
+        Extends the Adder class initialization by adding a Person object
+        to handle individual person data.
 
         Args:
-            key(str):       Key unique-name used in streamlit gears to
-                            differentiate them.
+            key (str):        Unique key used in Streamlit components to avoid conflicts.
+            csv_path (str):   Path to the CSV file where data will be stored.
         """
-        super().__init__(key)
+        super().__init__(key, csv_path)
 
         self.person_ = Person()
 
@@ -230,14 +234,3 @@ class PersonAdder(Adder):
         self.__get_obligatory_data(general_options_data, locations_data)
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
-
-    def add_data(self, current_data, csv_path):
-        """
-        Method that appends the new_data into the current_data database and saves
-        it into the csv-file.
-
-        Args:
-            current_data(pd):   Pandas variable that contains the current database.
-            csv_path(str):      Path to csv file to be updated.
-        """
-        return super().add_data(current_data, csv_path)
