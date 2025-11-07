@@ -1,0 +1,10 @@
+# Customer databases
+CAR_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/autos.csv"
+PERSONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/persons.csv"
+GARAGE_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/dummy-files/garage.csv"
+
+# Long-term databases
+CAR_TYPES_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_types.csv"
+CAR_TRANSMISSIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/car_transmissions.csv"
+LOCATIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/locations.csv"
+GENERAL_OPTIONS_DATABASE = "D:/Emprendimiento/Autos-Luis/python-gui/autos-luis/app/database/general_options.csv"

@@ -5,7 +5,7 @@ from core.search.persons import *
 from core.search.garage import *
 from utils.utils import make_tabs
 from database.database import load_database
-from constants.constants import CAR_DATABASE, PERSONS_DATABASE, GARAGE_DATABASE
+from constants.database import *
 
 
 def search_car():

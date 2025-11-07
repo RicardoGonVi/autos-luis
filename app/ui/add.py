@@ -1,13 +1,6 @@
 import streamlit as st
 
-from constants.constants import (
-    CAR_TYPES_DATABASE,
-    GENERAL_OPTIONS_DATABASE,
-    CAR_TRANSMISSIONS_DATABASE,
-    PERSONS_DATABASE,
-    CAR_DATABASE,
-    LOCATIONS_DATABASE,
-)
+from constants.database import *
 from core.add.cars import CarAdder
 from core.add.persons import PersonAdder
 from database.database import load_database
