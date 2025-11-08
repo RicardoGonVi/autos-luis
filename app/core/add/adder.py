@@ -80,7 +80,6 @@ class Adder:
         """
         # Add logic
 
-    @final
     def get_data(self):
         """
         Public method that gets the data from the user.

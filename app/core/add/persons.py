@@ -43,20 +43,34 @@ class PersonAdder(Adder):
         person_adder.add_data()
     """
 
-    def __init__(self, key: str, csv_path: str):
+    def __init__(self, key: str, csv_path: str, shared_data: dict):
         """
         Initializes the PersonAdder instance.
 
-        Extends the Adder class initialization by adding a Person object
-        to handle individual person data.
+        Extends the Adder class initialization by adding a Person object to handle
+        individual person data. It also loads shared datasets to populate Streamlit
+        widgets and manage selectable options such as car types, transmissions,
+        and registered persons.
 
         Args:
             key (str):        Unique key used in Streamlit components to avoid conflicts.
             csv_path (str):   Path to the CSV file where data will be stored.
+            shared_data (dict): Dictionary containing datasets shared across multiple adders.
+                                Each dataset provides the options displayed in Streamlit widgets
+                                or supports validation logic. Expected keys include:
+
+                                "options": General configuration options used to populate
+                                dropdowns and other Streamlit widgets.
+                                "locations": List with available locations in Costa Rica.
+
+                                Extra keys are safely ignored if not required by this class.
         """
         super().__init__(key, csv_path)
 
         self.person_ = Person()
+
+        self.options_data_ = shared_data.get("options")
+        self.locations_data_ = shared_data.get("locations")
 
     def _validate_data(self) -> bool:
         """
@@ -143,20 +157,23 @@ class PersonAdder(Adder):
             PERSON_TYPE: self.person_.type,
         }
 
-    def _get_obligatory_data(self, general_options_data, locations_data):
+    def _get_obligatory_data(self):
         """
-        Method that uses streamlit widgets to get the obligatory data from the user
-        and saves them into the class atributes.
+        Collects the mandatory person information from the user through Streamlit widgets
+        and saves it into the corresponding class attributes.
 
-        Uses the general_options_data and locations_data datasets to show the options in the
-        selectboxes, so the user doesn't have to type them manually. If any other option is
-        needed, it needs to be added manually to the datasets.
+        This method builds a Streamlit form that lets the user input essential person data,
+        such as name, ID type, phone number, email, and location. It automatically loads
+        available options from the provided datasets so the user can select from predefined
+        lists instead of typing manually.
+        If a needed option is missing, it must be added manually to the corresponding dataset.
 
-        Args:
-            general_options_data(pd):   Pandas variable that contains a dataset with
-                                        all the general options.
-            locations_data(pd):         Pandas variable that contains a dataset with
-                                        all the type of locations available in Costa Rica.
+        Uses:
+            - `locations_data_`:   Provides Costa Rican available locations.
+            - `options_data_`: Supplies general configuration options (e.g., colors, status).
+
+        Notes:
+            Updates the internal `Person` instance (`self.persons_`) with the collected data.
         """
         with st.container(border=True):
             # First row
@@ -167,7 +184,7 @@ class PersonAdder(Adder):
             )
             self.person_.id_type = row0[2].selectbox(
                 "🪪 " + ID_TYPE,
-                sorted(general_options_data[ID_TYPE].dropna()),
+                sorted(self.options_data_[ID_TYPE].dropna()),
                 key=self.key_ + ID_TYPE
             )
             if self.person_.id_type == PHYSICAL_ID:
@@ -194,43 +211,49 @@ class PersonAdder(Adder):
             )
             self.person_.type = row1[4].selectbox(
                 "👩🏻‍⚖️🤵🏻 " + PERSON_TYPE,
-                general_options_data[PERSON_TYPE].dropna(),
+                self.options_data_[PERSON_TYPE].dropna(),
                 key=self.key_ + PERSON_TYPE
             )
 
             # Third row
             row2 = st.columns([4, 1, 4, 1, 4])
             self.person_.location.province = row2[0].selectbox(
-                "📍 " + PROVINCE,
-                [SELECT_FILTER] + sorted(locations_data[PROVINCE].unique()),
-                key=self.key_ + PROVINCE
-            )
+                "📍 " +
+                PROVINCE,
+                [SELECT_FILTER] +
+                sorted(
+                    self.locations_data_[PROVINCE].unique()),
+                key=self.key_ +
+                PROVINCE)
             self.person_.location.canton = row2[2].selectbox(
                 "🏙️ " + CANTON,
-                [SELECT_FILTER] + sorted(locations_data[locations_data[PROVINCE]
+                [SELECT_FILTER] + sorted(self.locations_data_[self.locations_data_[PROVINCE]
                                          == self.person_.location.province][CANTON].unique()),
                 key=self.key_ + CANTON
             )
             self.person_.location.district = row2[4].selectbox(
-                "🗺️ " + DISTRICT,
-                [SELECT_FILTER] + sorted(locations_data[locations_data[CANTON]
-                                         == self.person_.location.canton][DISTRICT].unique()),
-                key=self.key_ + DISTRICT
-            )
+                "🗺️ " +
+                DISTRICT,
+                [SELECT_FILTER] +
+                sorted(
+                    self.locations_data_[
+                        self.locations_data_[CANTON] == self.person_.location.canton][DISTRICT].unique()),
+                key=self.key_ +
+                DISTRICT)
 
             # Fourth row
             row3 = st.columns([4, 1, 4, 1, 4])
             self.person_.contact_media = row3[2].selectbox(
                 "📧📱🌐 " + CONTACT_MEDIA,
-                general_options_data[CONTACT_MEDIA].dropna(),
+                self.options_data_[CONTACT_MEDIA].dropna(),
                 key=self.key_ + CONTACT_MEDIA
             )
 
-    def get_data(self, general_options_data, locations_data):
+    def get_data(self):
         """
         Public method that gets the data from the user.
         """
         st.markdown('#### Datos obligatorios')
-        self._get_obligatory_data(general_options_data, locations_data)
+        self._get_obligatory_data()
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")

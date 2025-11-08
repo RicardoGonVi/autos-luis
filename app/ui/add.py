@@ -7,21 +7,37 @@ from database.database import load_database
 from utils.utils import make_tabs
 
 
-def add_person():
+def add_person(shared_data: dict):
     """
-    Tabs that adds a car into the main car-database by using streamlit widgets.
-    """
-    data_adder = PersonAdder("PersonAdder_", PERSONS_DATABASE)
-    general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
-    locations_data = load_database(LOCATIONS_DATABASE)
+    Displays a tab in Streamlit that allows the user to add a person to the main
+    persons database.
 
-    data_adder.get_data(general_options_data, locations_data)
+    This function initializes a `PersonAdder` instance, retrieves user input
+    through Streamlit widgets, and then saves the collected data into the
+    corresponding dataset.
+
+    Args:
+        shared_data (dict): A dictionary containing the preloaded datasets used
+            by the `PersonAdder` instance.
+    """
+    data_adder = PersonAdder("PersonAdder_", PERSONS_DATABASE, shared_data)
+
+    data_adder.get_data()
     data_adder.add_data()
 
 
-def add_car(shared_data):
+def add_car(shared_data: dict):
     """
-    Tabs that adds a car into the main car-database by using streamlit widgets.
+    Displays a tab in Streamlit that allows the user to add a car to the main
+    persons database.
+
+    This function initializes a `CarAdder` instance, retrieves user input
+    through Streamlit widgets, and then saves the collected data into the
+    corresponding dataset.
+
+    Args:
+        shared_data (dict): A dictionary containing the preloaded datasets used
+            by the `CarAdder` instance.
     """
     data_adder = CarAdder("CarAdder_", CAR_DATABASE, shared_data)
 
@@ -48,13 +64,14 @@ def main():
         "options": load_database(GENERAL_OPTIONS_DATABASE),
         "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
         "persons": load_database(PERSONS_DATABASE),
+        "locations": load_database(LOCATIONS_DATABASE)
     }
 
     with cars_tab:
         add_car(shared_data)
 
     with persons_tab:
-        add_person()
+        add_person(shared_data)
 
     with garages_tab:
         None
