@@ -143,7 +143,7 @@ class PersonAdder(Adder):
             PERSON_TYPE: self.person_.type,
         }
 
-    def __get_obligatory_data(self, general_options_data, locations_data):
+    def _get_obligatory_data(self, general_options_data, locations_data):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
@@ -231,6 +231,6 @@ class PersonAdder(Adder):
         Public method that gets the data from the user.
         """
         st.markdown('#### Datos obligatorios')
-        self.__get_obligatory_data(general_options_data, locations_data)
+        self._get_obligatory_data(general_options_data, locations_data)
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")

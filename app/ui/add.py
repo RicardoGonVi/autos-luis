@@ -19,19 +19,13 @@ def add_person():
     data_adder.add_data()
 
 
-def add_car():
+def add_car(shared_data):
     """
     Tabs that adds a car into the main car-database by using streamlit widgets.
     """
-    data_adder = CarAdder("CarAdder_", CAR_DATABASE)
-    car_type_data = load_database(CAR_TYPES_DATABASE)
-    general_options_data = load_database(GENERAL_OPTIONS_DATABASE)
-    car_transmission_data = load_database(CAR_TRANSMISSIONS_DATABASE)
-    person_data = load_database(PERSONS_DATABASE)
-    car_data = load_database(CAR_DATABASE)
+    data_adder = CarAdder("CarAdder_", CAR_DATABASE, shared_data)
 
-    data_adder.get_data(car_type_data, general_options_data,
-                        car_transmission_data, person_data, car_data)
+    data_adder.get_data()
     data_adder.add_data()
 
 
@@ -49,9 +43,15 @@ def main():
     st.header("Agregar ➕", help="Pestaña de agregado.")
     cars_tab, persons_tab, garages_tab = \
         make_tabs(["VEHÍCULOS 🚗", "PERSONAS 🙋", "TALLERES MECÁNICOS 🛠️"])
+    shared_data = {
+        "car_types": load_database(CAR_TYPES_DATABASE),
+        "options": load_database(GENERAL_OPTIONS_DATABASE),
+        "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
+        "persons": load_database(PERSONS_DATABASE),
+    }
 
     with cars_tab:
-        add_car()
+        add_car(shared_data)
 
     with persons_tab:
         add_person()

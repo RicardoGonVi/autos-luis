@@ -35,7 +35,6 @@ class Adder:
             key (str):        Unique key used in Streamlit components to avoid conflicts.
             csv_path (str):   Path to the CSV file where data will be stored.
         """
-        # Streamlit class atributes
         self.key_ = key
         self.submit_button_ = False
         self.csv_path_ = csv_path
@@ -67,28 +66,29 @@ class Adder:
 
         return {}
 
-    def __get_obligatory_data(self):
+    def _get_obligatory_data(self):
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
         """
         # Add logic
 
-    def __get_non_obligatory_data(self):
+    def _get_non_obligatory_data(self):
         """
         Method that uses streamlit widgets to get the non-obligatory data from the user
         and saves them into the class atributes.
         """
         # Add logic
 
+    @final
     def get_data(self):
         """
         Public method that gets the data from the user.
         """
         st.markdown('#### Datos obligatorios')
-        self.__get_obligatory_data()
+        self._get_obligatory_data()
         st.markdown('#### Datos no obligatorios')
-        self.__get_non_obligatory_data()
+        self._get_non_obligatory_data()
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
 
@@ -102,7 +102,6 @@ class Adder:
         validates it, and if the submission is confirmed, appends it to
         the database file. The Streamlit cache is cleared after updating
         """
-        # TODO: add a check so that get_data() is ran before
         new_data = self._data_to_dict()
 
         if self.submit_button_:

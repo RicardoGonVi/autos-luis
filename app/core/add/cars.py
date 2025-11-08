@@ -78,10 +78,20 @@ class CarAdder(Adder):
 
     This class extends the Adder base class to manage information specific
     to cars. It uses a `Car` object to store and process the data before
-    saving it into the CSV database.
+    saving it into the CSV database. The class also loads shared datasets
+    that are used to populate Streamlit widgets, such as car types,
+    transmission options, and registered persons.
 
     Attributes:
-        car (Car):     Instance used to store and manage car-related information.
+        car (Car):                  Instance used to store and manage car-related information.
+        types_data (pd.DataFrame):  Loaded dataset containing available car brands and models.
+        options_data (pd.DataFrame):
+                                    Loaded dataset with general configuration options used
+                                    to populate Streamlit widgets.
+        transmisions_data (pd.DataFrame):
+                                    Loaded dataset containing available car transmission types.
+        persons_data (pd.DataFrame):
+                                    Loaded dataset containing information about registered persons.
 
     Example:
     --------
@@ -92,16 +102,29 @@ class CarAdder(Adder):
         car_adder.add_data()
     """
 
-    def __init__(self, key: str, csv_path: str):
+    def __init__(self, key: str, csv_path: str, shared_data: dict):
         """
         Initializes the CarAdder instance.
 
-        Extends the Adder class initialization by adding a Car object
-        to handle individual car data.
+        Extends the Adder class initialization by adding a Car object to handle
+        individual car data. It also loads shared datasets to populate Streamlit
+        widgets and manage selectable options such as car types, transmissions,
+        and registered persons.
 
         Args:
-            key (str):        Unique key used in Streamlit components to avoid conflicts.
-            csv_path (str):   Path to the CSV file where data will be stored.
+            key (str):          Unique key used in Streamlit components to avoid conflicts.
+            csv_path (str):     Path to the CSV file where data will be stored.
+            shared_data (dict): Dictionary containing datasets shared across multiple adders.
+                                Each dataset provides the options displayed in Streamlit widgets
+                                or supports validation logic. Expected keys include:
+
+                                "car_types": Contains available car brands and models.
+                                "options": General configuration options used to populate
+                                dropdowns and other Streamlit widgets.
+                                "car_transmissions": List of available car transmission types.
+                                "persons": Information about registered persons.
+
+                                Extra keys are safely ignored if not required by this class.
         """
         super().__init__(key, csv_path)
 
@@ -110,6 +133,11 @@ class CarAdder(Adder):
         # TODO: add to database
         self.transmision_ = BLANK
         self.motor_ = BLANK
+
+        self.types_data_ = shared_data.get("car_types")
+        self.options_data_ = shared_data.get("options")
+        self.transmisions_data_ = shared_data.get("car_transmissions")
+        self.persons_data_ = shared_data.get("persons")
 
     def _validate_data(self) -> bool:
         """
@@ -242,35 +270,27 @@ class CarAdder(Adder):
             CAR_FACTURATION_STATUS: BLANK,
         }
 
-    def __get_obligatory_data(
-            self,
-            car_type_data,
-            general_options_data,
-            car_transmission_data,
-            person_data,
-            car_data):
+    def _get_obligatory_data(self):
         """
-        Method that uses streamlit widgets to get the obligatory data from the user
-        and saves them into the class atributes.
+        Collects the mandatory car information from the user using Streamlit widgets
+        and stores it in the corresponding class attributes.
 
-        Uses the car_type_data, general_options_data, car_transmission_data, person_data
-        and car_data datasets to show the options in the selectboxes so the user doesn't
-        have to type them manually. If any other option is needed, it needs to be added
-        manually to the dataset.
+        This method builds a Streamlit form that lets the user input essential car data,
+        such as registration details, brand, model, year, color, transmission type,
+        and base price. It automatically loads available options from the provided
+        datasets so the user can select from predefined lists instead of typing manually.
+        If a needed option is missing, it must be added manually to the corresponding dataset.
 
-        Args:
-            car_type_data(pd):          Pandas variable that contains a dataset with
-                                        all the available brands and models of cars.
-            general_options_data(pd):   Pandas variable that contains a dataset with
-                                        all the general options.
-            car_transmission_data(pd):  Pandas variable that contains a dataset with
-                                        all the type of car transmissions.
-            person_data(pd):            Pandas variable that contains a database with
-                                        all the persons from a person-database.
-            car_data(pd):               Pandas variable that contains a database with
-                                        all the cars from a car-database.
+        Uses:
+            - `types_data_`:   Provides available car brands and models.
+            - `options_data_`: Supplies general configuration options (e.g., colors, status).
+            - `transmisions_data_`: Offers transmission and motor type options.
+            - `persons_data_`: Lists registered persons for ownership selection.
+
+        Notes:
+            Updates the internal `Car` instance (`self.car_`) with the collected data.
         """
-        self.car_.unique_code = "AL" + str(len(car_data) + 1)
+        self.car_.unique_code = "AL" + str(len(self.data_) + 1)
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
         with st.container(border=True):
@@ -283,7 +303,7 @@ class CarAdder(Adder):
             )
             self.car_.registration.owner.name = row0[2].selectbox(
                 "👩🏽🧑🏼 " + CAR_OWNER,
-                [AUTOS_LUIS_NAME, ANC_NAME] + sorted(person_data[NAME]),
+                [AUTOS_LUIS_NAME, ANC_NAME] + sorted(self.persons_data_[NAME]),
                 key=self.key_ + NAME
             )
             self.car_.id = row0[4].text_input(
@@ -295,16 +315,19 @@ class CarAdder(Adder):
             row1 = st.columns([4, 1, 4, 1, 4])
             self.car_.brand = row1[0].selectbox(
                 '🚓 ' + CAR_BRAND,
-                [SELECT_FILTER] + sorted(car_type_data[CAR_BRAND].unique()),
+                [SELECT_FILTER] + sorted(self.types_data_[CAR_BRAND].unique()),
                 key=self.key_ + CAR_BRAND,
             )
             self.car_.model = row1[2].selectbox(
-                '🛻 ' + CAR_MODEL,
-                [SELECT_FILTER] + sorted(car_type_data[car_type_data[CAR_BRAND]
-                                                       == self.car_.brand][CAR_MODEL].unique()),
+                '🛻 ' +
+                CAR_MODEL,
+                [SELECT_FILTER] +
+                sorted(
+                    self.types_data_[
+                        self.types_data_[CAR_BRAND] == self.car_.brand][CAR_MODEL].unique()),
                 accept_new_options=True,
-                key=self.key_ + CAR_MODEL
-            )
+                key=self.key_ +
+                CAR_MODEL)
             self.car_.year = row1[4].selectbox(
                 "📅 " + CAR_YEAR,
                 [SELECT_FILTER] + sorted(years, reverse=True),
@@ -318,21 +341,25 @@ class CarAdder(Adder):
                 CAR_COLOR,
                 [SELECT_FILTER] +
                 sorted(
-                    general_options_data[CAR_COLOR].dropna()),
+                    self.options_data_[CAR_COLOR].dropna()),
                 key=self.key_ +
                 CAR_COLOR,
             )
             self.motor_ = row2[2].selectbox(
                 "🛵💨 " + CAR_MOTOR_TPYE,
                 [SELECT_FILTER] +
-                sorted(car_transmission_data[CAR_MOTOR_TPYE].unique()),
+                sorted(self.transmisions_data_[CAR_MOTOR_TPYE].unique()),
                 key=self.key_ + CAR_MOTOR_TPYE,
             )
             self.transmision_ = row2[4].selectbox(
-                "⚙️ " + CAR_TRANSMISSION_TYPE,
-                [SELECT_FILTER] + sorted(car_transmission_data[car_transmission_data[CAR_MOTOR_TPYE]
-                                                               == self.motor_][CAR_TRANSMISSION_TYPE]),
-                key=self.key_ + CAR_TRANSMISSION_TYPE,
+                "⚙️ " +
+                CAR_TRANSMISSION_TYPE,
+                [SELECT_FILTER] +
+                sorted(
+                    self.transmisions_data_[
+                        self.transmisions_data_[CAR_MOTOR_TPYE] == self.motor_][CAR_TRANSMISSION_TYPE]),
+                key=self.key_ +
+                CAR_TRANSMISSION_TYPE,
             )
 
             # Fourth row
@@ -342,7 +369,7 @@ class CarAdder(Adder):
                 CAR_INPUT_ORIGIN,
                 [SELECT_FILTER] +
                 sorted(
-                    general_options_data[CAR_INPUT_ORIGIN].dropna()),
+                    self.options_data_[CAR_INPUT_ORIGIN].dropna()),
                 key=self.key_ + CAR_INPUT_ORIGIN
             )
             self.car_.sell.base_price = row3[2].number_input(
@@ -356,26 +383,28 @@ class CarAdder(Adder):
                 CAR_STATUS,
                 [SELECT_FILTER] +
                 sorted(
-                    general_options_data[CAR_STATUS].dropna()),
+                    self.options_data_[CAR_STATUS].dropna()),
                 key=self.key_ + CAR_STATUS
             )
 
-    def __get_non_obligatory_data(
-            self,
-            general_options_data,
-            person_data):
+    def _get_non_obligatory_data(self):
         """
-        Method that uses streamlit widgets to get the non-obligatory data from the user
-        and saves them into the class atributes.
+        Collects the optional car information from the user through Streamlit widgets
+        and saves it into the corresponding class attributes.
 
-        Uses the general_options_data and person_data database, to show the selectboxes
-        options in streamlit widgets.
+        This method allows the user to input non-mandatory vehicle details such as
+        VIN and DUA identifiers, rent unit, purchase information, legal deed data,
+        and any additional comments. It uses predefined datasets to populate selection
+        widgets, reducing manual entry errors.
 
-        Args:
-            general_options_data(pd):   Pandas variable that contains a dataset with
-                                        all the general options.
-            person_data(pd):            Pandas variable that contains a database with
-                                        all the persons from a person-database.
+        Uses:
+            - `options_data_`: Provides general configuration options
+              (e.g., rent unit, public deed type).
+            - `persons_data_`: Lists registered persons, including lawyers.
+
+        Notes:
+            Updates the internal `Car` instance (`self.car_`) with the data entered
+            through Streamlit widgets.
         """
         with st.container(border=True):
             # First row
@@ -392,7 +421,7 @@ class CarAdder(Adder):
                 '🛣️🚗 ' + CAR_RENT_UNIT,
                 [SELECT_FILTER] +
                 sorted(
-                    general_options_data[CAR_RENT_UNIT].dropna()),
+                    self.options_data_[CAR_RENT_UNIT].dropna()),
                 key=self.key_ + CAR_RENT_UNIT
             )
 
@@ -422,7 +451,7 @@ class CarAdder(Adder):
                 CAR_INPUT_PUBLIC_DEED_TYPE,
                 [SELECT_FILTER] +
                 sorted(
-                    general_options_data[CAR_INPUT_PUBLIC_DEED_TYPE].dropna()),
+                    self.options_data_[CAR_INPUT_PUBLIC_DEED_TYPE].dropna()),
                 key=self.key_ +
                 CAR_INPUT_PUBLIC_DEED_TYPE,
             )
@@ -450,7 +479,8 @@ class CarAdder(Adder):
             self.car_.registration.legal.lawyer = row4[1].selectbox(
                 '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
                 [SELECT_FILTER] +
-                sorted(person_data[person_data[PERSON_TYPE] == LAWYER][NAME]),
+                sorted(self.persons_data_[self.persons_data_[
+                       PERSON_TYPE] == LAWYER][NAME]),
                 key=self.key_ + CAR_INPUT_LAWYER
             )
             self.car_.registration.legal.tax_value = row4[3].number_input(
@@ -459,48 +489,3 @@ class CarAdder(Adder):
                 value=None,
                 key=self.key_ + CAR_INPUT_TAX_VALUE
             )
-
-    def get_data(
-            self,
-            car_type_data,
-            general_options_data,
-            car_transmission_data,
-            person_data,
-            car_data):
-        # TODO: add all the datasets as internal atributes. Perform this in the
-        # Adder interface
-        """
-        Public method that gets the data from the user.
-
-        Uses the car_type_data, general_options_data, car_transmission_data, person_data
-        person_data and car_data datasets to show the options in the selectboxes so the
-        user doesn't have to type them manually. If any other option is needed, it needs
-        to be added manually to the dataset.
-
-        Uses the  and the  database, to show option in streamlit widgets.
-
-        Args:
-            car_type_data(pd):          Pandas variable that contains a dataset with
-                                        all the available brands and models of cars.
-            general_options_data(pd):   Pandas variable that contains a dataset with
-                                        all the general options.
-            car_transmission_data(pd):  Pandas variable that contains a dataset with
-                                        all the type of car transmissions.
-            person_data(pd):            Pandas variable that contains a database with
-                                        all the persons from a person-database.
-            car_data(pd):               Pandas variable that contains a database with
-                                        all the cars from a car-database.
-        """
-        st.markdown('#### Datos obligatorios')
-        self.__get_obligatory_data(
-            car_type_data,
-            general_options_data,
-            car_transmission_data,
-            person_data,
-            car_data)
-        st.markdown('#### Datos no obligatorios')
-        self.__get_non_obligatory_data(
-            general_options_data,
-            person_data)
-        self.submit_button_ = st.button(ADD, key=self.key_)
-        st.markdown("---")
