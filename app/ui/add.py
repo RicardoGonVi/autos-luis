@@ -7,7 +7,7 @@ from database.database import load_database
 from utils.utils import make_tabs
 
 
-def add_person(shared_data: dict):
+def add_person(shared_data: dict) -> None:
     """
     Displays a tab in Streamlit that allows the user to add a person to the main
     persons database.
@@ -26,7 +26,7 @@ def add_person(shared_data: dict):
     data_adder.add_data()
 
 
-def add_car(shared_data: dict):
+def add_car(shared_data: dict) -> None:
     """
     Displays a tab in Streamlit that allows the user to add a car to the main
     persons database.

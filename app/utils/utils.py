@@ -6,7 +6,7 @@ from constants.constants import INCLUDE_LAST
 
 
 @st.cache_data(ttl=600)
-def get_years_range(init: int, end: int):
+def get_years_range(init: int, end: int) -> list:
     """
     Gets a list containing all the years between the initial and final year
     of a given range, inclusive.
@@ -27,7 +27,7 @@ def get_years_range(init: int, end: int):
 
 
 @st.cache_data(ttl=600)
-def get_current_year():
+def get_current_year() -> int:
     """
     Gets the current year based on the system date.
 

@@ -66,21 +66,21 @@ class Adder:
 
         return {}
 
-    def _get_obligatory_data(self):
+    def _get_obligatory_data(self) -> None:
         """
         Method that uses streamlit widgets to get the obligatory data from the user
         and saves them into the class atributes.
         """
         # Add logic
 
-    def _get_non_obligatory_data(self):
+    def _get_non_obligatory_data(self) -> None:
         """
         Method that uses streamlit widgets to get the non-obligatory data from the user
         and saves them into the class atributes.
         """
         # Add logic
 
-    def get_data(self):
+    def get_data(self) -> None:
         """
         Public method that gets the data from the user.
         """
@@ -92,7 +92,7 @@ class Adder:
         st.markdown("---")
 
     @final
-    def add_data(self):
+    def add_data(self) -> None:
         """
         Appends the collected data to the existing database and saves it
         to the CSV file.

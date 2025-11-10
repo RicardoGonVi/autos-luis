@@ -270,7 +270,7 @@ class CarAdder(Adder):
             CAR_FACTURATION_STATUS: BLANK,
         }
 
-    def _get_obligatory_data(self):
+    def _get_obligatory_data(self) -> None:
         """
         Collects the mandatory car information from the user using Streamlit widgets
         and stores it in the corresponding class attributes.
@@ -387,7 +387,7 @@ class CarAdder(Adder):
                 key=self.key_ + CAR_STATUS
             )
 
-    def _get_non_obligatory_data(self):
+    def _get_non_obligatory_data(self) -> None:
         """
         Collects the optional car information from the user through Streamlit widgets
         and saves it into the corresponding class attributes.

@@ -157,7 +157,7 @@ class PersonAdder(Adder):
             PERSON_TYPE: self.person_.type,
         }
 
-    def _get_obligatory_data(self):
+    def _get_obligatory_data(self) -> None:
         """
         Collects the mandatory person information from the user through Streamlit widgets
         and saves it into the corresponding class attributes.
@@ -249,7 +249,7 @@ class PersonAdder(Adder):
                 key=self.key_ + CONTACT_MEDIA
             )
 
-    def get_data(self):
+    def get_data(self) -> None:
         """
         Public method that gets the data from the user.
         """
