@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from constants.constants import (
+from app.constants.constants import (
     SELECT_FILTER,
     CAR_YEAR,
     CAR_SELL_BASE_PRICE,
@@ -22,7 +22,7 @@ class CarFilter:
     def __init__(self):
         self.year_range_ = []
         self.price_range_ = []
-        self.car_id_ = -1
+        self.code_ = -1
         self.id_ = -1
         self.car_brand_ = SELECT_FILTER
         self.car_model_ = SELECT_FILTER
@@ -55,8 +55,8 @@ class CarFilter:
                 max_year])
 
         row2 = st.columns([4, 1, 4])
-        self.car_id_ = row2[0].text_input("🚗 " + CAR_ID)
-        self.id_ = row2[2].text_input("#️⃣" + ID_CODE + " (Autos Luis)")
+        self.id_ = row2[0].text_input("🚗 " + CAR_ID)
+        self.code_ = row2[2].text_input("#️⃣" + ID_CODE + " (Autos Luis)")
 
     def __specific_filter(self, data):
         with st.form("CarsSpecificFilters"):
@@ -127,13 +127,13 @@ class CarFilter:
             (filtered_data[CAR_YEAR] <= self.year_range_[1])
         ]
 
-        if self.car_id_:
-            filtered_data = filtered_data[filtered_data[CAR_ID].str.contains(
-                self.car_id_, case=False, na=False)]
-
         if self.id_:
-            filtered_data = filtered_data[filtered_data[ID_CODE].str.contains(
+            filtered_data = filtered_data[filtered_data[CAR_ID].str.contains(
                 self.id_, case=False, na=False)]
+
+        if self.code_:
+            filtered_data = filtered_data[filtered_data[ID_CODE].str.contains(
+                self.code_, case=False, na=False)]
 
         # Specific filters
         if self.car_brand_ != SELECT_FILTER:

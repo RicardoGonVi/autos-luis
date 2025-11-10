@@ -1,10 +1,10 @@
 import streamlit as st
 
-from constants.database import *
-from core.add.cars import CarAdder
-from core.add.persons import PersonAdder
-from database.database import load_database
-from utils.utils import make_tabs
+from app.constants.database import *
+from app.core.add.cars import CarAdder
+from app.core.add.persons import PersonAdder
+from app.database.database import load_database
+from app.utils.utils import make_tabs
 
 
 def add_person(shared_data: dict) -> None:
@@ -75,6 +75,3 @@ def main():
 
     with garages_tab:
         None
-
-
-main()

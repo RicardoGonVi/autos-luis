@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from constants.constants import (
+from app.constants.constants import (
     SELECT_FILTER,
     NAME,
     MAIL,

@@ -1,11 +1,11 @@
 import streamlit as st
 
-from core.search.cars import *
-from core.search.persons import *
-from core.search.garage import *
-from utils.utils import make_tabs
-from database.database import load_database
-from constants.database import *
+from app.core.search.cars import *
+from app.core.search.persons import *
+from app.core.search.garage import *
+from app.utils.utils import make_tabs
+from app.database.database import load_database
+from app.constants.database import *
 
 
 def search_car():

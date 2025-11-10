@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date as d
 from dataclasses import dataclass, field
 
-from constants.constants import INCLUDE_LAST
+from app.constants.constants import INCLUDE_LAST
 
 
 @st.cache_data(ttl=600)

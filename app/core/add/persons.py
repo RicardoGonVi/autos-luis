@@ -1,6 +1,6 @@
 import streamlit as st
 
-from constants.constants import (
+from app.constants.constants import (
     BLANK,
     SELECT_FILTER,
     ADD,
@@ -19,8 +19,8 @@ from constants.constants import (
     CONTACT_MEDIA,
     ZERO,
 )
-from core.add.adder import Adder
-from utils.utils import Person
+from app.core.add.adder import Adder
+from app.utils.utils import Person
 
 
 class PersonAdder(Adder):

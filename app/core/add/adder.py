@@ -1,8 +1,8 @@
 import streamlit as st
-
-from constants.constants import (ADD)
-from database.database import append_data, load_database
 from typing import final
+
+from app.constants.constants import (ADD)
+from app.database.database import append_data, load_database
 
 
 class Adder:

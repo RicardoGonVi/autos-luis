@@ -1,6 +1,6 @@
 import streamlit as st
 
-from constants.constants import (
+from app.constants.constants import (
     BLANK,
     CAR_ID,
     CAR_VIN_ID,
@@ -69,8 +69,8 @@ from constants.constants import (
     CAR_ID_SIZE,
     ZERO,
 )
-from core.add.adder import Adder
-from utils.utils import get_current_year, get_years_range, Car
+from app.core.add.adder import Adder
+from app.utils.utils import get_current_year, get_years_range, Car
 
 
 class CarAdder(Adder):
