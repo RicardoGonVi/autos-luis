@@ -218,7 +218,7 @@ class Car:
 
     Attributes:
         unique_code (str):        Internal system-generated unique code for the vehicle.
-        id (int):                 Costa Rican vehicle identification.
+        id (str):                 Costa Rican vehicle identification.
         vin_id (int):             Vehicle Identification Number (VIN) or related identifier.
         dua_id (int):             Customs declaration identifier (DUA), if applicable.
 
@@ -226,6 +226,8 @@ class Car:
         model (str):              Model name.
         year (int):               Manufacturing year of the vehicle.
         color (str):              Vehicle color.
+        motor (str):              Vehicle motor type.
+        transmission (str):       Vehicle transmission type.
         comment (str):            Additional notes or remarks about the vehicle.
 
         registration (CarRegistration):  Registration details including ownership and legal data.
@@ -233,7 +235,7 @@ class Car:
         sell (CarSell):                  Information about the vehicle’s sale transaction.
     """
     unique_code: str = ""
-    id: int = 0
+    id: str = ""
     vin_id: int = 0
     dua_id: int = 0
     brand: str = ""
