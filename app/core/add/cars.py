@@ -11,6 +11,8 @@ from constants.constants import (
     CAR_MODEL,
     CAR_YEAR,
     CAR_COLOR,
+    CAR_BUY_CURRENCY,
+    CURRENCY,
     SELECT_FILTER,
     INITIAL_YEAR,
     CAR_TRANSMISSION_TYPE,
@@ -18,7 +20,6 @@ from constants.constants import (
     CAR_INPUT_COMMENT,
     NAME,
     CAR_OWNER,
-    ADD,
     ID_CODE,
     CAR_SELL_DATE,
     CAR_INPUT_PUBLIC_DEED_TYPE,
@@ -219,8 +220,8 @@ class CarAdder(Adder):
             # Buying/input characteristics
             CAR_INPUT_DATE: self.car_.registration.date,
             CAR_INPUT_ORIGIN: self.car_.registration.origin,
-            # TODO: add currency
             CAR_BUY_DATE: self.car_.purchase.date,
+            CAR_BUY_CURRENCY: self.car_.purchase.currency,
             CAR_BUY_PRICE: self.car_.purchase.price,
             CAR_INPUT_PUBLIC_DEED_TYPE: self.car_.registration.legal.public_deed_type,
             CAR_INPUT_PUBLIC_DEED_NUMBER: self.car_.registration.legal.public_deed_number,
@@ -439,13 +440,25 @@ class CarAdder(Adder):
                 value=None,
                 key=self.key_ + CAR_BUY_DATE
             )
-            self.car_.purchase.price = row2[2].number_input(
-                "💵 " + CAR_BUY_PRICE + " ( ₡ )",
+            self.car_.purchase.currency = row2[2].selectbox(
+                '🪙 ' +
+                CAR_BUY_CURRENCY,
+                [SELECT_FILTER] +
+                sorted(
+                    self.options_data_[CURRENCY].dropna()),
+                key=self.key_ +
+                CAR_BUY_CURRENCY,
+            )
+            self.car_.purchase.price = row2[4].number_input(
+                "💵 " + CAR_BUY_PRICE,
                 step=1,
                 value=None,
                 key=self.key_ + CAR_BUY_PRICE
             )
-            self.car_.registration.legal.public_deed_type = row2[4].selectbox(
+
+            # Fourth row
+            row3 = st.columns([4, 1, 4, 1, 4])
+            self.car_.registration.legal.public_deed_type = row3[0].selectbox(
                 '🚓 ' +
                 CAR_INPUT_PUBLIC_DEED_TYPE,
                 [SELECT_FILTER] +
@@ -454,18 +467,9 @@ class CarAdder(Adder):
                 key=self.key_ +
                 CAR_INPUT_PUBLIC_DEED_TYPE,
             )
-
-            # Fourth row
-            row3 = st.columns([4, 1, 4, 1, 4])
-            self.car_.registration.legal.public_deed_number = row3[0].text_input(
+            self.car_.registration.legal.public_deed_number = row3[2].text_input(
                 "📝 " + CAR_INPUT_PUBLIC_DEED_NUMBER,
                 key=self.key_ + CAR_INPUT_PUBLIC_DEED_NUMBER).upper()
-            self.car_.registration.legal.transfer_fee = row3[2].number_input(
-                "💵 " + CAR_INPUT_TRANSFER_FEE,
-                step=1,
-                value=None,
-                key=self.key_ + CAR_INPUT_TRANSFER_FEE
-            )
             self.car_.registration.legal.public_deed_date = row3[4].date_input(
                 "📅 " + CAR_INPUT_PUBLIC_DEED_DATE,
                 format=DATE_FORMAT,
@@ -474,15 +478,21 @@ class CarAdder(Adder):
             )
 
             # Fifth row
-            row4 = st.columns([1, 4, 1, 4, 1])
-            self.car_.registration.legal.lawyer = row4[1].selectbox(
+            row4 = st.columns([4, 1, 4, 1, 4])
+            self.car_.registration.legal.transfer_fee = row4[0].number_input(
+                "💵 " + CAR_INPUT_TRANSFER_FEE,
+                step=1,
+                value=None,
+                key=self.key_ + CAR_INPUT_TRANSFER_FEE
+            )
+            self.car_.registration.legal.lawyer = row4[2].selectbox(
                 '🧑🏼‍💼 ' + CAR_INPUT_LAWYER,
                 [SELECT_FILTER] +
                 sorted(self.persons_data_[self.persons_data_[
                        PERSON_TYPE] == LAWYER][NAME]),
                 key=self.key_ + CAR_INPUT_LAWYER
             )
-            self.car_.registration.legal.tax_value = row4[3].number_input(
+            self.car_.registration.legal.tax_value = row4[4].number_input(
                 "💵 " + CAR_INPUT_TAX_VALUE + " ( ₡ )",
                 step=1,
                 value=None,

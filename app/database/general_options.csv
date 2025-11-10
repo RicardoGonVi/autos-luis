@@ -1,13 +1,13 @@
-Color;Origen;Estado;Tipo de escritura de compra;Unidad de renta;Tipo de identificación;Tipo de persona;Medio de contacto
-Amarillo;Recibido;Disponible;Poder;Sí;Física;Cliente;Teléfono
-Azul;ANC;Vendido;Traspaso;No;Jurídica;Abogado;Correo
-Blanco;Importado;Reparación;;;;;Instagram
-Dorado;Comprado;Devuelto;;;;;Facebook
-Gris;;Reservado;;;;;WhatsApp
-Morado;;Prestado;;;;;Visita presencial
-Naranja;;;;;;;
-Negro;;;;;;;
-Plateado;;;;;;;
-Rojo;;;;;;;
-Rosa;;;;;;;
-Verde;;;;;;;
+Color;Origen;Estado;Tipo de escritura de compra;Unidad de renta;Tipo de identificación;Tipo de persona;Medio de contacto;Moneda
+Amarillo;Recibido;Disponible;Poder;Sí;Física;Cliente;Teléfono;Colones
+Azul;ANC;Vendido;Traspaso;No;Jurídica;Abogado;Correo;Dólares
+Blanco;Importado;Reparación;;;;;Instagram;
+Dorado;Comprado;Devuelto;;;;;Facebook;
+Gris;;Reservado;;;;;WhatsApp;
+Morado;;Prestado;;;;;Visita presencial;
+Naranja;;;;;;;;
+Negro;;;;;;;;
+Plateado;;;;;;;;
+Rojo;;;;;;;;
+Rosa;;;;;;;;
+Verde;;;;;;;;

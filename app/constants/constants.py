@@ -16,6 +16,7 @@ ANC_NAME = "ANC"
 LAWYER = "Abogado"
 ID = "Identificación"
 PHYSICAL_ID = "Física"
+CURRENCY = "Moneda"
 
 # Numbers
 ZERO = 0
@@ -61,6 +62,7 @@ CAR_INPUT_PUBLIC_DEED_TYPE = "Tipo de escritura de compra"
 CAR_INPUT_PUBLIC_DEED_NUMBER = "Nº de escritura compra / Poder"
 CAR_INPUT_ORIGIN = "Origen"
 CAR_BUY_DATE = "Fecha de compra"
+CAR_BUY_CURRENCY = "Moneda de la compra"
 CAR_BUY_PRICE = "Costo de compra"
 CAR_INPUT_PUBLIC_DEED_DATE = "Fecha de escritura de ingreso"
 CAR_INPUT_TRANSFER_FEE = "Monto traspaso compra / Poder"
