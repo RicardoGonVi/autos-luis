@@ -130,10 +130,7 @@ class CarAdder(Adder):
 
         self.car_ = Car()
 
-        # TODO: add to database
-        self.transmision_ = BLANK
-        self.motor_ = BLANK
-
+        # Databases
         self.types_data_ = shared_data.get("car_types")
         self.options_data_ = shared_data.get("options")
         self.transmisions_data_ = shared_data.get("car_transmissions")
@@ -169,11 +166,11 @@ class CarAdder(Adder):
             st.error("Seleccione el color del vehículo")
             successfull = False
 
-        elif self.motor_ == SELECT_FILTER:
+        elif self.car_.motor == SELECT_FILTER:
             st.error("Seleccione el motor del vehículo")
             successfull = False
 
-        elif self.transmision_ == SELECT_FILTER:
+        elif self.car_.transmission == SELECT_FILTER:
             st.error("Seleccione la transmisión del vehículo")
             successfull = False
 
@@ -212,6 +209,8 @@ class CarAdder(Adder):
             CAR_MODEL: self.car_.model,
             CAR_YEAR: self.car_.year,
             CAR_COLOR: self.car_.color,
+            CAR_MOTOR_TPYE: self.car_.motor,
+            CAR_TRANSMISSION_TYPE: self.car_.transmission,
             CAR_ID: self.car_.id,
             CAR_VIN_ID: self.car_.vin_id,
             CAR_DUA_ID: self.car_.dua_id,
@@ -345,19 +344,19 @@ class CarAdder(Adder):
                 key=self.key_ +
                 CAR_COLOR,
             )
-            self.motor_ = row2[2].selectbox(
+            self.car_.motor = row2[2].selectbox(
                 "🛵💨 " + CAR_MOTOR_TPYE,
                 [SELECT_FILTER] +
                 sorted(self.transmisions_data_[CAR_MOTOR_TPYE].unique()),
                 key=self.key_ + CAR_MOTOR_TPYE,
             )
-            self.transmision_ = row2[4].selectbox(
+            self.car_.transmission = row2[4].selectbox(
                 "⚙️ " +
                 CAR_TRANSMISSION_TYPE,
                 [SELECT_FILTER] +
                 sorted(
                     self.transmisions_data_[
-                        self.transmisions_data_[CAR_MOTOR_TPYE] == self.motor_][CAR_TRANSMISSION_TYPE]),
+                        self.transmisions_data_[CAR_MOTOR_TPYE] == self.car_.motor][CAR_TRANSMISSION_TYPE]),
                 key=self.key_ +
                 CAR_TRANSMISSION_TYPE,
             )

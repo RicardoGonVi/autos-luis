@@ -240,6 +240,8 @@ class Car:
     model: str = ""
     year: int = 0
     color: str = ""
+    motor: str = ""
+    transmission: str = ""
     comment: str = ""
 
     registration: CarRegistration = field(default_factory=CarRegistration)
