@@ -93,14 +93,6 @@ class CarAdder(Adder):
                                     Loaded dataset containing available car transmission types.
         persons_data (pd.DataFrame):
                                     Loaded dataset containing information about registered persons.
-
-    Example:
-    --------
-        DATABASE = "path/to/database.csv"
-        car_adder = CarAdder("car_adder", DATABASE)
-
-        car_adder.get_data()
-        car_adder.add_data()
     """
 
     def __init__(self, key: str, csv_path: str, shared_data: dict):
@@ -126,6 +118,27 @@ class CarAdder(Adder):
                                 "persons": Information about registered persons.
 
                                 Extra keys are safely ignored if not required by this class.
+
+        Examples:
+        --------
+        Requirements:
+        >>> from app.database.database import load_database
+        >>> DATABASE = "path/to/database.csv"
+        >>> CAR_TYPES_DATABASE = "path/to/database.csv"
+        >>> GENERAL_OPTIONS_DATABASE = "path/to/database.csv"
+        >>> CAR_TRANSMISSIONS_DATABASE = "path/to/database.csv"
+        >>> PERSONS_DATABASE = "path/to/database.csv"
+        >>> shared_data = {
+        >>>     "car_types": load_database(CAR_TYPES_DATABASE),
+        >>>     "options": load_database(GENERAL_OPTIONS_DATABASE),
+        >>>     "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
+        >>>     "persons": load_database(PERSONS_DATABASE),
+        >>> }
+
+        Usage:
+        >>> car_adder = CarAdder(key="car_adder", csv_path=DATABASE, shared_data=shared_data)
+        >>> car_adder.get_data()
+        >>> car_adder.add_data()
         """
         super().__init__(key, csv_path)
 
@@ -139,11 +152,10 @@ class CarAdder(Adder):
 
     def _validate_data(self) -> bool:
         """
-        Method that validates that the introduced data is filled as expected.
+        Validates that the provided data is correctly filled.
 
         Returns:
-            successfull(bool):  True if the validation ran successfully.
-                                False if the validation detected an error.
+            successfull (bool): True if the data passes validation, False otherwise.
         """
         successfull = True
 
@@ -270,7 +282,7 @@ class CarAdder(Adder):
             CAR_FACTURATION_STATUS: BLANK,
         }
 
-    def _get_obligatory_data(self) -> None:
+    def _get_obligatory_data(self) -> bool:
         """
         Collects the mandatory car information from the user using Streamlit widgets
         and stores it in the corresponding class attributes.
@@ -290,6 +302,7 @@ class CarAdder(Adder):
         Notes:
             Updates the internal `Car` instance (`self.car_`) with the collected data.
         """
+        successfull = True
         self.car_.unique_code = "AL" + str(len(self.data_) + 1)
         years = get_years_range(INITIAL_YEAR, get_current_year())
 
@@ -387,7 +400,9 @@ class CarAdder(Adder):
                 key=self.key_ + CAR_STATUS
             )
 
-    def _get_non_obligatory_data(self) -> None:
+        return successfull
+
+    def _get_non_obligatory_data(self) -> bool:
         """
         Collects the optional car information from the user through Streamlit widgets
         and saves it into the corresponding class attributes.
@@ -406,6 +421,8 @@ class CarAdder(Adder):
             Updates the internal `Car` instance (`self.car_`) with the data entered
             through Streamlit widgets.
         """
+        successfull = True
+
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
@@ -498,3 +515,5 @@ class CarAdder(Adder):
                 value=None,
                 key=self.key_ + CAR_INPUT_TAX_VALUE
             )
+
+        return successfull

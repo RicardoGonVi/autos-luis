@@ -17,14 +17,6 @@ class Adder:
         submit_button (bool):  Indicates whether the submission button has been pressed.
         csv_path (str):        Path to the CSV file where data will be stored.
         data (pd.DataFrame):   DataFrame containing the current contents of the database.
-
-    Example:
-    --------
-        DATABASE = "path/to/database.csv"
-        adder = Adder("adder_example", DATABASE)
-
-        adder.get_data()
-        adder.add_data()
     """
 
     def __init__(self, key: str, csv_path: str):
@@ -34,6 +26,16 @@ class Adder:
         Args:
             key (str):        Unique key used in Streamlit components to avoid conflicts.
             csv_path (str):   Path to the CSV file where data will be stored.
+
+        Examples:
+        --------
+        Requirements:
+        >>> DATABASE = "path/to/database.csv"
+
+        Usage:
+        >>> car_adder = CarAdder(key="car_adder", csv_path=DATABASE)
+        >>> car_adder.get_data()
+        >>> car_adder.add_data()
         """
         self.key_ = key
         self.submit_button_ = False
@@ -42,11 +44,10 @@ class Adder:
 
     def _validate_data(self) -> bool:
         """
-        Method that validates that the introduced data is filled as expected.
+        Validates that the provided data is correctly filled.
 
         Returns:
-            successfull(bool):  True if the validation ran successfully.
-                                False if the validation detected an error.
+            successfull (bool): True if the data passes validation, False otherwise.
         """
         successfull = True
 
@@ -66,30 +67,51 @@ class Adder:
 
         return {}
 
-    def _get_obligatory_data(self) -> None:
+    def _get_obligatory_data(self) -> bool:
         """
-        Method that uses streamlit widgets to get the obligatory data from the user
-        and saves them into the class atributes.
+        Collects the obligatory information from the user and saves it into
+        the corresponding class attributes.
         """
+        successfull = True
+
         # Add logic
 
-    def _get_non_obligatory_data(self) -> None:
+        return successfull
+
+    def _get_non_obligatory_data(self) -> bool:
         """
-        Method that uses streamlit widgets to get the non-obligatory data from the user
-        and saves them into the class atributes.
+        Collects the optional information from the user and saves it into
+        the corresponding class attributes.
         """
+        successfull = True
+
         # Add logic
 
-    def get_data(self) -> None:
+        return successfull
+
+    def get_data(self) -> bool:
         """
-        Public method that gets the data from the user.
+        Gets the data entered by the user.
+
+        Returns:
+            bool: True if all required steps succeed, False otherwise.
         """
+        successfull = True
+
         st.markdown('#### Datos obligatorios')
-        self._get_obligatory_data()
+        if self._get_obligatory_data() is False:
+            print("Had an error while getting the obligatory data")
+            successfull = False
+
         st.markdown('#### Datos no obligatorios')
-        self._get_non_obligatory_data()
+        if self._get_non_obligatory_data() is False:
+            print("Had an error while getting the non-obligatory data")
+            successfull = False
+
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
+
+        return successfull
 
     @final
     def add_data(self) -> None:

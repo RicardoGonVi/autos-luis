@@ -33,14 +33,6 @@ class PersonAdder(Adder):
 
     Attributes:
         person (Person):  Instance used to store and manage person-related information.
-
-    Example:
-    --------
-        DATABASE = "path/to/database.csv"
-        person_adder = PersonAdder("person_adder", DATABASE)
-
-        person_adder.get_data()
-        person_adder.add_data()
     """
 
     def __init__(self, key: str, csv_path: str, shared_data: dict):
@@ -49,8 +41,7 @@ class PersonAdder(Adder):
 
         Extends the Adder class initialization by adding a Person object to handle
         individual person data. It also loads shared datasets to populate Streamlit
-        widgets and manage selectable options such as car types, transmissions,
-        and registered persons.
+        widgets and manage selectable options.
 
         Args:
             key (str):        Unique key used in Streamlit components to avoid conflicts.
@@ -64,6 +55,23 @@ class PersonAdder(Adder):
                                 "locations": List with available locations in Costa Rica.
 
                                 Extra keys are safely ignored if not required by this class.
+
+        Examples:
+        --------
+        Requirements:
+        >>> from app.database.database import load_database
+        >>> DATABASE = "path/to/database.csv"
+        >>> GENERAL_OPTIONS_DATABASE = "path/to/database.csv"
+        >>> LOCATIONS_DATABASE = "path/to/database.csv"
+        >>> shared_data = {
+        >>>     "options": load_database(GENERAL_OPTIONS_DATABASE),
+        >>>     "locations": load_database(LOCATIONS_DATABASE),
+        >>> }
+
+        Usage:
+        >>> person_adder = PersonAdder(key="person_adder", csv_path=DATABASE, shared_data=shared_data)
+        >>> person_adder.get_data()
+        >>> person_adder.add_data()
         """
         super().__init__(key, csv_path)
 
@@ -157,7 +165,7 @@ class PersonAdder(Adder):
             PERSON_TYPE: self.person_.type,
         }
 
-    def _get_obligatory_data(self) -> None:
+    def _get_obligatory_data(self) -> bool:
         """
         Collects the mandatory person information from the user through Streamlit widgets
         and saves it into the corresponding class attributes.
@@ -175,6 +183,8 @@ class PersonAdder(Adder):
         Notes:
             Updates the internal `Person` instance (`self.persons_`) with the collected data.
         """
+        successfull = True
+
         with st.container(border=True):
             # First row
             row0 = st.columns([4, 1, 4, 1, 4])
@@ -249,11 +259,23 @@ class PersonAdder(Adder):
                 key=self.key_ + CONTACT_MEDIA
             )
 
-    def get_data(self) -> None:
+        return successfull
+
+    def get_data(self) -> bool:
         """
-        Public method that gets the data from the user.
+        Gets the data entered by the user.
+
+        Returns:
+            bool: True if all required steps succeed, False otherwise.
         """
+        successfull = True
+
         st.markdown('#### Datos obligatorios')
-        self._get_obligatory_data()
+        if self._get_obligatory_data() is False:
+            print("Had an error while getting the obligatory data")
+            successfull = False
+
         self.submit_button_ = st.button(ADD, key=self.key_)
         st.markdown("---")
+
+        return successfull

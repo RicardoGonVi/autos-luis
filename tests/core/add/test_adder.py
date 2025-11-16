@@ -18,7 +18,7 @@ class TestAdder:
     def test_get(self):
         adder = Adder("adder_example2", PERSONS_DATABASE)
 
-        assert adder.get_data() is None
+        assert adder.get_data()
         assert adder.submit_button_ == False
 
     def test_add(self):
@@ -32,7 +32,6 @@ class TestAdder:
 
     def test_validate(self):
         adder = Adder("adder_example3", GARAGE_DATABASE)
-        expected_df = load_database(GARAGE_DATABASE)
 
         adder.get_data()
         assert adder._validate_data()
