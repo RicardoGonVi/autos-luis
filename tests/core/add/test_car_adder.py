@@ -42,3 +42,14 @@ class TestCarAdder:
 
         expected_df = load_database(TEST_PERSONS_DATABASE)
         assert_frame_equal(car_adder.persons_data_, expected_df)
+
+    def test_get(self):
+        shared_data = {
+            "car_types": load_database(CAR_TYPES_DATABASE),
+            "options": load_database(GENERAL_OPTIONS_DATABASE),
+            "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
+            "persons": load_database(TEST_PERSONS_DATABASE),
+        }
+        car = CarAdder("car_adder_example", TEST_CAR_DATABASE, shared_data)
+
+        assert car.get_data()
