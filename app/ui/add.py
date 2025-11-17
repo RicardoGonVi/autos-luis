@@ -75,3 +75,6 @@ def main():
 
     with garages_tab:
         None
+
+
+main()
