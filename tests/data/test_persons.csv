@@ -1,0 +1,42 @@
+Nombre;Tipo de identificación;Identificación;Teléfono;Correo;Provincia;Cantón;Distrito;Medio de contacto;Tipo de persona
+Laura Jiménez Solís;Física;112345678.0;8887-4521;laura.jimenez@bufetecr.com;San José;Escazú;San Rafael;Correo;Abogado
+Andrés Chavarría Quesada;Física;123456789.0;8741-2234;andres.chavarria@abogadoscr.com;San José;Montes de Oca;Sabanilla;Teléfono;Abogado
+María Fernanda Cordero;Física;211223344.0;8923-1100;mfernanda.cordero@juriscr.com;Alajuela;Alajuela;San José;Correo;Abogado
+José Pablo Vargas;Física;222334455.0;6054-9822;jp.vargas@lexcr.com;Alajuela;San Ramón;San Juan;Teléfono;Abogado
+Daniela Rojas Castro;Física;333445566.0;7223-5611;daniela.rojas@bufetecr.com;Cartago;Cartago;Oriental;Correo;Abogado
+Carlos Méndez Hernández;Física;344556677.0;7011-9832;carlos.mendez@abogadoscr.com;Cartago;La Unión;Tres Ríos;Teléfono;Abogado
+Adriana López Porras;Física;455667788.0;8402-4410;adriana.lopez@juriscr.com;Heredia;Heredia;Mercedes;Correo;Abogado
+Esteban Rodríguez Mora;Física;466778899.0;8991-6622;esteban.rodriguez@lexcr.com;Heredia;Belén;San Antonio;Teléfono;Abogado
+Natalia Araya Guzmán;Física;577889900.0;8355-1122;natalia.araya@bufetecr.com;Guanacaste;Liberia;Mayorga;Correo;Abogado
+Mauricio Castro León;Física;588990011.0;8812-3434;mauricio.castro@abogadoscr.com;Guanacaste;Santa Cruz;Tamarindo;Facebook;Abogado
+Valeria Sánchez Alpízar;Física;699001122.0;7204-6677;valeria.sanchez@juriscr.com;Puntarenas;Puntarenas;Barrio El Carmen;Teléfono;Abogado
+Ricardo Ureña Morales;Física;610112233.0;8976-5521;ricardo.urena@lexcr.com;Puntarenas;Quepos;Parrita;Instagram;Abogado
+Carolina Pacheco Villalobos;Física;711223344.0;8312-7788;carolina.pacheco@bufetecr.com;Limón;Limón;Barrio Roosevelt;Correo;Abogado
+Luis Diego Brenes;Física;722334455.0;8890-4490;luis.brenes@abogadoscr.com;Limón;Pococí;Guápiles;Instagram;Abogado
+Paola Mora Aguilar;Física;833445566.0;8686-5500;paola.mora@juriscr.com;San José;Desamparados;San Miguel;Facebook;Abogado
+Felipe Hernández Campos;Física;844556677.0;8441-2930;felipe.hernandez@lexcr.com;San José;Goicoechea;Guadalupe;Correo;Abogado
+Andrea Salazar Jiménez;Física;955667788.0;8901-7722;andrea.salazar@bufetecr.com;Alajuela;Grecia;San Roque;Instagram;Abogado
+Javier Castillo Vargas;Física;966778899.0;8533-6644;javier.castillo@abogadoscr.com;Alajuela;Atenas;Mercedes;Teléfono;Abogado
+Melissa Torres Calderón;Física;107788990.0;8774-2231;melissa.torres@juriscr.com;Heredia;Santo Domingo;Paracito;Facebook;Abogado
+Rodrigo Soto Alfaro;Física;108899001.0;8651-9944;rodrigo.soto@lexcr.com;Heredia;Barva;San Pablo;WhatsApp;Abogado
+Ricardo González;Física;711223344.0;8465-7788;ricardo.gonzalez@noesreal.com;Limón;Limón;Valle La Estrella;Instagram;Cliente
+Sofía Vargas Méndez;Física;112233445.0;8877-3344;sofia.vargas@clientescr.com;San José;Pavas;Pavas;WhatsApp;Cliente
+Héctor Arias López;Física;123344556.0;8222-5566;hector.arias@clientescr.com;Alajuela;San Carlos;La Fortuna;WhatsApp;Cliente
+Camila Pérez Rojas;Física;134455667.0;8111-7788;camila.perez@clientescr.com;Cartago;Paraíso;Santiago;Correo;Cliente
+Diego Morales Solano;Física;145566778.0;8333-9900;diego.morales@clientescr.com;Heredia;San Rafael;Santiago;Facebook;Cliente
+Fernanda Salas Castro;Física;156677889.0;8444-1122;fernanda.salas@clientescr.com;Guanacaste;Nicoya;Nosara;Teléfono;Cliente
+Mateo Jiménez Herrera;Física;167788990.0;8555-2233;mateo.jimenez@clientescr.com;Puntarenas;Esparza;Caldera;Instagram;Cliente
+Isabella Chacón Vargas;Física;178899001.0;8666-3344;isabella.chacon@clientescr.com;Limón;Talamanca;Cahuita;Correo;Cliente
+Santiago Rojas Solís;Física;189900112.0;8777-4455;santiago.rojas@clientescr.com;San José;Desamparados;San Rafael;Facebook;Cliente
+Valentina Castro Alfaro;Física;191011223.0;8888-5566;valentina.castro@clientescr.com;Alajuela;Grecia;Tacares;WhatsApp;Cliente
+Julián Rodríguez Quesada;Física;201122334.0;8999-6677;julian.rodriguez@clientescr.com;Cartago;Cartago;Occidental;Instagram;Cliente
+Mariana Salazar Herrera;Física;212233445.0;8000-7788;mariana.salazar@clientescr.com;Heredia;Barva;Santa Lucía;WhatsApp;Cliente
+Alejandro Vargas López;Física;223344556.0;8111-8899;alejandro.vargas@clientescr.com;Guanacaste;Liberia;Nacascolo;Correo;Cliente
+Camila Rojas Arias;Física;234455667.0;8222-9900;camila.rojas@clientescr.com;Puntarenas;Osa;Sierpe;WhatsApp;Cliente
+Asociación Ricardo González;Jurídica;1901180848.0;84657186;ragv@gmail.com;Heredia;Santa Bárbara;Purabá;Correo;Cliente
+Valeria Arguello Quan;Física;401170017.0;84657186;vale@gmail.com;Alajuela;Alajuela;Río Segundo;Teléfono;Cliente
+Ricardo González Víquez;Física;901180848.0;1223;ragv@gmail.com;-;-;-;Teléfono;Cliente
+Nora Víquez Alfaro;Física;401170018.0;1223;ragv@gmail.com;Heredia;Santa Bárbara;Purabá;Teléfono;Cliente
+Juan Diego González;Física;901180484.0;84657383;juangv@gmail.com;Cartago;Turrialba;Turrialba;Visita presencial;Cliente
+Juan Ulises Segura;Física;201130132.0;87878222;ulises.star@outlook.com;Heredia;Heredia;Heredia;Teléfono;Cliente
+Rodolfo Núñez;Física;401130897;84652133;prueba@gmail.com;Heredia;San Isidro;San Isidro;Teléfono;Cliente

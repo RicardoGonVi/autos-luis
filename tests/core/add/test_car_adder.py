@@ -12,17 +12,20 @@ class TestCarAdder:
             "car_types": load_database(CAR_TYPES_DATABASE),
             "options": load_database(GENERAL_OPTIONS_DATABASE),
             "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
-            "persons": load_database(PERSONS_DATABASE),
+            "persons": load_database(TEST_PERSONS_DATABASE),
         }
-        car_adder = CarAdder("car_adder_example", CAR_DATABASE, shared_data)
+        car_adder = CarAdder(
+            "car_adder_example",
+            TEST_CAR_DATABASE,
+            shared_data)
 
         assert isinstance(car_adder, CarAdder)
         assert car_adder.key_ == "car_adder_example"
-        assert car_adder.csv_path_ == CAR_DATABASE
-        assert car_adder.submit_button_ == False
+        assert car_adder.csv_path_ == TEST_CAR_DATABASE
+        assert car_adder.submit_button_ is False
 
         # Target data assert
-        expected_df = load_database(CAR_DATABASE)
+        expected_df = load_database(TEST_CAR_DATABASE)
         assert_frame_equal(car_adder.data_, expected_df)
 
         # Attributes data assert
@@ -37,5 +40,5 @@ class TestCarAdder:
         expected_df = load_database(CAR_TRANSMISSIONS_DATABASE)
         assert_frame_equal(car_adder.transmisions_data_, expected_df)
 
-        expected_df = load_database(PERSONS_DATABASE)
+        expected_df = load_database(TEST_PERSONS_DATABASE)
         assert_frame_equal(car_adder.persons_data_, expected_df)
