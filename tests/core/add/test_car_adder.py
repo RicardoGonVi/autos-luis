@@ -101,3 +101,31 @@ class TestCarAdder:
         original_data = car.data_[:-1]
         save_database(data=original_data, database=TEST_CAR_DATABASE)
         assert_frame_not_equal(car.data_, expected_df)
+
+    def test_validate(self):
+        shared_data = {
+            "car_types": load_database(CAR_TYPES_DATABASE),
+            "options": load_database(GENERAL_OPTIONS_DATABASE),
+            "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
+            "persons": load_database(TEST_PERSONS_DATABASE),
+        }
+        car = CarAdder("car_adder_example", TEST_CAR_DATABASE, shared_data)
+        expected_df = load_database(TEST_CAR_DATABASE)
+
+        # Validate that the data hasn't been filled
+        car.get_data()
+        assert car._validate_data() is False
+
+        # Validates that the data was filled
+        car.car_.id = "BMS043"
+        car.car_.brand = "Toyota"
+        car.car_.model = "Yaris"
+        car.car_.color = "Blue"
+        car.car_.year = "2020"
+        car.car_.motor = "Gasolina"
+        car.car_.transmission = "Automático"
+        car.car_.registration.origin = "Comprado"
+        car.car_.sell.base_price = "14000000"
+        car.car_.registration.status = "Disponible"
+        car.submit_button_ = True
+        assert car._validate_data() is True
