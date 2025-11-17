@@ -20,10 +20,10 @@ def add_person(shared_data: dict) -> None:
         shared_data (dict): A dictionary containing the preloaded datasets used
             by the `PersonAdder` instance.
     """
-    data_adder = PersonAdder("PersonAdder_", PERSONS_DATABASE, shared_data)
+    person = PersonAdder("PersonAdder_", PERSONS_DATABASE, shared_data)
 
-    data_adder.get_data()
-    data_adder.add_data()
+    person.get_data()
+    person.add_data()
 
 
 def add_car(shared_data: dict) -> None:
@@ -39,10 +39,10 @@ def add_car(shared_data: dict) -> None:
         shared_data (dict): A dictionary containing the preloaded datasets used
             by the `CarAdder` instance.
     """
-    data_adder = CarAdder("CarAdder_", CAR_DATABASE, shared_data)
+    car = CarAdder("CarAdder_", CAR_DATABASE, shared_data)
 
-    data_adder.get_data()
-    data_adder.add_data()
+    car.get_data()
+    car.add_data()
 
 
 # Main page content

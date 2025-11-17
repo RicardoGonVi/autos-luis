@@ -15,34 +15,34 @@ class TestCarAdder:
             "car_transmissions": load_database(CAR_TRANSMISSIONS_DATABASE),
             "persons": load_database(TEST_PERSONS_DATABASE),
         }
-        car_adder = CarAdder(
+        car = CarAdder(
             "car_adder_example",
             TEST_CAR_DATABASE,
             shared_data)
 
-        assert isinstance(car_adder, CarAdder)
-        assert car_adder.key_ == "car_adder_example"
-        assert car_adder.csv_path_ == TEST_CAR_DATABASE
-        assert car_adder.submit_button_ is False
+        assert isinstance(car, CarAdder)
+        assert car.key_ == "car_adder_example"
+        assert car.csv_path_ == TEST_CAR_DATABASE
+        assert car.submit_button_ is False
 
         # Target data assert
         expected_df = load_database(TEST_CAR_DATABASE)
-        assert_frame_equal(car_adder.data_, expected_df)
+        assert_frame_equal(car.data_, expected_df)
 
         # Attributes data assert
-        assert isinstance(car_adder.car_, Car)
+        assert isinstance(car.car_, Car)
 
         expected_df = load_database(CAR_TYPES_DATABASE)
-        assert_frame_equal(car_adder.types_data_, expected_df)
+        assert_frame_equal(car.types_data_, expected_df)
 
         expected_df = load_database(GENERAL_OPTIONS_DATABASE)
-        assert_frame_equal(car_adder.options_data_, expected_df)
+        assert_frame_equal(car.options_data_, expected_df)
 
         expected_df = load_database(CAR_TRANSMISSIONS_DATABASE)
-        assert_frame_equal(car_adder.transmisions_data_, expected_df)
+        assert_frame_equal(car.transmisions_data_, expected_df)
 
         expected_df = load_database(TEST_PERSONS_DATABASE)
-        assert_frame_equal(car_adder.persons_data_, expected_df)
+        assert_frame_equal(car.persons_data_, expected_df)
 
     def test_get(self):
         shared_data = {
