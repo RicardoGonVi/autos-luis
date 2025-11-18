@@ -4,8 +4,8 @@ from app.core.add.cars import CarAdder
 from app.constants.constants import *
 from app.constants.database import *
 from app.database.database import load_database, save_database
-from app.utils.utils import Car
 from app.utils.errors import assert_frame_not_equal
+from app.utils.structs import Car
 
 
 class TestCarAdder:

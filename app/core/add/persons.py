@@ -20,7 +20,7 @@ from app.constants.constants import (
     ZERO,
 )
 from app.core.add.adder import Adder
-from app.utils.utils import Person
+from app.utils.structs import Person
 
 
 class PersonAdder(Adder):

@@ -70,7 +70,8 @@ from app.constants.constants import (
     ZERO,
 )
 from app.core.add.adder import Adder
-from app.utils.utils import get_current_year, get_years_range, Car
+from app.utils.structs import Car
+from app.utils.utils import get_current_year, get_years_range
 
 
 class CarAdder(Adder):
