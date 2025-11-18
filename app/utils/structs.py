@@ -47,6 +47,46 @@ class Person:
 
 
 @dataclass
+class BankAccount:
+    number: str
+    bank: str
+
+
+@dataclass
+class Company:
+    """
+    Represents a company's identification and contact information.
+
+    Attributes:
+        id (str):                    Company identification number.
+        id_type (str):               Type of identification (enterprise ID).
+        name (str):                  Legal name of the company.
+        commercial_name (str):       Commercial or public-facing name of the company.
+        mail (str):                  Company email address.
+        representative (Person):     Representative of the company to communicate with.
+        type (str):                  Classification of the company (legal, garage, etc).
+        phone (int):                 Contact phone number.
+        bank_account (BankAccount):  Bank account associated with the company.
+        location (Location):         Geographical location of the company.
+        notes (str):                 Additional notes or comments.
+        is_active (bool):            Indicates if the company is active.
+    """
+    id: str = ""
+    id_type: str = ENTERPRISE_ID
+    name: str = ""
+    commercial_name: str = ""
+    mail: str = ""
+    type: str = ""
+    phone: int = 0
+    representative: Person = field(default_factory=Person)
+    # TODO: add a list of banks
+    bank_account: BankAccount = field(default_factory=BankAccount)
+    location: Location = field(default_factory=Location)
+    notes: str = ""
+    is_active: bool = True
+
+
+@dataclass
 class TransactionInfo:
     """
     Represents basic information about a financial transaction.
