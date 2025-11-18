@@ -192,6 +192,7 @@ class PersonAdder(Adder):
                 "👩🏽🧑🏼 " + NAME,
                 key=self.key_ + NAME
             )
+            # TODO: remove enterprise ID option
             self.person_.id_type = row0[2].selectbox(
                 "🪪 " + ID_TYPE,
                 sorted(self.options_data_[ID_TYPE].dropna()),

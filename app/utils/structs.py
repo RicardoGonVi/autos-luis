@@ -1,5 +1,6 @@
 from datetime import date as d
 from dataclasses import dataclass, field
+from app.constants.constants import ENTERPRISE_ID, PHYSICAL_ID
 
 
 @dataclass
@@ -34,9 +35,10 @@ class Person:
         phone (int):          Contact phone number.
         location (Location):  Geographical location details associated with the person.
     """
+    # TODO: add bank account
     contact_media: str = ""
     id: str = ""
-    id_type: str = ""
+    id_type: str = PHYSICAL_ID
     name: str = ""
     mail: str = ""
     type: str = ""

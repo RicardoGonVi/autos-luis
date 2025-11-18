@@ -51,7 +51,7 @@ PERSON_TYPE = "Tipo de persona"
 PERSON_ID = "Identificación"
 CONTACT_MEDIA = "Medio de contacto"
 
-# Garage filters
+# Companies filters
 ENTERPRISE_ID = "Cédula Jurídica"
 CONTACT_NAME = "Nombre del contacto"
 

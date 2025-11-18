@@ -30,7 +30,7 @@ def search_person():
 
 def search_garage():
     data_filter = GarageFilter()
-    data = load_database(GARAGE_DATABASE)
+    data = load_database(COMPANIES_DATABASE)
 
     data_filter.get_filter(data)
     filtered_data = data_filter.apply_filter(data)

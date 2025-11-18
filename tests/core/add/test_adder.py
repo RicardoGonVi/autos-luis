@@ -21,8 +21,8 @@ class TestAdder:
         assert object.get_data()
 
     def test_add(self):
-        object = Adder("adder_example3", TEST_GARAGE_DATABASE)
-        expected_df = load_database(TEST_GARAGE_DATABASE)
+        object = Adder("adder_example3", TEST_COMPANIES_DATABASE)
+        expected_df = load_database(TEST_COMPANIES_DATABASE)
 
         object.get_data()
         object.add_data()
@@ -30,7 +30,7 @@ class TestAdder:
         assert_frame_equal(object.data_, expected_df)
 
     def test_validate(self):
-        object = Adder("adder_example3", TEST_GARAGE_DATABASE)
+        object = Adder("adder_example3", TEST_COMPANIES_DATABASE)
 
         object.get_data()
         assert object._validate_data()
