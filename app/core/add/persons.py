@@ -161,6 +161,7 @@ class PersonAdder(Adder):
             PROVINCE: self.person_.location.province,
             CANTON: self.person_.location.canton,
             DISTRICT: self.person_.location.district,
+            # TODO: add full location to database
             CONTACT_MEDIA: self.person_.contact_media,
             PERSON_TYPE: self.person_.type,
         }
